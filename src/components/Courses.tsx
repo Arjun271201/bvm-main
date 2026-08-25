@@ -38,7 +38,7 @@ export default async function CoursesSection() {
               <a
                 key={course.id}
                 href={`/courses/${course.id}`}
-                className="group relative aspect-square rounded-xl overflow-hidden bg-stone-900"
+                className="group relative aspect-[16/9] rounded-xl overflow-hidden bg-stone-900"
               >
                 {thumbUrl && (
                   <img

@@ -2,7 +2,7 @@ import React from 'react'
 import { getPayload } from 'payload'
 import config from '@/payload.config'
 
-export default async function CheckoutLayout({ children }: { children: React.ReactNode }) {
+export default async function ProductLayout({ children }: { children: React.ReactNode }) {
   const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })
 
@@ -14,23 +14,18 @@ export default async function CheckoutLayout({ children }: { children: React.Rea
       : firstSlide?.backgroundImage
 
   return (
-    <div className="relative p-10">
-      {/* Full page fixed background stays behind the checkout content. */}
+    <div className="relative">
+      {/* Full page fixed background - -z-10 so it never covers Footer/Header */}
       {bgImage && (
         <div
-          className="fixed inset-0 -z-10 p-5 bg-cover bg-center bg-no-repeat"
+          className="fixed inset-0 -z-5 bg-cover bg-center bg-no-repeat"
           style={{ backgroundImage: `url(${bgImage})` }}
         />
       )}
       <div className="fixed inset-0 -z-5 bg-black/80" />
 
       {/* Content */}
-      <div className="relative z-10 min-h-[100vh]">
-        <div className="text-center pt-10 pb-4">
-          <h1 className="text-white text-3xl font-serif font-semibold">Checkout</h1>
-        </div>
-        {children}
-      </div>
+      <div className="relative min-h-[100vh]">{children}</div>
     </div>
   )
 }

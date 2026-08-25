@@ -76,6 +76,7 @@ export interface Config {
     products: Product;
     donations: Donation;
     testimonials: Testimonial;
+    orders: Order;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -92,6 +93,7 @@ export interface Config {
     products: ProductsSelect<false> | ProductsSelect<true>;
     donations: DonationsSelect<false> | DonationsSelect<true>;
     testimonials: TestimonialsSelect<false> | TestimonialsSelect<true>;
+    orders: OrdersSelect<false> | OrdersSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -315,6 +317,32 @@ export interface Testimonial {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "orders".
+ */
+export interface Order {
+  id: number;
+  items?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  total: number;
+  customerName: string;
+  customerEmail: string;
+  customerPhone?: string | null;
+  shippingAddress?: string | null;
+  razorpayOrderId?: string | null;
+  razorpayPaymentId?: string | null;
+  status?: ('pending' | 'paid' | 'failed') | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -372,6 +400,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'testimonials';
         value: number | Testimonial;
+      } | null)
+    | ({
+        relationTo: 'orders';
+        value: number | Order;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -579,6 +611,23 @@ export interface TestimonialsSelect<T extends boolean = true> {
   message?: T;
   rating?: T;
   featured?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "orders_select".
+ */
+export interface OrdersSelect<T extends boolean = true> {
+  items?: T;
+  total?: T;
+  customerName?: T;
+  customerEmail?: T;
+  customerPhone?: T;
+  shippingAddress?: T;
+  razorpayOrderId?: T;
+  razorpayPaymentId?: T;
+  status?: T;
   updatedAt?: T;
   createdAt?: T;
 }

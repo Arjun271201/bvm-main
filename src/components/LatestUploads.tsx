@@ -38,27 +38,31 @@ export default async function LatestUploads() {
               <a
                 key={video.id}
                 href={`/videos/${video.id}`}
-                className="group flex-shrink-0 w-[300px] rounded-xl overflow-hidden bg-stone-900"
+                className="group relative flex-shrink-0 w-[300px] aspect-[16/9] rounded-xl overflow-hidden"
               >
-                <div className="relative aspect-video">
-                  {thumbUrl && (
-                    <img
-                      src={thumbUrl}
-                      alt={video.title}
-                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                    />
-                  )}
-                  <div className="absolute inset-0 bg-black/25 flex items-center justify-center">
-                    <div className="w-11 h-11 rounded-full bg-white/90 flex items-center justify-center">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="#111">
-                        <path d="M8 5v14l11-7z" />
-                      </svg>
-                    </div>
+                {thumbUrl && (
+                  <img
+                    src={thumbUrl}
+                    alt={video.title}
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                )}
+                {/* Gradient overlay - Featured Songs style */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
+
+                {/* Play button */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-11 h-11 rounded-full bg-white/90 flex items-center justify-center">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="#111">
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
                   </div>
                 </div>
-                <div className="p-4">
+
+                {/* Text overlaid at bottom */}
+                <div className="absolute bottom-0 left-0 right-0 p-4">
                   <h3 className="text-white font-medium mb-1 line-clamp-1">{video.title}</h3>
-                  <p className="text-stone-400 text-sm line-clamp-2">{video.description}</p>
+                  <p className="text-stone-200/85 text-sm line-clamp-2">{video.description}</p>
                 </div>
               </a>
             )

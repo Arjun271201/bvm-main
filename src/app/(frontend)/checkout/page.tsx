@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { useCart } from '@/components/cart/CartContext'
 
 export default function CheckoutPage() {
-  const { items, total, clearCart } = useCart()
+  const { items, total, clearCart, loaded } = useCart()
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
@@ -55,6 +55,14 @@ export default function CheckoutPage() {
     }
   }
 
+  if (!loaded) {
+    return (
+      <div className="max-w-2xl mx-auto py-20 px-8 text-center text-white">
+        <p>Loading cart...</p>
+      </div>
+    )
+  }
+
   if (items.length === 0) {
     return (
       <div className="max-w-2xl mx-auto py-20 px-8 text-center text-white">
@@ -68,7 +76,7 @@ export default function CheckoutPage() {
 
   return (
     <div className="max-w-2xl mx-auto py-16 px-8 text-white">
-      <h1 className="text-2xl font-semibold mb-8">Checkout</h1>
+      <h1 className="text-2xl font-semibold mb-8">User Details</h1>
 
       <div className="space-y-4 mb-8">
         {items.map((item) => (

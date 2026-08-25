@@ -16,6 +16,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body>
+        <script src="https://checkout.razorpay.com/v1/checkout.js" async></script>
         <CartProvider>
           <Header />
           <main>{children}</main>

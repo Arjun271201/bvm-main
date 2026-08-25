@@ -14,6 +14,7 @@ import { Courses } from './collections/Courses'
 import { Products } from './collections/Products'
 import { Donations } from './collections/Donations'
 import { Testimonials } from './collections/Testimonials'
+import { Orders } from './collections/Orders'
 import { Homepage } from './globals/Homepage'
 
 const filename = fileURLToPath(import.meta.url)
@@ -36,6 +37,7 @@ export default buildConfig({
     Products,
     Donations,
     Testimonials,
+    Orders,
   ],
   globals: [Homepage],
   editor: lexicalEditor(),

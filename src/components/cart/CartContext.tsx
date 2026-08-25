@@ -18,6 +18,7 @@ type CartContextType = {
   clearCart: () => void
   total: number
   count: number
+  loaded: boolean
   isOpen: boolean
   setIsOpen: (v: boolean) => void
 }
@@ -75,7 +76,18 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <CartContext.Provider
-      value={{ items, addItem, removeItem, updateQty, clearCart, total, count, isOpen, setIsOpen }}
+      value={{
+        items,
+        addItem,
+        removeItem,
+        updateQty,
+        clearCart,
+        total,
+        count,
+        loaded,
+        isOpen,
+        setIsOpen,
+      }}
     >
       {children}
     </CartContext.Provider>
