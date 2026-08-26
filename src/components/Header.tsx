@@ -3,6 +3,7 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { ChevronLeft, ChevronRight, Sun } from 'lucide-react'
 import { useCart } from './cart/CartContext'
 
 const NAV_LINKS = [
@@ -81,6 +82,14 @@ export default function Header() {
               <span>A</span>
               <span className="opacity-60 text-xs">அ</span>
             </button>
+            <button
+              type="button"
+              aria-label="Switch to light theme"
+              onClick={() => router.push('/light')}
+              className="text-stone-100/85 hover:text-yellow-500 p-1"
+            >
+              <Sun size={18} aria-hidden="true" />
+            </button>
 
             {/* Cart */}
             <button
@@ -154,9 +163,7 @@ export default function Header() {
             aria-label="Go to previous page"
             className="flex items-center rounded-md px-2 py-1 text-xs text-stone-300 hover:bg-white/10 hover:text-yellow-400 transition-colors"
           >
-            <span aria-hidden="true" className="text-base leading-none">
-              ←
-            </span>
+            <ChevronLeft size={16} aria-hidden="true" />
           </button>
           <button
             type="button"
@@ -164,9 +171,7 @@ export default function Header() {
             aria-label="Go to next page"
             className="flex items-center rounded-md px-2 py-1 text-xs text-stone-300 hover:bg-white/10 hover:text-yellow-400 transition-colors"
           >
-            <span aria-hidden="true" className="text-base leading-none">
-              →
-            </span>
+            <ChevronRight size={16} aria-hidden="true" />
           </button>
         </div>
       </div>

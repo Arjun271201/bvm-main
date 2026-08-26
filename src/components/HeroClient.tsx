@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 type Slide = {
   eyebrow?: string
@@ -60,14 +61,14 @@ export default function HeroClient({ slides }: { slides: Slide[] }) {
             onClick={prev}
             className="absolute left-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full border border-white/40 text-white flex items-center justify-center hover:bg-white/10"
           >
-            ‹
+            <ChevronLeft size={20} aria-hidden="true" />
           </button>
           <button
             aria-label="Next slide"
             onClick={next}
             className="absolute right-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full border border-white/40 text-white flex items-center justify-center hover:bg-white/10"
           >
-            ›
+            <ChevronRight size={20} aria-hidden="true" />
           </button>
         </>
       )}
