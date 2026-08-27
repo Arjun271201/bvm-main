@@ -57,6 +57,15 @@ export const Songs: CollectionConfig = {
       name: 'category',
       type: 'relationship',
       relationTo: 'categories',
+      admin: {
+        hidden: true,
+      },
+    },
+    {
+      name: 'languageCategory',
+      type: 'relationship',
+      relationTo: 'languages',
+      label: 'Language Category',
     },
     {
       name: 'duration',

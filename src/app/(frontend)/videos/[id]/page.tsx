@@ -67,7 +67,7 @@ export default async function VideoDetailPage({ params }: Props) {
   })
 
   return (
-    <main className="min-h-screen w-full bg-stone-950 px-2 pb-5 pt-5 text-10 text-white md:pt-10">
+    <main className="min-h-screen w-full bg-stone-950 px-2 pb-12 pt-5 text-10 text-white md:pt-10">
       <div className="mx-auto grid max-w-[1050px] gap-4 lg:grid-cols-[minmax(0,1fr)_300px]">
         <article className="min-w-0 overflow-hidden rounded-xl bg-stone-900 shadow-2xl">
           <div className="aspect-video bg-black">
@@ -95,7 +95,9 @@ export default async function VideoDetailPage({ params }: Props) {
 
           <div className="p-5 md:p-7">
             <div className="mb-3 flex flex-wrap items-center gap-3 text-sm text-stone-400">
-              {video.category && <span>{video.category.title || video.category.name}</span>}
+              {video.languageCategory && (
+                <span>{video.languageCategory.title || video.languageCategory.name}</span>
+              )}
               {video.duration && <span>{video.duration}</span>}
               {video.publishedDate && (
                 <time dateTime={video.publishedDate}>
@@ -110,9 +112,9 @@ export default async function VideoDetailPage({ params }: Props) {
           </div>
         </article>
 
-        <aside className="rounded-xl bg-stone-900/80 p-4 lg:max-h-[calc(100vh)] ">
+        <aside className="rounded-xl bg-stone-900/80 p-4 lg:h-[620px] lg:overflow-y-auto">
           <h2 className="mb-4 text-xl font-semibold">More Videos</h2>
-          <div className="space-y-4">
+          <div className="space-y-3">
             {otherVideos.map((otherVideo: any) => {
               const otherThumbnail =
                 typeof otherVideo.thumbnail === 'object' && otherVideo.thumbnail?.url
@@ -120,10 +122,10 @@ export default async function VideoDetailPage({ params }: Props) {
                   : otherVideo.thumbnail
 
               return (
-                <article key={otherVideo.id} className="flex gap-3 border-b border-white/10 pb-4">
+                <article key={otherVideo.id} className="flex gap-3 border-b border-white/10 pb-3">
                   <a
                     href={`/videos/${otherVideo.id}`}
-                    className="group relative h-20 w-32 flex-shrink-0 overflow-hidden rounded-lg bg-black"
+                    className="group relative h-16 w-28 flex-shrink-0 overflow-hidden rounded-lg bg-black"
                   >
                     {otherThumbnail && (
                       <img
@@ -138,7 +140,7 @@ export default async function VideoDetailPage({ params }: Props) {
                   </a>
                   <div className="min-w-0 flex-1">
                     <h3 className="line-clamp-2 text-sm font-medium">{otherVideo.title}</h3>
-                    <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-stone-400">
+                    <p className="mt-1 line-clamp-1 text-xs leading-relaxed text-stone-400">
                       {otherVideo.description}
                     </p>
                     <a

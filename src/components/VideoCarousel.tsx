@@ -86,27 +86,28 @@ export default function VideoCarousel({ videos }: { videos: Video[] }) {
           <a
             key={video.id}
             href={`/videos/${video.id}`}
-            className="group relative flex-shrink-0 snap-start aspect-[16/9] w-[calc((100%_-_20px)_/_2)] overflow-hidden rounded-xl md:w-[calc((100%_-_60px)_/_4)]"
+            className="group flex-shrink-0 snap-start overflow-hidden rounded-xl bg-stone-900 md:w-[calc((100%_-_60px)_/_4)] w-[calc((100%_-_20px)_/_2)]"
           >
-            {video.thumbUrl && (
-              <img
-                src={video.thumbUrl}
-                alt={video.title}
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-              />
-            )}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-11 h-11 rounded-full bg-white/90 flex items-center justify-center">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="#111">
-                  <path d="M8 5v14l11-7z" />
-                </svg>
+            <div className="relative aspect-[16/9] overflow-hidden bg-black">
+              {video.thumbUrl && (
+                <img
+                  src={video.thumbUrl}
+                  alt={video.title}
+                  className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+              )}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="flex h-11 w-11 items-center justify-center rounded-full bg-white/90">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="#111">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </div>
               </div>
             </div>
-            <div className="absolute bottom-0 left-0 right-0 p-4">
-              <h3 className="text-white font-medium mb-1 line-clamp-1">{video.title}</h3>
+            <div className="min-h-[112px] p-4">
+              <h3 className="mb-1 line-clamp-1 font-medium text-white">{video.title}</h3>
               {video.description && (
-                <p className="text-stone-200/85 text-sm line-clamp-2">{video.description}</p>
+                <p className="line-clamp-2 text-sm text-stone-400">{video.description}</p>
               )}
             </div>
           </a>

@@ -59,7 +59,15 @@ export const Videos: CollectionConfig = {
       name: 'category',
       type: 'relationship',
       relationTo: 'categories',
-      // Idha "Videos" category kooda link pannuvom
+      admin: {
+        hidden: true,
+      },
+    },
+    {
+      name: 'languageCategory',
+      type: 'relationship',
+      relationTo: 'languages',
+      label: 'Language Category',
     },
     {
       name: 'duration',

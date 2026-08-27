@@ -3,7 +3,7 @@ import { getPayload } from 'payload'
 import config from '@/payload.config'
 import CoursesClient from './CoursesClient'
 
-export default async function CoursesSection() {
+export default async function CoursesSection({ heading = 'Courses' }: { heading?: string }) {
   const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })
 
@@ -18,7 +18,7 @@ export default async function CoursesSection() {
     <section className="bg-black py-14 px-8">
       <div className="max-w-[1400px] mx-auto">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-white text-2xl font-semibold">Courses</h2>
+          <h2 className="text-white text-2xl font-semibold">{heading}</h2>
           <a
             href="/courses"
             className="text-stone-200 text-sm border border-yellow-500/40 rounded-full px-4 py-1.5 hover:bg-yellow-500/10"

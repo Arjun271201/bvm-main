@@ -2,7 +2,11 @@ import React from 'react'
 import { getPayload } from 'payload'
 import config from '@/payload.config'
 
-export default async function TestimonialsSection() {
+export default async function TestimonialsSection({
+  heading = 'Testimonial',
+}: {
+  heading?: string
+}) {
   const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })
 
@@ -16,7 +20,7 @@ export default async function TestimonialsSection() {
   return (
     <section className="bg-black py-14 px-8">
       <div className="max-w-[1400px] mx-auto text-center">
-        <h2 className="text-white text-2xl font-semibold mb-2">Testimonial</h2>
+        <h2 className="text-white text-2xl font-semibold mb-2">{heading}</h2>
         <p className="text-stone-400 mb-8">
           Hear how Bhakti Vedanta Media inspires learning, devotion, and spiritual growth.
         </p>

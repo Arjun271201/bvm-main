@@ -2,6 +2,7 @@
 
 import React from 'react'
 import CardCarousel from './CardCarousel'
+import FeaturedSongCard from './FeaturedSongCard'
 
 export default function FeaturedSongsClient({ songs }: { songs: any[] }) {
   return (
@@ -12,29 +13,20 @@ export default function FeaturedSongsClient({ songs }: { songs: any[] }) {
             ? song.coverImage.url
             : song.coverImage
 
+        const audioUrl =
+          typeof song.audioFile === 'object' && song.audioFile?.url
+            ? song.audioFile.url
+            : song.audioFile
+
         return (
-          <a
+          <FeaturedSongCard
             key={song.id}
-            href={`/songs/${song.id}`}
-            className="group relative block aspect-[16/9] w-full overflow-hidden rounded-xl"
-          >
-            {coverUrl && (
-              <img
-                src={coverUrl}
-                alt={song.title}
-                className="absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-              />
-            )}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
-            <div className="absolute left-3 top-3 text-white/90">
-              <span className="text-xl" aria-hidden="true">
-                ♪
-              </span>
-            </div>
-            <div className="absolute bottom-0 left-0 right-0 p-4">
-              <h3 className="text-white font-medium">{song.title}</h3>
-            </div>
-          </a>
+            id={song.id}
+            title={song.title}
+            coverUrl={coverUrl}
+            audioUrl={audioUrl}
+            durationLabel={song.duration}
+          />
         )
       })}
     </CardCarousel>

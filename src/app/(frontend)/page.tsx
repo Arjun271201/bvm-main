@@ -18,17 +18,19 @@ export default async function HomePage() {
   const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })
   const { user } = await payload.auth({ headers })
+  const homepage = await payload.findGlobal({ slug: 'homepage' })
+  const headings = homepage.sectionHeadings || {}
 
   return (
     <div className="home">
       <Hero />
-      <ExploreBVM />
-      <LatestUploads />
-      <FeaturedSongs />
-      <CoursesSection />
-      <FeaturedBooks />
+      <ExploreBVM heading={headings.explore} />
+      <LatestUploads heading={headings.latestUploads} />
+      <FeaturedSongs heading={headings.featuredSongs} />
+      <FeaturedBooks heading={headings.featuredBooks} />
+      <CoursesSection heading={headings.courses} />
       <SupportBVM />
-      <TestimonialsSection />
+      <TestimonialsSection heading={headings.testimonials} />
     </div>
   )
 }

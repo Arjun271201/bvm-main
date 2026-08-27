@@ -70,6 +70,7 @@ export interface Config {
     users: User;
     media: Media;
     categories: Category;
+    languages: Language;
     videos: Video;
     songs: Song;
     courses: Course;
@@ -87,6 +88,7 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
+    languages: LanguagesSelect<false> | LanguagesSelect<true>;
     videos: VideosSelect<false> | VideosSelect<true>;
     songs: SongsSelect<false> | SongsSelect<true>;
     courses: CoursesSelect<false> | CoursesSelect<true>;
@@ -197,6 +199,19 @@ export interface Category {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "languages".
+ */
+export interface Language {
+  id: number;
+  title: string;
+  slug: string;
+  image: number | Media;
+  order?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "videos".
  */
 export interface Video {
@@ -208,6 +223,7 @@ export interface Video {
   youtubeUrl?: string | null;
   videoFile?: (number | null) | Media;
   category?: (number | null) | Category;
+  languageCategory?: (number | null) | Language;
   duration?: string | null;
   featured?: boolean | null;
   publishedDate?: string | null;
@@ -227,6 +243,7 @@ export interface Song {
   youtubeUrl?: string | null;
   audioFile?: (number | null) | Media;
   category?: (number | null) | Category;
+  languageCategory?: (number | null) | Language;
   duration?: string | null;
   featured?: boolean | null;
   updatedAt: string;
@@ -378,6 +395,10 @@ export interface PayloadLockedDocument {
         value: number | Category;
       } | null)
     | ({
+        relationTo: 'languages';
+        value: number | Language;
+      } | null)
+    | ({
         relationTo: 'videos';
         value: number | Video;
       } | null)
@@ -502,6 +523,18 @@ export interface CategoriesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "languages_select".
+ */
+export interface LanguagesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  image?: T;
+  order?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "videos_select".
  */
 export interface VideosSelect<T extends boolean = true> {
@@ -512,6 +545,7 @@ export interface VideosSelect<T extends boolean = true> {
   youtubeUrl?: T;
   videoFile?: T;
   category?: T;
+  languageCategory?: T;
   duration?: T;
   featured?: T;
   publishedDate?: T;
@@ -530,6 +564,7 @@ export interface SongsSelect<T extends boolean = true> {
   youtubeUrl?: T;
   audioFile?: T;
   category?: T;
+  languageCategory?: T;
   duration?: T;
   featured?: T;
   updatedAt?: T;
@@ -677,6 +712,17 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface Homepage {
   id: number;
+  /**
+   * Update the headings shown on the homepage sections.
+   */
+  sectionHeadings?: {
+    explore?: string | null;
+    latestUploads?: string | null;
+    featuredSongs?: string | null;
+    featuredBooks?: string | null;
+    courses?: string | null;
+    testimonials?: string | null;
+  };
   heroSlides?:
     | {
         eyebrow?: string | null;
@@ -696,6 +742,16 @@ export interface Homepage {
  * via the `definition` "homepage_select".
  */
 export interface HomepageSelect<T extends boolean = true> {
+  sectionHeadings?:
+    | T
+    | {
+        explore?: T;
+        latestUploads?: T;
+        featuredSongs?: T;
+        featuredBooks?: T;
+        courses?: T;
+        testimonials?: T;
+      };
   heroSlides?:
     | T
     | {

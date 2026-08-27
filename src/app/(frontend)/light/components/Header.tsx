@@ -2,7 +2,8 @@
 
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { Moon } from 'lucide-react'
+import { Moon, ShoppingCart } from 'lucide-react'
+import { useCart } from '../../../../components/cart/CartContext'
 
 const navItems = [
   { label: 'Home', href: '/' },
@@ -18,6 +19,7 @@ const navItems = [
 
 export default function Header() {
   const router = useRouter()
+  const { count, setIsOpen } = useCart()
 
   return (
     <header className="w-full bg-[#FBF3E8] border-b border-[#EEE1D0]">
@@ -65,6 +67,19 @@ export default function Header() {
           </button>
           <button aria-label="Account" className="hover:text-[#D9784A] transition-colors">
             👤
+          </button>
+          <button
+            type="button"
+            aria-label="Cart"
+            onClick={() => setIsOpen(true)}
+            className="relative hover:text-[#D9784A] transition-colors"
+          >
+            <ShoppingCart size={18} aria-hidden="true" />
+            {count > 0 && (
+              <span className="absolute -top-2 -right-2 bg-[#D9784A] text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+                {count}
+              </span>
+            )}
           </button>
         </div>
       </div>
