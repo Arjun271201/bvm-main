@@ -3,6 +3,8 @@ import './styles.css'
 import { CartProvider } from '@/components/cart/CartContext'
 import CartDrawer from '@/components/cart/CartDrawer'
 import FrontendChrome from '@/components/FrontendChrome'
+import { getSiteVersion } from '@/lib/siteVersion'
+import LiveReloader from '@/components/LiveReloader'
 
 export const metadata = {
   description: 'A blank template using Payload in a Next.js app.',
@@ -11,6 +13,7 @@ export const metadata = {
 
 export default async function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
+  const initialVersion = await getSiteVersion()
 
   return (
     <html lang="en">
@@ -19,6 +22,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
         <CartProvider>
           <FrontendChrome>{children}</FrontendChrome>
           <CartDrawer />
+          <LiveReloader initialVersion={initialVersion} />
         </CartProvider>
       </body>
     </html>

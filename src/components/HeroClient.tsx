@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 type Slide = {
@@ -14,23 +14,39 @@ type Slide = {
 
 export default function HeroClient({ slides }: { slides: Slide[] }) {
   const [index, setIndex] = useState(0)
+  const [isHovered, setIsHovered] = useState(false)
   const slide = slides[index % slides.length]
 
   const prev = () => setIndex((i) => (i - 1 + slides.length) % slides.length)
   const next = () => setIndex((i) => (i + 1) % slides.length)
 
+  // Auto-transition every 5 seconds
+  useEffect(() => {
+    if (isHovered || slides.length <= 1) return
+
+    const interval = setInterval(() => {
+      setIndex((i) => (i + 1) % slides.length)
+    }, 6000)
+
+    return () => clearInterval(interval)
+  }, [isHovered, slides.length])
+
   return (
-    <section className="relative w-full h-[70vh] min-h-[480px] overflow-hidden bg-black">
+    <section
+      className="relative w-full h-[70vh] min-h-[480px] overflow-hidden bg-black"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       {slide.image && (
         <div
-          className="absolute inset-0 bg-cover bg-center"
+          className="absolute inset-0 bg-cover bg-center transition-opacity duration-500 ease-in-out"
           style={{ backgroundImage: `url(${slide.image})` }}
         />
       )}
       <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/40 to-transparent" />
 
       <div className="relative z-10 max-w-[1400px] mx-auto h-full flex items-center px-8">
-        <div className="max-w-xl">
+        <div className="max-w-xl transition-opacity duration-500 ease-in-out">
           {slide.eyebrow && (
             <p className="text-stone-200/80 text-sm tracking-wider mb-3">{slide.eyebrow}</p>
           )}

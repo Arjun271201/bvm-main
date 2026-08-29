@@ -222,7 +222,14 @@ export interface Video {
   videoType: 'youtube' | 'upload';
   youtubeUrl?: string | null;
   videoFile?: (number | null) | Media;
+  /**
+   * Choose the content category for this video.
+   */
   category?: (number | null) | Category;
+  /**
+   * Example: BVM Main Channel, Srila Prabhupada Lectures
+   */
+  channel?: string | null;
   languageCategory?: (number | null) | Language;
   duration?: string | null;
   featured?: boolean | null;
@@ -545,6 +552,7 @@ export interface VideosSelect<T extends boolean = true> {
   youtubeUrl?: T;
   videoFile?: T;
   category?: T;
+  channel?: T;
   languageCategory?: T;
   duration?: T;
   featured?: T;
@@ -721,6 +729,7 @@ export interface Homepage {
     featuredSongs?: string | null;
     featuredBooks?: string | null;
     courses?: string | null;
+    supportBVM?: string | null;
     testimonials?: string | null;
   };
   heroSlides?:
@@ -734,6 +743,23 @@ export interface Homepage {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Edit the category and channel options that appear on the selected-language video page.
+   */
+  videoFilters?: {
+    categoryOptions?:
+      | {
+          label: string;
+          id?: string | null;
+        }[]
+      | null;
+    channelOptions?:
+      | {
+          label: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -750,6 +776,7 @@ export interface HomepageSelect<T extends boolean = true> {
         featuredSongs?: T;
         featuredBooks?: T;
         courses?: T;
+        supportBVM?: T;
         testimonials?: T;
       };
   heroSlides?:
@@ -762,6 +789,22 @@ export interface HomepageSelect<T extends boolean = true> {
         ctaLink?: T;
         backgroundImage?: T;
         id?: T;
+      };
+  videoFilters?:
+    | T
+    | {
+        categoryOptions?:
+          | T
+          | {
+              label?: T;
+              id?: T;
+            };
+        channelOptions?:
+          | T
+          | {
+              label?: T;
+              id?: T;
+            };
       };
   updatedAt?: T;
   createdAt?: T;

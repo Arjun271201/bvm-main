@@ -24,13 +24,13 @@ export default async function HomePage() {
   return (
     <div className="home">
       <Hero />
-      <ExploreBVM heading={headings.explore} />
-      <LatestUploads heading={headings.latestUploads} />
-      <FeaturedSongs heading={headings.featuredSongs} />
-      <FeaturedBooks heading={headings.featuredBooks} />
-      <CoursesSection heading={headings.courses} />
-      <SupportBVM />
-      <TestimonialsSection heading={headings.testimonials} />
+      <ExploreBVM heading={headings.explore ?? undefined} />
+      <LatestUploads heading={headings.latestUploads ?? undefined} />
+      <FeaturedSongs heading={headings.featuredSongs ?? undefined} />
+      <FeaturedBooks heading={headings.featuredBooks ?? undefined} />
+      <CoursesSection heading={headings.courses ?? undefined} />
+      <SupportBVM heading={headings.supportBVM ?? undefined} />
+      <TestimonialsSection heading={headings.testimonials ?? undefined} />
     </div>
   )
 }

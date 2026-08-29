@@ -21,9 +21,7 @@ export default function Hero({ slides }: { slides: HeroSlide[] }) {
         className="absolute inset-0 bg-cover bg-center"
         style={{ backgroundImage: `url(${slide.backgroundImage})` }}
       />
-      {/* Light-theme overlay: warm gradient instead of black scrim */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#FBF3E8] via-[#FBF3E8]/40 to-transparent" />
-      <div className="absolute inset-0 bg-gradient-to-t from-[#FBF3E8] via-transparent to-transparent" />
+
 
       {/* Content */}
       <div className="relative z-10 max-w-[1400px] mx-auto h-full flex flex-col justify-end px-6 pb-14">

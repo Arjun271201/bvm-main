@@ -34,6 +34,7 @@ export const Homepage: GlobalConfig = {
           defaultValue: 'Featured Books',
         },
         { name: 'courses', type: 'text', label: 'Courses', defaultValue: 'Courses' },
+        { name: 'supportBVM', type: 'text', label: 'Support BVM', defaultValue: 'Support BVM' },
         { name: 'testimonials', type: 'text', label: 'Testimonials', defaultValue: 'Testimonial' },
       ],
     },
@@ -74,6 +75,43 @@ export const Homepage: GlobalConfig = {
           relationTo: 'media',
           required: true,
           // Idhu than Hero section background image - temple/devotee photo
+        },
+      ],
+    },
+    {
+      name: 'videoFilters',
+      type: 'group',
+      label: 'Language Video Filters',
+      admin: {
+        description:
+          'Edit the category and channel options that appear on the selected-language video page.',
+      },
+      fields: [
+        {
+          name: 'categoryOptions',
+          type: 'array',
+          label: 'Category Options',
+          labels: { singular: 'Category', plural: 'Categories' },
+          fields: [
+            {
+              name: 'label',
+              type: 'text',
+              required: true,
+            },
+          ],
+        },
+        {
+          name: 'channelOptions',
+          type: 'array',
+          label: 'Channel Options',
+          labels: { singular: 'Channel', plural: 'Channels' },
+          fields: [
+            {
+              name: 'label',
+              type: 'text',
+              required: true,
+            },
+          ],
         },
       ],
     },

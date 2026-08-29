@@ -11,6 +11,15 @@ const icons: Record<string, string> = {
   heart: '♥',
 }
 
+const fallbackCategories = [
+  { id: 'videos', title: 'Videos', slug: 'videos', icon: 'play' },
+  { id: 'songs', title: 'Songs', slug: 'songs', icon: 'music' },
+  { id: 'books', title: 'Books', slug: 'books', icon: 'book' },
+  { id: 'store', title: 'Store', slug: 'store', icon: 'cart' },
+  { id: 'downloads', title: 'Downloads', slug: 'downloads', icon: 'download' },
+  { id: 'support', title: 'Support', slug: 'support', icon: 'heart' },
+]
+
 export default async function ExploreBVM() {
   const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })
@@ -20,13 +29,13 @@ export default async function ExploreBVM() {
     limit: 12,
   })
 
-  if (!categories.length) return null
+  const visibleCategories = categories.length ? categories : fallbackCategories
 
   return (
     <section className="max-w-[1400px] mx-auto px-6 py-12 bg-[#FBF3E8]">
       <h2 className="text-[#241711] text-2xl font-semibold mb-6">Explore BVM</h2>
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-        {categories.map((category: any) => {
+        {visibleCategories.map((category: any) => {
           const imageUrl =
             typeof category.image === 'object' && category.image?.url
               ? category.image.url
@@ -38,16 +47,18 @@ export default async function ExploreBVM() {
               href={`/${category.slug}`}
               className="group relative aspect-square overflow-hidden rounded-xl bg-[#2B1A12]"
             >
-              {imageUrl && (
+              {imageUrl ? (
                 <img
                   src={imageUrl}
                   alt={category.title}
                   className="absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                 />
+              ) : (
+                <div className="absolute inset-0 bg-gradient-to-br from-[#4a2c1f] via-[#2b1a12] to-[#120d09]" />
               )}
               <div className="absolute inset-0 bg-black/30 transition-colors group-hover:bg-black/50" />
               <div className="absolute inset-0 flex items-center justify-center text-2xl text-white">
-                {icons[category.icon] || null}
+                {icons[category.icon] || '•'}
               </div>
               <span className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent px-3 pb-3 pt-8 text-center text-sm font-medium text-white">
                 {category.title}

@@ -59,6 +59,15 @@ const ICONS: Record<string, React.ReactNode> = {
   ),
 }
 
+const fallbackCategories = [
+  { id: 'videos', title: 'Videos', slug: 'videos', icon: 'play' },
+  { id: 'songs', title: 'Songs', slug: 'songs', icon: 'music' },
+  { id: 'books', title: 'Books', slug: 'books', icon: 'book' },
+  { id: 'store', title: 'Store', slug: 'store', icon: 'cart' },
+  { id: 'downloads', title: 'Downloads', slug: 'downloads', icon: 'download' },
+  { id: 'support', title: 'Support', slug: 'support', icon: 'heart' },
+]
+
 export default async function ExploreBVM({ heading = 'Explore BVM' }: { heading?: string }) {
   const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })
@@ -69,14 +78,14 @@ export default async function ExploreBVM({ heading = 'Explore BVM' }: { heading?
     limit: 12,
   })
 
-  if (!categories.length) return null
+  const visibleCategories = categories.length ? categories : fallbackCategories
 
   return (
     <section className="bg-black py-14 px-8">
       <div className="max-w-[1400px] mx-auto">
         <h2 className="text-white text-2xl font-semibold mb-6">{heading}</h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
-          {categories.map((cat: any) => {
+          {visibleCategories.map((cat: any) => {
             const imageUrl =
               typeof cat.image === 'object' && cat.image?.url ? cat.image.url : cat.image
 
@@ -86,16 +95,18 @@ export default async function ExploreBVM({ heading = 'Explore BVM' }: { heading?
                 href={`/${cat.slug}`}
                 className="group relative aspect-square rounded-xl overflow-hidden bg-stone-800"
               >
-                {imageUrl && (
+                {imageUrl ? (
                   <img
                     src={imageUrl}
                     alt={cat.title}
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                   />
+                ) : (
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#4a2c1f] via-[#2b1a12] to-[#120d09]" />
                 )}
                 <div className="absolute inset-0 bg-black/35 group-hover:bg-black/50 transition-colors" />
                 <div className="absolute inset-0 flex items-center justify-center text-white">
-                  {ICONS[cat.icon] ?? null}
+                  {ICONS[cat.icon] ?? '•'}
                 </div>
                 <div className="absolute inset-x-0 bottom-0 bg-black/65 px-3 py-2 text-center text-sm font-medium text-white">
                   {cat.title}
