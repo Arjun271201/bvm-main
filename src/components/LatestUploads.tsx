@@ -1,6 +1,7 @@
 import React from 'react'
 import { getPayload } from 'payload'
 import config from '@/payload.config'
+import { MAX_HOME_PAGE_VIDEOS } from '@/lib/homepageLimits'
 import VideoCarousel from './VideoCarousel'
 
 export default async function LatestUploads({ heading = 'Latest Uploads' }: { heading?: string }) {
@@ -10,7 +11,7 @@ export default async function LatestUploads({ heading = 'Latest Uploads' }: { he
   const { docs: videos } = await payload.find({
     collection: 'videos',
     sort: '-publishedDate',
-    limit: 8,
+    limit: MAX_HOME_PAGE_VIDEOS,
   })
 
   if (!videos.length) return null

@@ -8,8 +8,11 @@ import sharp from 'sharp'
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import { Categories } from './collections/Categories'
+import { Channels } from './collections/Channels'
+import { VideoCategories } from './collections/VideoCategories'
 import { Languages } from './collections/Languages'
 import { Videos } from './collections/Videos'
+import { Authors } from './collections/Authors'
 import { Songs } from './collections/Songs'
 import { Courses } from './collections/Courses'
 import { Products } from './collections/Products'
@@ -32,8 +35,11 @@ export default buildConfig({
     Users,
     Media,
     Categories,
+    Channels,
+    VideoCategories,
     Languages,
     Videos,
+    Authors,
     Songs,
     Courses,
     Products,

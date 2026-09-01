@@ -32,7 +32,7 @@ export default function VideosLanguageCards({ languages }: Props) {
   }
 
   return (
-    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-5">
       {languages.map((language) => {
         const imageUrl = getMediaUrl(language.image)
 

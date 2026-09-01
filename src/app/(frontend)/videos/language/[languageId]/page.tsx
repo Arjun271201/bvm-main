@@ -22,20 +22,39 @@ export default async function LanguageVideosPage({ params, searchParams }: Props
   const payload = await getPayload({ config: payloadConfig })
 
   const homepage = await payload.findGlobal({ slug: 'homepage' })
-  const categoryOptions =
-    (homepage?.videoFilters?.categoryOptions || [])
-      .map((item: any) => item?.label)
-      .filter(Boolean) || []
-  const channelOptions =
-    (homepage?.videoFilters?.channelOptions || [])
-      .map((item: any) => item?.label)
-      .filter(Boolean) || []
 
-  const { docs: languageDocs } = await payload.find({
-    collection: 'languages',
-    where: { slug: { equals: languageId } },
-    limit: 1,
-  })
+  const [{ docs: videoCategories }, { docs: channels }, { docs: languageDocs }] = await Promise.all(
+    [
+      payload.find({
+        collection: 'video-categories',
+        sort: 'name',
+        limit: 1000,
+      }),
+      payload.find({
+        collection: 'channels',
+        sort: 'name',
+        limit: 1000,
+      }),
+      payload.find({
+        collection: 'languages',
+        where: { slug: { equals: languageId } },
+        limit: 1,
+      }),
+    ],
+  )
+
+  const categoryOptions =
+    (videoCategories.length
+      ? videoCategories.map((item: any) => item?.name).filter(Boolean)
+      : (homepage?.videoFilters?.categoryOptions || [])
+          .map((item: any) => item?.label)
+          .filter(Boolean)) || []
+  const channelOptions =
+    (channels.length
+      ? channels.map((item: any) => item?.name).filter(Boolean)
+      : (homepage?.videoFilters?.channelOptions || [])
+          .map((item: any) => item?.label)
+          .filter(Boolean)) || []
 
   if (!languageDocs.length) {
     return (
@@ -52,9 +71,6 @@ export default async function LanguageVideosPage({ params, searchParams }: Props
   const [{ docs: videos }, { docs: languages }] = await Promise.all([
     payload.find({
       collection: 'videos',
-      where: {
-        languageCategory: { equals: language.id },
-      },
       sort: sort === 'oldest' ? 'publishedDate' : '-publishedDate',
       limit: 1000,
       depth: 1,
@@ -67,6 +83,46 @@ export default async function LanguageVideosPage({ params, searchParams }: Props
   ])
 
   const languageImage = getMediaUrl(language.image)
+
+  const normalizeVideoValue = (value: unknown): string | undefined => {
+    if (Array.isArray(value)) {
+      const result = value
+        .map((item) => {
+          if (typeof item === 'object' && item) {
+            const maybeLabel =
+              'label' in item ? String((item as { label?: string }).label || '').trim() : ''
+            const maybeName =
+              'name' in item ? String((item as { name?: string }).name || '').trim() : ''
+            const maybeTitle =
+              'title' in item ? String((item as { title?: string }).title || '').trim() : ''
+
+            return maybeLabel || maybeName || maybeTitle
+          }
+
+          return typeof item === 'string' ? item.trim() : ''
+        })
+        .filter(Boolean)
+
+      return result[0]
+    }
+
+    if (typeof value === 'object' && value) {
+      const maybeLabel =
+        'label' in value ? String((value as { label?: string }).label || '').trim() : ''
+      const maybeName =
+        'name' in value ? String((value as { name?: string }).name || '').trim() : ''
+      const maybeTitle =
+        'title' in value ? String((value as { title?: string }).title || '').trim() : ''
+
+      return maybeLabel || maybeName || maybeTitle || undefined
+    }
+
+    if (typeof value === 'string') {
+      return value.trim() || undefined
+    }
+
+    return undefined
+  }
 
   return (
     <main className="min-h-screen bg-[#130d09] px-4 py-6 text-white md:px-8 lg:px-10">
@@ -83,16 +139,19 @@ export default async function LanguageVideosPage({ params, searchParams }: Props
             duration: video.duration,
             publishedDate: video.publishedDate,
             featured: Boolean(video.featured),
-            category:
-              typeof video.category === 'object' && video.category
-                ? video.category.title || video.category.name
-                : video.category || undefined,
-            channel: video.channel || undefined,
+            category: normalizeVideoValue(video.category),
+            channel: normalizeVideoValue(video.channel),
+            languageSlug: typeof video.languageCategory === 'object' ? video.languageCategory?.slug : language.slug,
+            languageTitle:
+              (typeof video.languageCategory === 'object' && (video.languageCategory?.title || video.languageCategory?.name)) ||
+              languages.find((l: any) => l.id === (typeof video.languageCategory === 'object' ? video.languageCategory?.id : video.languageCategory))?.title ||
+              language.title,
           }))}
           languages={languages.map((lang: any) => ({
             id: String(lang.id),
             title: lang.title,
             slug: lang.slug,
+            image: getMediaUrl(lang.image),
           }))}
           categoryOptions={categoryOptions}
           channelOptions={channelOptions}

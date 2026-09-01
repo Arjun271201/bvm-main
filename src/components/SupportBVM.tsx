@@ -4,7 +4,37 @@ const oneTime = [350, 500, 1000, 2000]
 const monthly = [100, 500, 1000, 2000]
 const specialProjects = ['Ramanujar Series', 'Sri Caitanyar Series', 'Documentary Projects']
 
-export default function SupportBVM({ heading = 'Support BVM' }: { heading?: string }) {
+export default function SupportBVM({
+  heading = 'Support BVM',
+  variant = 'home',
+}: {
+  heading?: string
+  variant?: 'home' | 'footer-cta'
+}) {
+  if (variant === 'footer-cta') {
+    return (
+      <section className="flex flex-col items-center justify-center bg-[#120d0b] px-6 py-7 text-center sm:py-9">
+        <div className="mx-auto flex flex-col items-center text-center max-w-[600px]">
+          <h2 className="text-center text-xl font-semibold tracking-tight text-[#f2c291] sm:text-2xl">
+            {heading}
+          </h2>
+          <p className="mx-auto mt-2 text-center max-w-[480px] text-xs leading-relaxed text-[#e6d7c7]/85 sm:text-sm">
+            Your contribution helps us spread the message of Bhakti to the world.
+          </p>
+          <div className="mt-5 flex justify-center">
+            <a
+              href="/support"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#d76d2d] px-6 py-2 text-xs font-semibold text-white shadow-[0_4px_14px_rgba(215,109,45,0.3)] transition hover:bg-[#c9632a] sm:text-sm"
+            >
+              <span>Support Us</span>
+              <span aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
   return (
     <section className="bg-black py-14 px-8">
       <div className="max-w-[1400px] mx-auto">

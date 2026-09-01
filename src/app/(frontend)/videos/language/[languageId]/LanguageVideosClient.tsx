@@ -18,12 +18,15 @@ type VideoDoc = {
   featured?: boolean
   category?: string
   channel?: string
+  languageSlug?: string
+  languageTitle?: string
 }
 
 type Language = {
   id: string | number
   title: string
   slug: string
+  image?: string
 }
 
 type Props = {
@@ -62,6 +65,14 @@ const CHANNEL_RULES = [
 
 const ITEMS_PER_PAGE = 15
 
+export function normalizeText(value: unknown): string {
+  if (typeof value !== 'string') {
+    return ''
+  }
+
+  return value.toLowerCase().trim()
+}
+
 function getMediaUrl(media: unknown) {
   if (typeof media === 'object' && media !== null && 'url' in media) {
     return (media as { url?: string }).url
@@ -83,6 +94,7 @@ export default function LanguageVideosClient({
   const [searchVal, setSearchVal] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('all')
   const [selectedChannel, setSelectedChannel] = useState('all')
+  const [selectedLanguage, setSelectedLanguage] = useState(currentLanguageSlug)
   const [activePage, setActivePage] = useState(1)
 
   const categoryList = useMemo(
@@ -96,13 +108,14 @@ export default function LanguageVideosClient({
 
   const mappedVideos = useMemo(() => {
     return initialVideos.map((video) => {
-      const text = `${video.title} ${video.description || ''}`.toLowerCase()
+      const text = `${normalizeText(video.title)} ${normalizeText(video.description)}`
 
       const matchedCategoryIndex = CATEGORY_RULES.findIndex((rule) =>
         rule.keywords.some((keyword) => text.includes(keyword)),
       )
+      const rawCategory = video.category ? video.category.trim() : ''
       const category =
-        video.category ||
+        rawCategory ||
         (matchedCategoryIndex >= 0 && categoryList[matchedCategoryIndex]
           ? categoryList[matchedCategoryIndex]
           : categoryList[0] || DEFAULT_CATEGORIES[0])
@@ -110,32 +123,49 @@ export default function LanguageVideosClient({
       const matchedChannelIndex = CHANNEL_RULES.findIndex((rule) =>
         rule.keywords.some((keyword) => text.includes(keyword)),
       )
+      const rawChannel = video.channel ? video.channel.trim() : ''
       const channel =
-        video.channel ||
+        rawChannel ||
         (matchedChannelIndex >= 0 && channelList[matchedChannelIndex]
           ? channelList[matchedChannelIndex]
           : channelList[0] || DEFAULT_CHANNELS[0])
 
-      return { ...video, category, channel }
+      const languageTitle =
+        video.languageTitle ||
+        languages.find((l) => l.slug === video.languageSlug)?.title
+
+      return { ...video, category, channel, languageTitle }
     })
   }, [initialVideos, categoryList, channelList])
 
   const filteredVideos = useMemo(() => {
     return mappedVideos.filter((video) => {
+      const normalizedSearch = normalizeText(searchVal)
       const matchesSearch =
-        video.title.toLowerCase().includes(searchVal.toLowerCase()) ||
-        (video.description || '').toLowerCase().includes(searchVal.toLowerCase())
+        !normalizedSearch ||
+        normalizeText(video.title).includes(normalizedSearch) ||
+        normalizeText(video.description).includes(normalizedSearch)
 
-      const matchesCategory = selectedCategory === 'all' || video.category === selectedCategory
-      const matchesChannel = selectedChannel === 'all' || video.channel === selectedChannel
+      const matchesCategory =
+        selectedCategory === 'all' ||
+        normalizeText(video.category) === normalizeText(selectedCategory)
 
-      return matchesSearch && matchesCategory && matchesChannel
+      const matchesChannel =
+        selectedChannel === 'all' ||
+        normalizeText(video.channel) === normalizeText(selectedChannel)
+
+      const matchesLanguage =
+        selectedLanguage === 'all' ||
+        !video.languageSlug ||
+        video.languageSlug === selectedLanguage
+
+      return matchesSearch && matchesCategory && matchesChannel && matchesLanguage
     })
-  }, [mappedVideos, searchVal, selectedCategory, selectedChannel])
+  }, [mappedVideos, searchVal, selectedCategory, selectedChannel, selectedLanguage])
 
   useEffect(() => {
     setActivePage(1)
-  }, [searchVal, selectedCategory, selectedChannel])
+  }, [searchVal, selectedCategory, selectedChannel, selectedLanguage])
 
   const featuredVideos = useMemo(
     () => filteredVideos.filter((video) => video.featured),
@@ -164,20 +194,26 @@ export default function LanguageVideosClient({
     setSearchVal('')
     setSelectedCategory('all')
     setSelectedChannel('all')
+    setSelectedLanguage('all')
     setActivePage(1)
   }
 
   const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const slug = e.target.value
-    if (slug) {
-      router.push(`/videos/language/${slug}`)
-    }
+    setSelectedLanguage(slug)
   }
 
+  const activeLanguageDoc = languages.find((l) => l.slug === selectedLanguage)
+  const displayLanguageTitle =
+    selectedLanguage === 'all'
+      ? 'All Languages'
+      : activeLanguageDoc?.title || currentLanguageTitle
+
   const bannerImage =
-    currentLanguageImage ||
-    getMediaUrl(initialVideos[0]?.thumbnail) ||
-    '/images/default-language.jpg'
+    (selectedLanguage !== 'all' && activeLanguageDoc?.image) ||
+    (selectedLanguage === 'all'
+      ? getMediaUrl(initialVideos[0]?.thumbnail) || currentLanguageImage || '/images/default-language.jpg'
+      : activeLanguageDoc?.image || currentLanguageImage || getMediaUrl(initialVideos[0]?.thumbnail) || '/images/default-language.jpg')
 
   return (
     <div className="w-full">
@@ -189,7 +225,7 @@ export default function LanguageVideosClient({
         <Link href="/videos" className="hover:text-[#f1c98d]">
           Videos
         </Link>{' '}
-        / <span className="text-white">{currentLanguageTitle}</span>
+        / <span className="text-white">{displayLanguageTitle}</span>
       </div>
 
       <div className="relative mb-8 overflow-hidden rounded-[22px] border border-[#d9b785]/30 bg-[radial-gradient(circle_at_top_left,_rgba(187,105,33,0.68),_rgba(40,24,17,0.98)_48%,_rgba(19,13,9,1)_100%)] shadow-[0_25px_60px_rgba(0,0,0,0.35)]">
@@ -197,7 +233,7 @@ export default function LanguageVideosClient({
           <div className="relative min-h-[220px] bg-[#24160f] md:min-h-[280px]">
             <img
               src={bannerImage}
-              alt={currentLanguageTitle}
+              alt={displayLanguageTitle}
               className="h-full w-full object-cover opacity-90"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-[#23140d]/65 via-[#23140d]/20 to-transparent" />
@@ -208,20 +244,13 @@ export default function LanguageVideosClient({
               Sacred Stories, Timeless Teachings
             </p>
             <h1 className="text-3xl font-semibold leading-tight text-white md:text-5xl">
-              {currentLanguageTitle}
+              {displayLanguageTitle}
             </h1>
             <p className="mt-4 max-w-xl text-sm text-[#f5e8d2]/80 md:text-base">
-              Explore {filteredVideos.length} spiritual videos, teachings, and uplifting content in{' '}
-              {currentLanguageTitle}.
+              Explore {filteredVideos.length} spiritual videos, teachings, and uplifting content{' '}
+              {selectedLanguage === 'all' ? 'across all languages' : `in ${displayLanguageTitle}`}.
             </p>
-            <div className="mt-6 flex flex-wrap gap-4">
-              <button className="rounded-full bg-[#d88d45] px-5 py-2.5 text-sm font-semibold text-[#1d120c] transition hover:bg-[#e9a35d]">
-                Watch Now
-              </button>
-              <button className="rounded-full border border-[#f0d8b0]/40 bg-white/5 px-5 py-2.5 text-sm font-medium text-[#f7ecdb] transition hover:bg-white/10">
-                Browse Collection
-              </button>
-            </div>
+
           </div>
         </div>
       </div>
@@ -240,7 +269,7 @@ export default function LanguageVideosClient({
                 <select
                   value={selectedChannel}
                   onChange={(e) => setSelectedChannel(e.target.value)}
-                  className="w-full appearance-none rounded-[16px] border border-[#e9d5b3]/70 bg-transparent px-3 py-3 pr-9 text-sm text-[#f3e4d0] outline-none"
+                  className="w-full appearance-none rounded-[10px] border border-[#e9d5b3]/70 bg-transparent px-3 py-3 pr-9 text-sm text-[#f3e4d0] outline-none"
                 >
                   <option value="all" className="bg-[#1b120d] text-white">
                     Select Channel
@@ -266,7 +295,7 @@ export default function LanguageVideosClient({
                 <select
                   value={selectedCategory}
                   onChange={(e) => setSelectedCategory(e.target.value)}
-                  className="w-full appearance-none rounded-[16px] border border-[#e9d5b3]/70 bg-transparent px-3 py-3 pr-9 text-sm text-[#f3e4d0] outline-none"
+                  className="w-full appearance-none rounded-[10px] border border-[#e9d5b3]/70 bg-transparent px-3 py-3 pr-9 text-sm text-[#f3e4d0] outline-none"
                 >
                   <option value="all" className="bg-[#1b120d] text-white">
                     All Categories
@@ -323,10 +352,13 @@ export default function LanguageVideosClient({
             </label>
             <div className="relative">
               <select
-                value={currentLanguageSlug}
+                value={selectedLanguage}
                 onChange={handleLanguageChange}
                 className="w-full appearance-none rounded-[16px] border border-[#e9d5b3]/70 bg-transparent py-3 pl-10 pr-9 text-sm font-medium text-[#f7d9aa] outline-none"
               >
+                <option value="all" className="bg-[#1b120d] text-white">
+                  All Languages
+                </option>
                 {languages.map((lang) => (
                   <option key={lang.id} value={lang.slug} className="bg-[#1b120d] text-white">
                     {lang.title}
@@ -396,15 +428,27 @@ export default function LanguageVideosClient({
                     )}
                   </div>
                   <div className="p-3.5">
-                    <span className="mb-2 inline-block text-[10px] font-bold uppercase tracking-[0.14em] text-[#ecb66f]">
-                      {video.category}
-                    </span>
                     <h3 className="line-clamp-2 text-sm font-semibold leading-snug text-white">
                       {video.title}
                     </h3>
                     <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-[#d9c4a6]">
                       {video.description}
                     </p>
+                    <div className="mt-3 flex flex-wrap items-center gap-1.5 text-[10px] font-semibold tracking-wide">
+                      <span className="rounded bg-[#ecb66f]/15 px-2 py-0.5 uppercase text-[#ecb66f]">
+                        {video.category}
+                      </span>
+                      {video.channel && (
+                        <span className="rounded bg-[#d88d45]/20 px-2 py-0.5 text-[#f5d0a0]">
+                          {video.channel}
+                        </span>
+                      )}
+                      {video.languageTitle && (
+                        <span className="rounded bg-emerald-500/20 px-2 py-0.5 text-emerald-300">
+                          {video.languageTitle}
+                        </span>
+                      )}
+                    </div>
                     <div className="mt-3 flex items-center justify-between border-t border-white/5 pt-2 text-[10px] text-[#d7c4aa]">
                       <span className="flex items-center gap-1">
                         <CalendarDays size={10} /> {publishedDate}
@@ -458,15 +502,27 @@ export default function LanguageVideosClient({
                   )}
                 </div>
                 <div className="p-3.5">
-                  <span className="mb-2 inline-block text-[10px] font-bold uppercase tracking-[0.14em] text-[#ecb66f]">
-                    {video.category}
-                  </span>
                   <h3 className="line-clamp-2 text-sm font-semibold leading-snug text-white">
                     {video.title}
                   </h3>
                   <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-[#d9c4a6]">
                     {video.description}
                   </p>
+                  <div className="mt-3 flex flex-wrap items-center gap-1.5 text-[10px] font-semibold tracking-wide">
+                    <span className="rounded bg-[#ecb66f]/15 px-2 py-0.5 uppercase text-[#ecb66f]">
+                      {video.category}
+                    </span>
+                    {video.channel && (
+                      <span className="rounded bg-[#d88d45]/20 px-2 py-0.5 text-[#f5d0a0]">
+                        {video.channel}
+                      </span>
+                    )}
+                    {video.languageTitle && (
+                      <span className="rounded bg-emerald-500/20 px-2 py-0.5 text-emerald-300">
+                        {video.languageTitle}
+                      </span>
+                    )}
+                  </div>
                   <div className="mt-3 flex items-center justify-between border-t border-white/5 pt-2 text-[10px] text-[#d7c4aa]">
                     <span className="flex items-center gap-1">
                       <CalendarDays size={10} /> {publishedDate}

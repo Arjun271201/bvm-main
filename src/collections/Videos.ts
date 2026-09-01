@@ -58,18 +58,21 @@ export const Videos: CollectionConfig = {
     {
       name: 'category',
       type: 'relationship',
-      relationTo: 'categories',
+      relationTo: 'video-categories',
       label: 'Category',
+      required: true,
       admin: {
-        description: 'Choose the content category for this video.',
+        description: 'Select a category from the list of available video categories.',
       },
     },
     {
       name: 'channel',
-      type: 'text',
+      type: 'relationship',
+      relationTo: 'channels',
       label: 'Channel',
+      required: true,
       admin: {
-        description: 'Example: BVM Main Channel, Srila Prabhupada Lectures',
+        description: 'Select a channel from the list of available channels.',
       },
     },
     {

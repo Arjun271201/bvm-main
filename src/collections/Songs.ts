@@ -21,6 +21,12 @@ export const Songs: CollectionConfig = {
       // Example: "BVM Kirtan Group"
     },
     {
+      name: 'author',
+      type: 'relationship',
+      relationTo: 'authors',
+      label: 'Author',
+    },
+    {
       name: 'coverImage',
       type: 'upload',
       relationTo: 'media',
@@ -66,6 +72,24 @@ export const Songs: CollectionConfig = {
       type: 'relationship',
       relationTo: 'languages',
       label: 'Language Category',
+    },
+    {
+      name: 'isRegular',
+      type: 'checkbox',
+      label: 'Regular',
+      defaultValue: false,
+    },
+    {
+      name: 'isMantra',
+      type: 'checkbox',
+      label: 'Mantras',
+      defaultValue: false,
+    },
+    {
+      name: 'isSloka',
+      type: 'checkbox',
+      label: 'Slokas',
+      defaultValue: false,
     },
     {
       name: 'duration',

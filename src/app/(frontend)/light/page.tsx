@@ -1,5 +1,6 @@
 import { getPayload } from 'payload'
 import config from '@/payload.config'
+import { MAX_HOME_PAGE_VIDEOS } from '@/lib/homepageLimits'
 import Hero from './components/Hero'
 import ExploreBVM from './components/ExploreBVM'
 import LatestUploads from './components/LatestUploads'
@@ -20,7 +21,7 @@ export default async function HomePage() {
     { docs: courses },
     { docs: testimonials },
   ] = await Promise.all([
-    payload.find({ collection: 'videos', sort: '-publishedDate', limit: 8 }),
+    payload.find({ collection: 'videos', sort: '-publishedDate', limit: MAX_HOME_PAGE_VIDEOS }),
     payload.find({ collection: 'songs', where: { featured: { equals: true } }, limit: 8 }),
     payload.find({ collection: 'products', where: { featured: { equals: true } }, limit: 8 }),
     payload.find({ collection: 'courses', where: { featured: { equals: true } }, limit: 8 }),

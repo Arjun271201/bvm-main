@@ -2,11 +2,7 @@ import { getPayload } from 'payload'
 import config from '@/payload.config'
 import VideosLanguageCards from '@/components/VideosLanguageCards'
 
-type Props = {
-  searchParams: Promise<{ category?: string }>
-}
-
-export default async function VideosPage({ searchParams }: Props) {
+export default async function VideosPage() {
   const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })
 
@@ -35,7 +31,7 @@ export default async function VideosPage({ searchParams }: Props) {
       ).length,
     }))
     .filter((language: any) => language.videoCount > 0)
-    .sort((a: any, b: any) => b.videoCount - a.videoCount)
+    .sort((a: any, b: any) => (a.order ?? 0) - (b.order ?? 0))
 
   return (
     <main className="min-h-screen bg-stone-950 px-6 py-14 text-white md:px-10 lg:px-14">

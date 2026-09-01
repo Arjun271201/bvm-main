@@ -1,5 +1,6 @@
 import { getPayload } from 'payload'
 import config from '@/payload.config'
+import SongDetailClient from './SongDetailClient'
 
 type Props = {
   params: Promise<{ id: string }>
@@ -42,9 +43,9 @@ export default async function SongDetailPage({ params }: Props) {
 
   if (!song) {
     return (
-      <main className="min-h-screen bg-stone-950 px-6 py-20 text-center text-white">
-        <p>Song not found.</p>
-        <a href="/songs" className="mt-3 inline-block text-yellow-400 underline">
+      <main className="min-h-screen bg-[#130d09] px-6 py-20 text-center text-white">
+        <p className="text-stone-400">Song not found.</p>
+        <a href="/songs" className="mt-4 inline-block rounded-full bg-[#c5692f] px-5 py-2 text-sm font-semibold text-white">
           Back to songs
         </a>
       </main>
@@ -54,6 +55,7 @@ export default async function SongDetailPage({ params }: Props) {
   const coverUrl = getMediaUrl(song.coverImage)
   const audioUrl = getMediaUrl(song.audioFile)
   const youtubeEmbedUrl = getYouTubeEmbedUrl(song.youtubeUrl)
+
   const { docs: otherSongs } = await payload.find({
     collection: 'songs',
     where: { id: { not_equals: id } },
@@ -62,88 +64,59 @@ export default async function SongDetailPage({ params }: Props) {
     depth: 1,
   })
 
+  const authorName =
+    typeof song.author === 'object' && song.author
+      ? song.author.name || song.author.title
+      : song.artist || 'Traditional'
+
+  const categoryTitle =
+    typeof song.languageCategory === 'object' && song.languageCategory
+      ? song.languageCategory.title || song.languageCategory.name
+      : song.isMantra
+      ? 'Mantra'
+      : song.isSloka
+      ? 'Sloka'
+      : 'Kirtan'
+
+  const formattedSong = {
+    id: String(song.id),
+    title: song.title,
+    artist: song.artist,
+    authorName,
+    coverUrl,
+    audioUrl,
+    youtubeUrl: song.youtubeUrl,
+    youtubeEmbedUrl,
+    audioType: song.audioType || 'youtube',
+    duration: song.duration,
+    categoryTitle,
+    languageTitle: typeof song.languageCategory === 'object' ? song.languageCategory?.title : undefined,
+    description: song.description,
+  }
+
+  const formattedRelatedSongs = otherSongs.map((otherSong: any) => ({
+    id: String(otherSong.id),
+    title: otherSong.title,
+    artist: otherSong.artist,
+    authorName:
+      typeof otherSong.author === 'object' && otherSong.author
+        ? otherSong.author.name || otherSong.author.title
+        : otherSong.artist,
+    coverUrl: getMediaUrl(otherSong.coverImage),
+    duration: otherSong.duration,
+    categoryTitle:
+      typeof otherSong.languageCategory === 'object' && otherSong.languageCategory
+        ? otherSong.languageCategory.title
+        : undefined,
+  }))
+
   return (
-    <main className="min-h-screen bg-stone-950 px-4 py-10 text-white md:px-8">
-      <div className="mx-auto grid max-w-[1050px] gap-6 lg:grid-cols-[minmax(0,1fr)_300px]">
-        <article className="overflow-hidden rounded-xl bg-stone-900 shadow-2xl">
-          <div className="aspect-video bg-black">
-            {song.audioType === 'youtube' && youtubeEmbedUrl ? (
-              <iframe
-                src={youtubeEmbedUrl}
-                title={song.title}
-                className="h-full w-full"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-              />
-            ) : song.audioType === 'upload' && audioUrl ? (
-              <div className="relative h-full w-full bg-black">
-                {coverUrl && (
-                  <img src={coverUrl} alt={song.title} className="h-full w-full object-cover" />
-                )}
-                <div className="absolute inset-x-0 bottom-0 bg-black/70 p-5">
-                  <audio controls className="w-full" src={audioUrl} />
-                </div>
-              </div>
-            ) : coverUrl ? (
-              <img src={coverUrl} alt={song.title} className="h-full w-full object-cover" />
-            ) : (
-              <div className="flex h-full items-center justify-center text-stone-400">
-                Song unavailable
-              </div>
-            )}
-          </div>
-          <div className="p-6 md:p-8">
-            {song.languageCategory?.title && (
-              <p className="mb-3 text-sm text-yellow-400">{song.languageCategory.title}</p>
-            )}
-            <h1 className="text-3xl font-serif font-semibold">{song.title}</h1>
-            {song.artist && <p className="mt-2 text-stone-400">{song.artist}</p>}
-            {song.duration && (
-              <p className="mt-4 text-sm text-stone-500">Duration: {song.duration}</p>
-            )}
-          </div>
-        </article>
-
-        <aside className="rounded-xl bg-stone-900/80 p-4 lg:h-[620px] lg:overflow-y-auto">
-          <h2 className="mb-4 text-xl font-semibold">More Songs</h2>
-          <div className="space-y-3">
-            {otherSongs.map((otherSong: any) => {
-              const otherCover = getMediaUrl(otherSong.coverImage)
-
-              return (
-                <article key={otherSong.id} className="flex gap-3 border-b border-white/10 pb-3">
-                  <a
-                    href={`/songs/${otherSong.id}`}
-                    className="group relative h-16 w-28 flex-shrink-0 overflow-hidden rounded-lg bg-black"
-                  >
-                    {otherCover && (
-                      <img
-                        src={otherCover}
-                        alt={otherSong.title}
-                        className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                      />
-                    )}
-                    <span className="absolute inset-0 flex items-center justify-center bg-black/20 text-xl text-white opacity-0 transition-opacity group-hover:opacity-100">
-                      ▶
-                    </span>
-                  </a>
-                  <div className="min-w-0 flex-1">
-                    <h3 className="line-clamp-2 text-sm font-medium">{otherSong.title}</h3>
-                    {otherSong.artist && (
-                      <p className="mt-1 line-clamp-1 text-xs text-stone-400">{otherSong.artist}</p>
-                    )}
-                    <a
-                      href={`/songs/${otherSong.id}`}
-                      className="mt-2 inline-block rounded-full border border-yellow-500/40 px-3 py-1 text-xs text-yellow-300 hover:bg-yellow-500/10"
-                    >
-                      View
-                    </a>
-                  </div>
-                </article>
-              )
-            })}
-          </div>
-        </aside>
+    <main className="min-h-screen bg-[#130d09] px-4 py-8 text-white md:px-8 lg:px-10">
+      <div className="mx-auto max-w-[1280px]">
+        <SongDetailClient
+          song={formattedSong}
+          relatedSongs={formattedRelatedSongs}
+        />
       </div>
     </main>
   )

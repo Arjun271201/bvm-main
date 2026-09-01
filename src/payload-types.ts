@@ -70,8 +70,11 @@ export interface Config {
     users: User;
     media: Media;
     categories: Category;
+    channels: Channel;
+    'video-categories': VideoCategory;
     languages: Language;
     videos: Video;
+    authors: Author;
     songs: Song;
     courses: Course;
     products: Product;
@@ -88,8 +91,11 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
+    channels: ChannelsSelect<false> | ChannelsSelect<true>;
+    'video-categories': VideoCategoriesSelect<false> | VideoCategoriesSelect<true>;
     languages: LanguagesSelect<false> | LanguagesSelect<true>;
     videos: VideosSelect<false> | VideosSelect<true>;
+    authors: AuthorsSelect<false> | AuthorsSelect<true>;
     songs: SongsSelect<false> | SongsSelect<true>;
     courses: CoursesSelect<false> | CoursesSelect<true>;
     products: ProductsSelect<false> | ProductsSelect<true>;
@@ -199,6 +205,26 @@ export interface Category {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "channels".
+ */
+export interface Channel {
+  id: number;
+  name: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "video-categories".
+ */
+export interface VideoCategory {
+  id: number;
+  name: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "languages".
  */
 export interface Language {
@@ -223,17 +249,31 @@ export interface Video {
   youtubeUrl?: string | null;
   videoFile?: (number | null) | Media;
   /**
-   * Choose the content category for this video.
+   * Select a category from the list of available video categories.
    */
-  category?: (number | null) | Category;
+  category: number | VideoCategory;
   /**
-   * Example: BVM Main Channel, Srila Prabhupada Lectures
+   * Select a channel from the list of available channels.
    */
-  channel?: string | null;
+  channel: number | Channel;
   languageCategory?: (number | null) | Language;
   duration?: string | null;
   featured?: boolean | null;
   publishedDate?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "authors".
+ */
+export interface Author {
+  id: number;
+  name: string;
+  /**
+   * Optional slug for URLs or references.
+   */
+  slug?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -245,12 +285,16 @@ export interface Song {
   id: number;
   title: string;
   artist?: string | null;
+  author?: (number | null) | Author;
   coverImage: number | Media;
   audioType: 'youtube' | 'upload';
   youtubeUrl?: string | null;
   audioFile?: (number | null) | Media;
   category?: (number | null) | Category;
   languageCategory?: (number | null) | Language;
+  isRegular?: boolean | null;
+  isMantra?: boolean | null;
+  isSloka?: boolean | null;
   duration?: string | null;
   featured?: boolean | null;
   updatedAt: string;
@@ -402,12 +446,24 @@ export interface PayloadLockedDocument {
         value: number | Category;
       } | null)
     | ({
+        relationTo: 'channels';
+        value: number | Channel;
+      } | null)
+    | ({
+        relationTo: 'video-categories';
+        value: number | VideoCategory;
+      } | null)
+    | ({
         relationTo: 'languages';
         value: number | Language;
       } | null)
     | ({
         relationTo: 'videos';
         value: number | Video;
+      } | null)
+    | ({
+        relationTo: 'authors';
+        value: number | Author;
       } | null)
     | ({
         relationTo: 'songs';
@@ -530,6 +586,24 @@ export interface CategoriesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "channels_select".
+ */
+export interface ChannelsSelect<T extends boolean = true> {
+  name?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "video-categories_select".
+ */
+export interface VideoCategoriesSelect<T extends boolean = true> {
+  name?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "languages_select".
  */
 export interface LanguagesSelect<T extends boolean = true> {
@@ -562,17 +636,31 @@ export interface VideosSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "authors_select".
+ */
+export interface AuthorsSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "songs_select".
  */
 export interface SongsSelect<T extends boolean = true> {
   title?: T;
   artist?: T;
+  author?: T;
   coverImage?: T;
   audioType?: T;
   youtubeUrl?: T;
   audioFile?: T;
   category?: T;
   languageCategory?: T;
+  isRegular?: T;
+  isMantra?: T;
+  isSloka?: T;
   duration?: T;
   featured?: T;
   updatedAt?: T;
