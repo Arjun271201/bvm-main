@@ -43,7 +43,7 @@ export default async function SongDetailPage({ params }: Props) {
 
   if (!song) {
     return (
-      <main className="min-h-screen bg-[#130d09] px-6 py-20 text-center text-white">
+      <main className="min-h-screen bg-[#2c0002] px-6 py-20 text-center text-white">
         <p className="text-stone-400">Song not found.</p>
         <a href="/songs" className="mt-4 inline-block rounded-full bg-[#c5692f] px-5 py-2 text-sm font-semibold text-white">
           Back to songs
@@ -111,7 +111,7 @@ export default async function SongDetailPage({ params }: Props) {
   }))
 
   return (
-    <main className="min-h-screen bg-[#130d09] px-4 py-8 text-white md:px-8 lg:px-10">
+    <main className="min-h-screen bg-[#2c0002] px-4 py-8 text-white md:px-8 lg:px-10">
       <div className="mx-auto max-w-[1280px]">
         <SongDetailClient
           song={formattedSong}

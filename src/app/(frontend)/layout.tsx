@@ -8,7 +8,7 @@ import LiveReloader from '@/components/LiveReloader'
 
 export const metadata = {
   description: 'A blank template using Payload in a Next.js app.',
-  title: 'Payload Blank Template',
+  title: 'BVM - BHAKTI VEDANTA MEDIA',
 }
 
 export default async function RootLayout(props: { children: React.ReactNode }) {
@@ -17,7 +17,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
 
   return (
     <html lang="en">
-      <body>
+      <body className="bg-[#2c0002]">
         <script src="https://checkout.razorpay.com/v1/checkout.js" async></script>
         <CartProvider>
           <FrontendChrome>{children}</FrontendChrome>

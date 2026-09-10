@@ -14,7 +14,7 @@ export default async function CheckoutLayout({ children }: { children: React.Rea
       : firstSlide?.backgroundImage
 
   return (
-    <div className="relative p-10">
+    <div className="relative min-h-screen bg-[#2c0002] p-10">
       {/* Full page fixed background stays behind the checkout content. */}
       {bgImage && (
         <div
@@ -22,7 +22,7 @@ export default async function CheckoutLayout({ children }: { children: React.Rea
           style={{ backgroundImage: `url(${bgImage})` }}
         />
       )}
-      <div className="fixed inset-0 -z-5 bg-black/80" />
+      <div className="fixed inset-0 -z-5 bg-[#2c0002]/95" />
 
       {/* Content */}
       <div className="relative z-10 min-h-[100vh]">

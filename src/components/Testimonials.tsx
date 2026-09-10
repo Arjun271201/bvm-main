@@ -18,7 +18,7 @@ export default async function TestimonialsSection({
   if (!testimonials.length) return null
 
   return (
-    <section className="bg-black py-14 px-8">
+    <section className="bg-[#2c0002] py-14 px-8">
       <div className="max-w-[1400px] mx-auto text-center">
         <h2 className="text-white text-2xl font-semibold mb-2">{heading}</h2>
         <p className="text-stone-400 mb-8">

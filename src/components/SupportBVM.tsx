@@ -13,7 +13,7 @@ export default function SupportBVM({
 }) {
   if (variant === 'footer-cta') {
     return (
-      <section className="flex flex-col items-center justify-center bg-[#120d0b] px-6 py-7 text-center sm:py-9">
+      <section className="flex flex-col items-center justify-center bg-[#2c0002] px-6 py-7 text-center sm:py-9">
         <div className="mx-auto flex flex-col items-center text-center max-w-[600px]">
           <h2 className="text-center text-xl font-semibold tracking-tight text-[#f2c291] sm:text-2xl">
             {heading}
@@ -36,7 +36,7 @@ export default function SupportBVM({
   }
 
   return (
-    <section className="bg-black py-14 px-8">
+    <section className="bg-[#2c0002] py-14 px-8">
       <div className="max-w-[1400px] mx-auto">
         <h2 className="text-white text-2xl font-semibold mb-6">{heading}</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

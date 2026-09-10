@@ -67,7 +67,7 @@ export default async function VideoDetailPage({ params }: Props) {
   })
 
   return (
-    <main className="min-h-screen w-full bg-stone-950 px-2 pb-12 pt-5 text-10 text-white md:pt-10">
+    <main className="min-h-screen w-full bg-[#2c0002] px-2 pb-12 pt-5 text-10 text-white md:pt-10">
       <div className="mx-auto grid max-w-[1050px] gap-4 lg:grid-cols-[minmax(0,1fr)_300px]">
         <article className="min-w-0 overflow-hidden rounded-xl bg-stone-900 shadow-2xl">
           <div className="aspect-video bg-black">

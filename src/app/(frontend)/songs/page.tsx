@@ -76,7 +76,7 @@ export default async function SongsPage({ searchParams }: Props) {
   }))
 
   return (
-    <main className="min-h-screen bg-stone-950 px-6 py-14 text-white md:px-10 lg:px-14">
+    <main className="min-h-screen bg-[#2c0002] px-6 py-14 text-white md:px-10 lg:px-14">
       <div className="mx-auto max-w-[1250px]">
         <SongsClient
           initialSongs={formattedSongs}

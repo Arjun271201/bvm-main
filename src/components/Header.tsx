@@ -24,23 +24,23 @@ export default function Header() {
   const { count, setIsOpen } = useCart()
 
   return (
-    <div className="sticky top-0 z-50 relative">
-      <header className="bg-black border-b border-yellow-500/15">
-        <div className="max-w-[1400px] mx-auto flex items-center justify-between px-8 py-3.5">
+    <div className="sticky top-0 z-50 relative w-full">
+      <header className="bg-[#2c0002] border-b border-stone-800/80">
+        <div className="max-w-[1400px] mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-8 py-3.5">
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <span className="font-serif text-2xl font-bold tracking-wide bg-gradient-to-br from-yellow-500 to-purple-500 bg-clip-text text-transparent">
+            <span className="font-serif text-2xl font-bold tracking-wide bg-gradient-to-br from-yellow-500 to-amber-500 bg-clip-text text-transparent">
               BVM
             </span>
           </Link>
 
-          {/* Desktop nav */}
-          <nav className="hidden md:flex gap-7">
+          {/* Desktop nav (xl screens >= 1280px) */}
+          <nav className="hidden xl:flex items-center gap-7">
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-stone-100/85 text-[0.92rem] hover:text-yellow-500 hover:opacity-100 transition-colors"
+                className="text-stone-100/90 text-sm font-medium hover:text-yellow-400 transition-colors"
               >
                 {link.label}
               </Link>
@@ -48,8 +48,8 @@ export default function Header() {
           </nav>
 
           {/* Right icons */}
-          <div className="flex items-center gap-3.5">
-            <button aria-label="Search" className="text-stone-100/85 hover:text-yellow-500 p-1">
+          <div className="flex items-center gap-3">
+            <button aria-label="Search" className="text-stone-100/85 hover:text-yellow-500 p-1 cursor-pointer">
               <svg
                 width="18"
                 height="18"
@@ -62,7 +62,7 @@ export default function Header() {
                 <line x1="21" y1="21" x2="16.65" y2="16.65" />
               </svg>
             </button>
-            <button aria-label="Account" className="text-stone-100/85 hover:text-yellow-500 p-1">
+            <button aria-label="Account" className="text-stone-100/85 hover:text-yellow-500 p-1 cursor-pointer">
               <svg
                 width="18"
                 height="18"
@@ -77,7 +77,7 @@ export default function Header() {
             </button>
             <button
               aria-label="Language"
-              className="text-stone-100/85 hover:text-yellow-500 flex items-center gap-0.5 text-sm p-1"
+              className="text-stone-100/85 hover:text-yellow-500 flex items-center gap-0.5 text-sm p-1 cursor-pointer"
             >
               <span>A</span>
               <span className="opacity-60 text-xs">அ</span>
@@ -86,7 +86,7 @@ export default function Header() {
               type="button"
               aria-label="Switch to light theme"
               onClick={() => router.push('/light')}
-              className="text-stone-100/85 hover:text-yellow-500 p-1"
+              className="text-stone-100/85 hover:text-yellow-500 p-1 cursor-pointer"
             >
               <Sun size={18} aria-hidden="true" />
             </button>
@@ -95,7 +95,7 @@ export default function Header() {
             <button
               aria-label="Cart"
               onClick={() => setIsOpen(true)}
-              className="relative text-stone-100/85 hover:text-yellow-500 p-1"
+              className="relative text-stone-100/85 hover:text-yellow-500 p-1 cursor-pointer"
             >
               <svg
                 width="18"
@@ -116,36 +116,33 @@ export default function Header() {
               )}
             </button>
 
-            {/* Mobile menu toggle */}
+            {/* Mobile & Tablet Hamburger menu toggle (< 1280px) */}
             <button
-              aria-label="Menu"
-              className="md:hidden text-stone-100/85 hover:text-yellow-500 p-1"
+              aria-label="Toggle Menu"
+              className="xl:hidden text-stone-200 hover:text-yellow-400 p-1.5 rounded-lg border border-stone-800 bg-[#2c0002] cursor-pointer transition-colors"
               onClick={() => setMobileOpen((v) => !v)}
             >
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <line x1="3" y1="6" x2="21" y2="6" />
-                <line x1="3" y1="12" x2="21" y2="12" />
-                <line x1="3" y1="18" x2="21" y2="18" />
-              </svg>
+              {mobileOpen ? (
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              ) : (
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              )}
             </button>
           </div>
         </div>
 
-        {/* Mobile nav */}
+        {/* Tablet & Mobile Dropdown Nav */}
         {mobileOpen && (
-          <nav className="md:hidden flex flex-col gap-1 px-8 pt-2 pb-5 border-t border-yellow-500/10">
+          <nav className="xl:hidden bg-[#2c0002] border-t border-stone-800 px-6 py-4 flex flex-col gap-1.5 shadow-2xl">
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-stone-100/85 py-2.5 hover:text-yellow-500"
+                className="text-stone-200 hover:text-yellow-400 py-2 px-3 rounded-lg hover:bg-stone-900 text-sm font-medium transition-colors"
                 onClick={() => setMobileOpen(false)}
               >
                 {link.label}

@@ -81,7 +81,7 @@ export default async function ExploreBVM({ heading = 'Explore BVM' }: { heading?
   const visibleCategories = categories.length ? categories : fallbackCategories
 
   return (
-    <section className="bg-black py-14 px-8">
+    <section className="bg-[#2c0002] py-14 px-8">
       <div className="max-w-[1400px] mx-auto">
         <h2 className="text-white text-2xl font-semibold mb-6">{heading}</h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">

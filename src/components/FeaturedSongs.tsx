@@ -17,7 +17,7 @@ export default async function FeaturedSongs({ heading = 'Featured Songs' }: { he
   if (!songs.length) return null
 
   return (
-    <section className="bg-black py-14 px-8">
+    <section className="bg-[#2c0002] py-14 px-8">
       <div className="max-w-[1400px] mx-auto">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-white text-2xl font-semibold">{heading}</h2>

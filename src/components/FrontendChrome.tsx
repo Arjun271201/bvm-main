@@ -15,7 +15,7 @@ export default function FrontendChrome({ children }: { children: React.ReactNode
   return (
     <>
       {isLightTheme ? <LightHeader /> : <DarkHeader />}
-      <main>{children}</main>
+      <main className="bg-[#2c0002]">{children}</main>
       {showSupportCta && <SupportBVM variant="footer-cta" />}
       <DarkFooter />
     </>

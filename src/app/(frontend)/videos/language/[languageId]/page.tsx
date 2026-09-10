@@ -58,7 +58,7 @@ export default async function LanguageVideosPage({ params, searchParams }: Props
 
   if (!languageDocs.length) {
     return (
-      <main className="min-h-screen bg-stone-950 px-6 py-14 text-white md:px-10 lg:px-14">
+      <main className="min-h-screen bg-[#2c0002] px-6 py-14 text-white md:px-10 lg:px-14">
         <div className="mx-auto max-w-[1250px]">
           <p className="text-center text-stone-400">Language not found</p>
         </div>
@@ -125,7 +125,7 @@ export default async function LanguageVideosPage({ params, searchParams }: Props
   }
 
   return (
-    <main className="min-h-screen bg-[#130d09] px-4 py-6 text-white md:px-8 lg:px-10">
+    <main className="min-h-screen bg-[#2c0002] px-4 py-6 text-white md:px-8 lg:px-10">
       <div className="mx-auto max-w-[1280px]">
         <LanguageVideosClient
           initialVideos={videos.map((video: any) => ({

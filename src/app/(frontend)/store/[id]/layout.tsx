@@ -22,7 +22,7 @@ export default async function ProductLayout({ children }: { children: React.Reac
           style={{ backgroundImage: `url(${bgImage})` }}
         />
       )}
-      <div className="fixed inset-0 -z-5 bg-black/80" />
+      <div className="fixed inset-0 -z-5 bg-[#2c0002]/95" />
 
       {/* Content */}
       <div className="relative min-h-[100vh]">{children}</div>

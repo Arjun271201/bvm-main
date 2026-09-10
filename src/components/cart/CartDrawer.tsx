@@ -14,7 +14,7 @@ export default function CartDrawer() {
       <div className="absolute inset-0 bg-black/60" onClick={() => setIsOpen(false)} />
 
       {/* Drawer */}
-      <div className="relative w-full max-w-md h-full bg-stone-950 text-white flex flex-col">
+      <div className="relative w-full max-w-md h-full bg-[#2c0002] border-l border-white/10 text-white flex flex-col">
         <div className="flex items-center justify-between p-5 border-b border-white/10">
           <h3 className="text-lg font-semibold">Your Cart ({items.length})</h3>
           <button onClick={() => setIsOpen(false)} className="text-white/70 hover:text-white">
