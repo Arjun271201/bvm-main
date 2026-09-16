@@ -1,1 +1,13 @@
 @import "tailwindcss";
+
+@layer components {
+  .btn-bvm {
+    background-color: #FFE7C3 !important;
+    color: #512D26 !important;
+    transition: all 0.2s ease-in-out;
+  }
+  .btn-bvm:hover {
+    background-color: #f7d89b !important;
+    color: #512D26 !important;
+  }
+}

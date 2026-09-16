@@ -22,6 +22,12 @@ export const Homepage: GlobalConfig = {
           defaultValue: 'Latest Uploads',
         },
         {
+          name: 'featuredVideos',
+          type: 'text',
+          label: 'Featured Videos',
+          defaultValue: 'Featured Videos',
+        },
+        {
           name: 'featuredSongs',
           type: 'text',
           label: 'Featured Songs',

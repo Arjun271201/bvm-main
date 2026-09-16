@@ -59,13 +59,13 @@ export default function ProductActions({ id, title, price, image, inStock }: Pro
       <div className="flex gap-3">
         <button
           onClick={handleAdd}
-          className="flex-1 border border-yellow-500/40 text-white font-medium py-3 rounded-full hover:bg-yellow-500/10"
+          className="flex-1 border border-[#FFE7C3] text-[#FFE7C3] font-semibold py-3 rounded-full hover:bg-[#FFE7C3] hover:text-[#512D26] transition-colors"
         >
           Add to Cart
         </button>
         <button
           onClick={handleBuyNow}
-          className="flex-1 bg-gradient-to-r from-purple-400 to-yellow-100 text-stone-900 font-medium py-3 rounded-full hover:opacity-90"
+          className="flex-1 bg-[#FFE7C3] text-[#512D26] font-semibold py-3 rounded-full hover:bg-[#f7d89b] transition-colors"
         >
           Buy Now
         </button>

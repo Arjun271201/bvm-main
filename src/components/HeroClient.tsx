@@ -33,7 +33,7 @@ export default function HeroClient({ slides }: { slides: Slide[] }) {
 
   return (
     <section
-      className="relative w-full h-[70vh] min-h-[480px] overflow-hidden bg-black"
+      className="relative w-full h-[90vh] min-h-[480px] overflow-hidden bg-black"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -59,10 +59,10 @@ export default function HeroClient({ slides }: { slides: Slide[] }) {
           {slide.ctaLabel && (
             <a
               href={slide.ctaLink || '#'}
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-400 to-yellow-100 text-stone-900 font-medium px-6 py-3 rounded-full hover:opacity-90 transition-opacity"
+              className="group inline-flex items-center gap-2 bg-[#FFE7C3] text-[#512D26] font-semibold px-6 py-3 rounded-full hover:bg-[#512D26] hover:text-yellow-400 transition-colors duration-200"
             >
-              {slide.ctaLabel}
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <span className="transition-colors duration-200">{slide.ctaLabel}</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" className="transition-colors duration-200">
                 <path d="M8 5v14l11-7z" />
               </svg>
             </a>

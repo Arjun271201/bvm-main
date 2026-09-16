@@ -35,10 +35,10 @@ export default function Hero({ slides }: { slides: HeroSlide[] }) {
         <p className="text-[#5C4E42] text-sm max-w-md mb-6">{slide.subtext}</p>
 
         <div className="flex items-center gap-3 mb-8">
-          <button className="flex items-center gap-2 bg-[#D9784A] hover:bg-[#c96b3f] text-white text-sm font-medium px-5 py-2.5 rounded-md transition-colors">
+          <button className="flex items-center gap-2 bg-[#FFE7C3] text-[#512D26] hover:bg-[#512D26] hover:text-yellow-400 text-sm font-semibold px-5 py-2.5 rounded-md transition-colors duration-200">
             ▶ Watch Now
           </button>
-          <button className="flex items-center gap-2 border border-[#D9C7B0] text-[#241711] text-sm font-medium px-5 py-2.5 rounded-md hover:bg-white transition-colors">
+          <button className="flex items-center gap-2 border border-[#512D26] text-[#512D26] text-sm font-semibold px-5 py-2.5 rounded-md hover:bg-[#FFE7C3] transition-colors">
             ⓘ More Info
           </button>
         </div>

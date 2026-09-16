@@ -81,7 +81,7 @@ export default async function ExploreBVM({ heading = 'Explore BVM' }: { heading?
   const visibleCategories = categories.length ? categories : fallbackCategories
 
   return (
-    <section className="bg-[#2c0002] py-14 px-8">
+    <section className="bg-[#2c0002] py-[25px] px-4 sm:px-6 md:px-8">
       <div className="max-w-[1400px] mx-auto">
         <h2 className="text-white text-2xl font-semibold mb-6">{heading}</h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
@@ -108,7 +108,7 @@ export default async function ExploreBVM({ heading = 'Explore BVM' }: { heading?
                 <div className="absolute inset-0 flex items-center justify-center text-white">
                   {ICONS[cat.icon] ?? '•'}
                 </div>
-                <div className="absolute inset-x-0 bottom-0 bg-black/65 px-3 py-2 text-center text-sm font-medium text-white">
+                <div className="absolute inset-x-0 bottom-0 bg-black/65 px-3 py-2 text-center text-sm font-medium text-white transition-colors duration-200 group-hover:text-yellow-400">
                   {cat.title}
                 </div>
               </a>

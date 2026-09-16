@@ -72,7 +72,7 @@ export default function CartDrawer() {
             </div>
             <a
               href="/checkout"
-              className="block text-center w-full bg-gradient-to-r from-purple-400 to-yellow-100 text-stone-900 font-medium py-3 rounded-full hover:opacity-90"
+              className="block text-center w-full bg-[#FFE7C3] text-[#512D26] font-semibold py-3 rounded-full hover:bg-[#f7d89b] transition-colors"
             >
               Checkout
             </a>

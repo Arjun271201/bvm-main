@@ -45,7 +45,10 @@ export default async function SongDetailPage({ params }: Props) {
     return (
       <main className="min-h-screen bg-[#2c0002] px-6 py-20 text-center text-white">
         <p className="text-stone-400">Song not found.</p>
-        <a href="/songs" className="mt-4 inline-block rounded-full bg-[#c5692f] px-5 py-2 text-sm font-semibold text-white">
+        <a
+          href="/songs"
+          className="mt-4 inline-block rounded-full bg-[#c5692f] px-5 py-2 text-sm font-semibold text-white"
+        >
           Back to songs
         </a>
       </main>
@@ -73,10 +76,10 @@ export default async function SongDetailPage({ params }: Props) {
     typeof song.languageCategory === 'object' && song.languageCategory
       ? song.languageCategory.title || song.languageCategory.name
       : song.isMantra
-      ? 'Mantra'
-      : song.isSloka
-      ? 'Sloka'
-      : 'Kirtan'
+        ? 'Mantra'
+        : song.isSloka
+          ? 'Sloka'
+          : 'Kirtan'
 
   const formattedSong = {
     id: String(song.id),
@@ -90,7 +93,8 @@ export default async function SongDetailPage({ params }: Props) {
     audioType: song.audioType || 'youtube',
     duration: song.duration,
     categoryTitle,
-    languageTitle: typeof song.languageCategory === 'object' ? song.languageCategory?.title : undefined,
+    languageTitle:
+      typeof song.languageCategory === 'object' ? song.languageCategory?.title : undefined,
     description: song.description,
   }
 
@@ -113,10 +117,7 @@ export default async function SongDetailPage({ params }: Props) {
   return (
     <main className="min-h-screen bg-[#2c0002] px-4 py-8 text-white md:px-8 lg:px-10">
       <div className="mx-auto max-w-[1280px]">
-        <SongDetailClient
-          song={formattedSong}
-          relatedSongs={formattedRelatedSongs}
-        />
+        <SongDetailClient song={formattedSong} relatedSongs={formattedRelatedSongs} />
       </div>
     </main>
   )

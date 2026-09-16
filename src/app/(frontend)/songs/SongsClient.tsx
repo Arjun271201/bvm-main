@@ -237,14 +237,14 @@ export default function SongsClient({
           <div className="flex items-center gap-2">
             <button
               type="submit"
-              className="h-[46px] rounded-full bg-[#d7783d] px-5 text-sm font-medium text-white shadow-sm transition hover:bg-[#c86832]"
+              className="h-[46px] rounded-full bg-[#FFE7C3] text-[#512D26] px-5 text-sm font-semibold shadow-sm transition hover:bg-[#f7d89b]"
             >
               Search
             </button>
             <button
               type="button"
               onClick={handleClearFilters}
-              className="h-[46px] rounded-full border border-[#d7b99c]/60 bg-transparent px-4 text-sm font-medium text-[#f6e6d6] transition hover:bg-white/5"
+              className="h-[46px] rounded-full border border-[#FFE7C3] bg-transparent px-4 text-sm font-semibold text-[#FFE7C3] transition hover:bg-[#FFE7C3] hover:text-[#512D26]"
             >
               Clear
             </button>

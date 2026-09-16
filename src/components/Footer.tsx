@@ -138,7 +138,7 @@ const SOCIALS = [
 
 export default function Footer() {
   return (
-    <footer className="bg-gradient-to-b from-red-950 to-red-900 pt-14 pb-8 px-8">
+    <footer className="bg-gradient-to-b from-red-950 to-red-900 pt-12 md:pt-14 pb-8 px-4 sm:px-6 md:px-8">
       <div className="max-w-[1400px] mx-auto grid grid-cols-2 md:grid-cols-5 gap-10">
         {/* Logo */}
         <div className="col-span-2 md:col-span-1">

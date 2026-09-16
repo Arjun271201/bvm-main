@@ -4,6 +4,7 @@ import React, { useState, useMemo, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { Search, Play, CalendarDays, Video, ChevronDown, Clock, Globe } from 'lucide-react'
+import { SetBreadcrumbs } from '@/components/BreadcrumbContext'
 
 type VideoDoc = {
   id: string
@@ -201,6 +202,7 @@ export default function LanguageVideosClient({
   const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const slug = e.target.value
     setSelectedLanguage(slug)
+    router.push(`/videos/language/${slug}`)
   }
 
   const activeLanguageDoc = languages.find((l) => l.slug === selectedLanguage)
@@ -217,17 +219,12 @@ export default function LanguageVideosClient({
 
   return (
     <div className="w-full">
-      <div className="mb-5 text-[11px] font-medium uppercase tracking-[0.2em] text-[#d5aa6d]">
-        <Link href="/" className="hover:text-[#f1c98d]">
-          Home
-        </Link>{' '}
-        /{' '}
-        <Link href="/videos" className="hover:text-[#f1c98d]">
-          Videos
-        </Link>{' '}
-        / <span className="text-white">{displayLanguageTitle}</span>
-      </div>
-
+      <SetBreadcrumbs
+        items={[
+          { label: 'VIDEOS', href: '/videos' },
+          { label: displayLanguageTitle.toUpperCase() },
+        ]}
+      />
       <div className="relative mb-8 overflow-hidden rounded-[22px] border border-[#d9b785]/30 bg-[radial-gradient(circle_at_top_left,_rgba(187,105,33,0.68),_rgba(40,24,17,0.98)_48%,_rgba(19,13,9,1)_100%)] shadow-[0_25px_60px_rgba(0,0,0,0.35)]">
         <div className="grid md:grid-cols-[330px_minmax(0,1fr)]">
           <div className="relative min-h-[220px] bg-[#24160f] md:min-h-[280px]">

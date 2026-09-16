@@ -814,6 +814,7 @@ export interface Homepage {
   sectionHeadings?: {
     explore?: string | null;
     latestUploads?: string | null;
+    featuredVideos?: string | null;
     featuredSongs?: string | null;
     featuredBooks?: string | null;
     courses?: string | null;
@@ -861,6 +862,7 @@ export interface HomepageSelect<T extends boolean = true> {
     | {
         explore?: T;
         latestUploads?: T;
+        featuredVideos?: T;
         featuredSongs?: T;
         featuredBooks?: T;
         courses?: T;

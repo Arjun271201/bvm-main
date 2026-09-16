@@ -3,8 +3,8 @@ import { getPayload } from 'payload'
 import React from 'react'
 import Hero from '@/components/Hero'
 import ExploreBVM from '@/components/ExploreBVM'
-import LatestUploads from '@/components/LatestUploads'
 import FeaturedSongs from '@/components/FeaturedSongs'
+import FeaturedVideos from '@/components/FeaturedVideos'
 import CoursesSection from '@/components/Courses'
 import FeaturedBooks from '@/components/FeaturedBooks'
 import SupportBVM from '@/components/SupportBVM'
@@ -25,7 +25,7 @@ export default async function HomePage() {
     <div className="home">
       <Hero />
       <ExploreBVM heading={headings.explore ?? undefined} />
-      <LatestUploads heading={headings.latestUploads ?? undefined} />
+      <FeaturedVideos heading={headings.featuredVideos || 'Featured Videos'} />
       <FeaturedSongs heading={headings.featuredSongs ?? undefined} />
       <FeaturedBooks heading={headings.featuredBooks ?? undefined} />
       <CoursesSection heading={headings.courses ?? undefined} />

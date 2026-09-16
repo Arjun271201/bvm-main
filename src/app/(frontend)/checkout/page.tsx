@@ -124,7 +124,7 @@ export default function CheckoutPage() {
       <button
         onClick={handlePayment}
         disabled={loading || !name || !email || !phone}
-        className="w-full bg-gradient-to-r from-purple-400 to-yellow-100 text-stone-900 font-medium py-3 rounded-full disabled:opacity-50"
+        className="w-full bg-[#FFE7C3] text-[#512D26] font-semibold py-3 rounded-full hover:bg-[#f7d89b] transition-colors disabled:opacity-50"
       >
         {loading ? 'Processing...' : `Pay ₹${total}`}
       </button>

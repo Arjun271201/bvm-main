@@ -1,6 +1,6 @@
 'use client'
 
-import { Pause, Play } from 'lucide-react'
+import { FastForward, Pause, Play, Rewind } from 'lucide-react'
 import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 import type { ChangeEvent } from 'react'
@@ -66,39 +66,37 @@ export default function FeaturedSongCard({ id, title, coverUrl, audioUrl, durati
     setCurrentTime(nextTime)
   }
 
+  const skipTime = (seconds: number) => {
+    const audio = audioRef.current
+    if (!audio) return
+    const nextTime = Math.max(0, Math.min(duration || 0, audio.currentTime + seconds))
+    audio.currentTime = nextTime
+    setCurrentTime(nextTime)
+  }
+
   const progressMax = duration > 0 ? duration : 1
   const displayDuration = duration > 0 ? formatTime(duration) : durationLabel || '0:00'
 
   return (
-    <article className="w-full overflow-hidden rounded-xl bg-stone-900">
+    <article className="group w-full overflow-hidden rounded-xl bg-[#3a0a0a] flex flex-col justify-between h-full">
       <div className="relative aspect-[16/9] overflow-hidden bg-black">
-        {coverUrl && <img src={coverUrl} alt={title} className="h-full w-full object-cover" />}
-        {audioUrl ? (
-          <button
-            type="button"
-            aria-label={isPlaying ? `Pause ${title}` : `Play ${title}`}
-            onClick={togglePlayback}
-            className="absolute left-3 top-3 text-white/90 transition-colors hover:text-yellow-400"
-          >
-            {isPlaying ? (
-              <Pause size={22} fill="currentColor" />
-            ) : (
-              <Play size={22} fill="currentColor" />
-            )}
-          </button>
-        ) : (
-          <span className="absolute left-3 top-3 text-xl text-white/90" aria-hidden="true">
-            ♪
-          </span>
+        {coverUrl && (
+          <img
+            src={coverUrl}
+            alt={title}
+            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+          />
         )}
       </div>
-      <div className="min-h-[94px] p-4">
-        <Link href={`/songs/${id}`} className="block text-white font-medium hover:text-yellow-400">
-          <h3>{title}</h3>
+      <div className="p-3 flex flex-col flex-1 justify-between">
+        <Link href={`/songs/${id}`} className="block text-white font-medium group-hover:text-yellow-400 transition-colors duration-200 line-clamp-1 mb-1.5">
+          <h3 className="text-sm font-semibold">{title}</h3>
         </Link>
-        {audioUrl && (
-          <div className="mt-2">
+        {audioUrl ? (
+          <div className="mt-auto">
             <audio ref={audioRef} preload="metadata" src={audioUrl} />
+
+            {/* Progress Bar */}
             <input
               type="range"
               min="0"
@@ -107,13 +105,51 @@ export default function FeaturedSongCard({ id, title, coverUrl, audioUrl, durati
               value={Math.min(currentTime, progressMax)}
               onChange={handleSeek}
               aria-label={`Seek ${title}`}
-              className="h-1 w-full cursor-pointer accent-yellow-500"
+              className="h-1 w-full cursor-pointer accent-yellow-500 rounded-lg"
             />
-            <div className="mt-1 flex justify-between text-[10px] text-white/70">
+
+            {/* Time labels */}
+            <div className="mt-0.5 flex justify-between text-[10px] text-stone-300 font-mono">
               <span>{formatTime(currentTime)}</span>
               <span>{displayDuration}</span>
             </div>
+
+            {/* Audio Controls (Rewind, Play/Pause, Fast Forward) */}
+            <div className="mt-2 flex items-center justify-center gap-6 text-white">
+              <button
+                type="button"
+                aria-label="Skip back 10 seconds"
+                onClick={() => skipTime(-10)}
+                className="text-white hover:text-yellow-400 transition-colors p-1"
+              >
+                <Rewind size={18} fill="currentColor" />
+              </button>
+
+              <button
+                type="button"
+                aria-label={isPlaying ? `Pause ${title}` : `Play ${title}`}
+                onClick={togglePlayback}
+                className="text-white hover:text-yellow-400 hover:scale-110 transition-all p-1"
+              >
+                {isPlaying ? (
+                  <Pause size={20} fill="currentColor" />
+                ) : (
+                  <Play size={20} fill="currentColor" />
+                )}
+              </button>
+
+              <button
+                type="button"
+                aria-label="Skip forward 10 seconds"
+                onClick={() => skipTime(10)}
+                className="text-white hover:text-yellow-400 transition-colors p-1"
+              >
+                <FastForward size={18} fill="currentColor" />
+              </button>
+            </div>
           </div>
+        ) : (
+          <div className="mt-auto text-xs text-stone-400 italic">No audio preview</div>
         )}
       </div>
     </article>

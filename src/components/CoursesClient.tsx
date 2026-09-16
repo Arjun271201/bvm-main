@@ -17,21 +17,29 @@ export default function CoursesClient({ courses }: { courses: any[] }) {
           <a
             key={course.id}
             href={`/courses/${course.id}`}
-            className="group relative block aspect-[16/9] w-full overflow-hidden rounded-xl bg-stone-900"
+            className="group flex flex-col overflow-hidden rounded-xl bg-[#3a0a0a] h-full"
           >
-            {thumbUrl && (
-              <img
-                src={thumbUrl}
-                alt={course.title}
-                className="absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-              />
-            )}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-black/10" />
-            <div className="absolute right-3 top-3 rounded-full bg-white/95 px-2.5 py-1 text-xs font-medium text-stone-900">
-              {lessonCount} Lessons
+            <div className="relative aspect-[16/9] w-full overflow-hidden bg-black">
+              {thumbUrl && (
+                <img
+                  src={thumbUrl}
+                  alt={course.title}
+                  className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+              )}
+              <div className="absolute right-3 top-3 rounded-full bg-white/95 px-2.5 py-1 text-xs font-medium text-stone-900 shadow">
+                {lessonCount} Lessons
+              </div>
             </div>
-            <div className="absolute bottom-0 left-0 right-0 p-4">
-              <h3 className="text-sm font-medium leading-snug text-white">{course.title}</h3>
+            <div className="p-4 flex flex-col flex-1 min-h-[94px]">
+              <h3 className="text-sm font-semibold text-white group-hover:text-yellow-400 line-clamp-1 mb-1">
+                {course.title}
+              </h3>
+              {course.description && (
+                <p className="text-xs text-stone-300 line-clamp-2 leading-relaxed">
+                  {course.description}
+                </p>
+              )}
             </div>
           </a>
         )

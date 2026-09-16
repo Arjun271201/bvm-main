@@ -24,7 +24,7 @@ export default function SupportBVM({
           <div className="mt-5 flex justify-center">
             <a
               href="/support"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#d76d2d] px-6 py-2 text-xs font-semibold text-white shadow-[0_4px_14px_rgba(215,109,45,0.3)] transition hover:bg-[#c9632a] sm:text-sm"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#FFE7C3] px-6 py-2 text-xs font-semibold text-[#512D26] shadow-md transition hover:bg-[#f7d89b] sm:text-sm"
             >
               <span>Support Us</span>
               <span aria-hidden="true">→</span>
@@ -36,72 +36,71 @@ export default function SupportBVM({
   }
 
   return (
-    <section className="bg-[#2c0002] py-14 px-8">
+    <section className="bg-[#2c0002] py-[25px] px-4 sm:px-6 md:px-8">
       <div className="max-w-[1400px] mx-auto">
         <h2 className="text-white text-2xl font-semibold mb-6">{heading}</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* One-Time */}
-          <div className="bg-stone-200 rounded-xl p-7 text-stone-900 flex flex-col h-full">
-            <h3 className="text-xl font-semibold mb-5">One - Time Support</h3>
-            <div className="grid grid-cols-4 gap-2 mb-6">
+          {/* One-Time Support Card */}
+          <div className="bg-[#FFE7C3] rounded-2xl p-7 flex flex-col justify-between h-full shadow-lg text-center">
+            <h3 className="text-2xl font-bold text-[#421d18] mb-6">One - Time Support</h3>
+            <div className="grid grid-cols-4 gap-3 mb-8">
               {oneTime.map((amt) => (
-                <button
+                <a
                   key={amt}
-                  className="border border-stone-400 rounded-lg py-2 text-sm hover:bg-white"
+                  href={`/support?amount=${amt}&type=one-time#one-time-support`}
+                  className="bg-white text-[#421d18] font-medium text-base py-3 rounded-xl shadow-sm hover:bg-[#421d18] hover:text-yellow-400 transition-all duration-200 cursor-pointer text-center block"
                 >
                   ₹{amt}
-                </button>
+                </a>
               ))}
             </div>
-            <form action="/api/donations" method="POST" className="mt-auto">
-              <input type="hidden" name="donationType" value="one-time" />
-              <button
-                type="submit"
-                className="w-full bg-purple-700 text-white rounded-full py-2.5 hover:bg-purple-800"
-              >
-                Donate Now
-              </button>
-            </form>
+            <a
+              href="/support#one-time-support"
+              className="block text-center w-full bg-[#421d18] text-white font-semibold rounded-2xl py-3.5 hover:bg-[#2c0002] hover:text-yellow-400 transition-all duration-200 shadow-md text-base cursor-pointer mt-auto"
+            >
+              Donate Now
+            </a>
           </div>
 
-          {/* Monthly */}
-          <div className="bg-stone-200 rounded-xl p-7 text-stone-900 flex flex-col h-full">
-            <h3 className="text-xl font-semibold mb-5">Monthly - Support</h3>
-            <div className="grid grid-cols-4 gap-2 mb-6">
+          {/* Monthly Support Card */}
+          <div className="bg-[#FFE7C3] rounded-2xl p-7 flex flex-col justify-between h-full shadow-lg text-center">
+            <h3 className="text-2xl font-bold text-[#421d18] mb-6">Monthly - Support</h3>
+            <div className="grid grid-cols-4 gap-3 mb-8">
               {monthly.map((amt) => (
-                <button
+                <a
                   key={amt}
-                  className="border border-stone-400 rounded-lg py-2 text-sm hover:bg-white"
+                  href={`/support?amount=${amt}&type=monthly`}
+                  className="bg-white text-[#421d18] font-medium text-base py-3 rounded-xl shadow-sm hover:bg-[#421d18] hover:text-yellow-400 transition-all duration-200 cursor-pointer text-center block"
                 >
                   ₹{amt}
-                </button>
+                </a>
               ))}
             </div>
-            <form action="/api/donations" method="POST" className="mt-auto">
-              <input type="hidden" name="donationType" value="monthly" />
-              <button
-                type="submit"
-                className="w-full bg-purple-700 text-white rounded-full py-2.5 hover:bg-purple-800"
-              >
-                Join Monthly Support
-              </button>
-            </form>
+            <a
+              href="/support"
+              className="block text-center w-full bg-[#421d18] text-white font-semibold rounded-2xl py-3.5 hover:bg-[#2c0002] hover:text-yellow-400 transition-all duration-200 shadow-md text-base cursor-pointer mt-auto"
+            >
+              Join Monthly Support
+            </a>
           </div>
 
-          {/* Special Project */}
-          <div className="bg-stone-200 rounded-xl p-7 text-stone-900 flex flex-col h-full">
-            <h3 className="text-xl font-semibold mb-4">Support a Special Project</h3>
-            <ul className="mb-6 space-y-2">
+          {/* Special Projects Card */}
+          <div className="bg-[#FFE7C3] rounded-2xl p-7 flex flex-col justify-between h-full shadow-lg text-center">
+            <h3 className="text-2xl font-bold text-[#421d18] mb-6">Support a Special Project</h3>
+            <ul className="mb-8 space-y-3 text-left">
               {specialProjects.map((p) => (
-                <li key={p} className="flex items-center gap-2 text-sm">
-                  <span className="w-1.5 h-1.5 rounded-full bg-purple-700" />
+                <li
+                  key={p}
+                  className="flex items-center gap-2.5 text-base font-semibold text-[#421d18]"
+                >
+                  <span className="w-2 h-2 rounded-full bg-[#421d18]" />
                   {p}
                 </li>
               ))}
             </ul>
             <a
-              href="/support/projects"
-              className="block text-center w-full bg-purple-700 text-white rounded-full py-2.5 hover:bg-purple-800 mt-auto"
+              href="/support"
+              className="block text-center w-full bg-[#421d18] text-white font-semibold rounded-2xl py-3.5 hover:bg-[#2c0002] hover:text-yellow-400 transition-all duration-200 mt-auto shadow-md text-base cursor-pointer"
             >
               Explore
             </a>

@@ -19,13 +19,13 @@ export default function SupportBVM() {
             {oneTimeAmounts.map((amt) => (
               <button
                 key={amt}
-                className="border border-[#EEE1D0] text-[#241711] text-sm px-4 py-1.5 rounded-md hover:border-[#D9784A] transition-colors"
+                className="border border-[#EEE1D0] text-[#241711] text-sm px-4 py-1.5 rounded-md hover:bg-[#512D26] hover:text-yellow-400 transition-all duration-200 cursor-pointer"
               >
                 {amt}
               </button>
             ))}
           </div>
-          <button className="w-full bg-[#D9784A] hover:bg-[#c96b3f] text-white text-sm font-medium py-2.5 rounded-md transition-colors">
+          <button className="w-full bg-[#FFE7C3] hover:bg-[#512D26] text-[#512D26] hover:text-yellow-400 text-sm font-semibold py-2.5 rounded-md transition-all duration-200 cursor-pointer">
             Donate Now
           </button>
         </div>
@@ -41,13 +41,13 @@ export default function SupportBVM() {
             {monthlyAmounts.map((amt) => (
               <button
                 key={amt}
-                className="border border-[#EEE1D0] text-[#241711] text-sm px-4 py-1.5 rounded-md hover:border-[#6E2027] transition-colors"
+                className="border border-[#EEE1D0] text-[#241711] text-sm px-4 py-1.5 rounded-md hover:bg-[#512D26] hover:text-yellow-400 transition-all duration-200 cursor-pointer"
               >
                 {amt}
               </button>
             ))}
           </div>
-          <button className="w-full bg-[#6E2027] hover:bg-[#5c1a20] text-white text-sm font-medium py-2.5 rounded-md transition-colors">
+          <button className="w-full bg-[#FFE7C3] hover:bg-[#512D26] text-[#512D26] hover:text-yellow-400 text-sm font-semibold py-2.5 rounded-md transition-all duration-200 cursor-pointer">
             Join Monthly Support
           </button>
         </div>
@@ -63,7 +63,7 @@ export default function SupportBVM() {
               </li>
             ))}
           </ul>
-          <button className="w-full border border-[#D9784A] text-[#D9784A] text-sm font-medium py-2.5 rounded-md hover:bg-[#D9784A] hover:text-white transition-colors">
+          <button className="w-full bg-[#FFE7C3] hover:bg-[#512D26] text-[#512D26] hover:text-yellow-400 text-sm font-semibold py-2.5 rounded-md transition-all duration-200 cursor-pointer">
             Explore
           </button>
         </div>

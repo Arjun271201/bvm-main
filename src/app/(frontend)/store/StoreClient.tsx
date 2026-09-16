@@ -20,14 +20,14 @@ type Props = {
 }
 
 const CATEGORY_CARDS = [
-  { id: 'all', name: 'Books', count: 120, icon: '📚' },
-  { id: 'bhagavad-gita', name: 'Bhagavad Gita', count: 45, icon: '📜' },
-  { id: 'srimad-bhagavatam', name: 'Srimad Bhagavatam', count: 120, icon: '📖' },
-  { id: 'teaching', name: 'Teaching Materials', count: 15, icon: '🎓' },
-  { id: 'festival', name: 'Festival Items', count: 30, icon: '🪔' },
+  { id: 'all', name: 'Books', count: 120, icon: '📖' },
+  { id: 'bhagavad-gita', name: 'Bhagavad Gita', count: 45, icon: '🪔' },
+  { id: 'srimad-bhagavatam', name: 'Srimad Bhagavatam', count: 120, icon: '📜' },
+  { id: 'teaching', name: 'Teaching Materials', count: 15, icon: '🪷' },
+  { id: 'festival', name: 'Festival Items', count: 30, icon: '🔔' },
   { id: 'posters', name: 'Posters', count: 65, icon: '🖼️' },
   { id: 'devotional', name: 'Devotional Items', count: 55, icon: '📿' },
-  { id: 'digital', name: 'Digital Books', count: 0, icon: '📱', tag: 'SOON' },
+  { id: 'digital', name: 'Digital Books', count: 0, icon: '✨', tag: 'SOON' },
 ]
 
 export default function StoreClient({ products }: Props) {
@@ -113,14 +113,13 @@ export default function StoreClient({ products }: Props) {
 
   return (
     <div className="min-h-screen bg-[#2c0002] text-stone-200 pb-20">
-      
       {/* 1. Hero Section */}
-      <section className="relative bg-gradient-to-b from-[#3d0003] via-[#2c0002] to-[#2c0002] border-b border-red-950/80 pt-12 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
+      <section className="relative bg-[#2c0002] border-b border-red-950/80 pt-8 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
         {/* Background Ambient Glow & Overlay */}
-        <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#d97706_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none" />
-        <div className="absolute -top-24 -right-24 w-96 h-96 bg-amber-600/10 rounded-full blur-3xl pointer-events-none" />
+        {/* <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#d97706_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none" />
+        <div className="absolute -top-24 -right-24 w-96 h-96 bg-amber-600/10 rounded-full blur-3xl pointer-events-none" /> */}
 
-        <div className="max-w-6xl mx-auto relative z-10">
+        <div className="max-w-[1400px] mx-auto relative z-10">
           <div className="max-w-2xl">
             {/* Tag */}
             <div className="inline-block bg-amber-500/10 border border-amber-500/20 px-3 py-1 rounded-full text-xs font-bold text-amber-400 uppercase tracking-widest mb-4">
@@ -142,13 +141,13 @@ export default function StoreClient({ products }: Props) {
             <div className="flex gap-3 mb-10">
               <a
                 href="#products-grid"
-                className="bg-[#9a3e1b] hover:bg-[#b4481e] text-white font-bold py-2.5 px-6 rounded-xl text-sm transition-all shadow-lg hover:shadow-amber-950/40 cursor-pointer"
+                className="bg-[#FFE7C3] hover:bg-[#f7d89b] text-[#512D26] font-semibold py-2.5 px-6 rounded-xl text-sm transition-all shadow-lg cursor-pointer"
               >
                 Browse Books
               </a>
               <a
                 href="#products-grid"
-                className="border border-stone-700 bg-stone-900/60 hover:bg-stone-800 text-stone-200 font-medium py-2.5 px-6 rounded-xl text-sm transition-colors cursor-pointer"
+                className="border border-[#FFE7C3] text-[#FFE7C3] hover:bg-[#FFE7C3] hover:text-[#512D26] font-semibold py-2.5 px-6 rounded-xl text-sm transition-colors cursor-pointer"
               >
                 Shop Now
               </a>
@@ -157,7 +156,9 @@ export default function StoreClient({ products }: Props) {
             {/* Stats Row */}
             <div className="grid grid-cols-3 gap-6 pt-6 border-t border-stone-800/80 max-w-lg">
               <div>
-                <span className="text-2xl font-extrabold text-amber-400 block font-serif">1,200+</span>
+                <span className="text-2xl font-extrabold text-amber-400 block font-serif">
+                  1,200+
+                </span>
                 <span className="text-xs text-stone-400">Titles</span>
               </div>
               <div>
@@ -165,7 +166,9 @@ export default function StoreClient({ products }: Props) {
                 <span className="text-xs text-stone-400">Languages</span>
               </div>
               <div>
-                <span className="text-2xl font-extrabold text-amber-400 block font-serif">Free</span>
+                <span className="text-2xl font-extrabold text-amber-400 block font-serif">
+                  Free
+                </span>
                 <span className="text-xs text-stone-400">Shipping ₹500+</span>
               </div>
             </div>
@@ -173,8 +176,7 @@ export default function StoreClient({ products }: Props) {
         </div>
       </section>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
-        
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-10">
         {/* 2. Browse By Category Section */}
         <section className="mb-12">
           <h2 className="text-xs font-bold text-amber-400 uppercase tracking-widest mb-4">
@@ -214,7 +216,6 @@ export default function StoreClient({ products }: Props) {
 
         {/* 3. Products Section & Controls */}
         <section id="products-grid" className="space-y-6">
-          
           {/* Header Row: All Products & Grid Switcher */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-stone-800">
             <div>
@@ -231,7 +232,9 @@ export default function StoreClient({ products }: Props) {
                   type="button"
                   onClick={() => setViewMode('grid')}
                   className={`p-1.5 rounded transition-colors ${
-                    viewMode === 'grid' ? 'bg-stone-800 text-amber-400' : 'text-stone-400 hover:text-stone-200'
+                    viewMode === 'grid'
+                      ? 'bg-stone-800 text-amber-400'
+                      : 'text-stone-400 hover:text-stone-200'
                   }`}
                   title="Grid View"
                 >
@@ -243,12 +246,18 @@ export default function StoreClient({ products }: Props) {
                   type="button"
                   onClick={() => setViewMode('list')}
                   className={`p-1.5 rounded transition-colors ${
-                    viewMode === 'list' ? 'bg-stone-800 text-amber-400' : 'text-stone-400 hover:text-stone-200'
+                    viewMode === 'list'
+                      ? 'bg-stone-800 text-amber-400'
+                      : 'text-stone-400 hover:text-stone-200'
                   }`}
                   title="List View"
                 >
                   <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" />
+                    <path
+                      fillRule="evenodd"
+                      d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                      clipRule="evenodd"
+                    />
                   </svg>
                 </button>
               </div>
@@ -337,7 +346,7 @@ export default function StoreClient({ products }: Props) {
               )}
               <button
                 type="button"
-                className="bg-[#9a3e1b] hover:bg-[#b4481e] text-white text-xs font-bold py-1.5 px-4 rounded-lg transition-colors cursor-pointer"
+                className="bg-[#FFE7C3] hover:bg-[#f7d89b] text-[#512D26] text-xs font-semibold py-1.5 px-4 rounded-lg transition-colors cursor-pointer"
               >
                 Apply Filters
               </button>
@@ -464,9 +473,7 @@ export default function StoreClient({ products }: Props) {
                     {/* Price & Add to Cart Button */}
                     <div className="pt-2 border-t border-stone-800/80 mt-1 space-y-2">
                       <div className="flex items-baseline gap-1.5">
-                        <span className="text-sm font-extrabold text-amber-400">
-                          ₹{p.price}
-                        </span>
+                        <span className="text-sm font-extrabold text-amber-400">₹{p.price}</span>
                         {comparePriceVal && (
                           <span className="text-stone-500 line-through text-[11px]">
                             ₹{comparePriceVal}
@@ -486,9 +493,14 @@ export default function StoreClient({ products }: Props) {
                           })
                           setIsOpen(true)
                         }}
-                        className="w-full bg-[#853516] hover:bg-[#9a3e1b] text-white font-bold py-2 rounded-lg text-[11px] flex items-center justify-center gap-1.5 transition-all shadow cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="w-full bg-[#FFE7C3] hover:bg-[#f7d89b] text-[#512D26] font-semibold py-2 rounded-lg text-[11px] flex items-center justify-center gap-1.5 transition-all shadow cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                       >
-                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg
+                          className="w-3.5 h-3.5"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
                           <path
                             strokeLinecap="round"
                             strokeLinejoin="round"

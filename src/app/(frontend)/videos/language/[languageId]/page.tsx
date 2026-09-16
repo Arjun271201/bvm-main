@@ -35,11 +35,13 @@ export default async function LanguageVideosPage({ params, searchParams }: Props
         sort: 'name',
         limit: 1000,
       }),
-      payload.find({
-        collection: 'languages',
-        where: { slug: { equals: languageId } },
-        limit: 1,
-      }),
+      languageId === 'all'
+        ? Promise.resolve({ docs: [{ id: 'all', title: 'All Languages', slug: 'all', image: undefined }] })
+        : payload.find({
+            collection: 'languages',
+            where: { slug: { equals: languageId } },
+            limit: 1,
+          }),
     ],
   )
 
@@ -125,28 +127,55 @@ export default async function LanguageVideosPage({ params, searchParams }: Props
   }
 
   return (
-    <main className="min-h-screen bg-[#2c0002] px-4 py-6 text-white md:px-8 lg:px-10">
-      <div className="mx-auto max-w-[1280px]">
+    <main className="min-h-screen bg-[#2c0002] px-3 py-7 text-white sm:px-6 md:px-10 lg:px-14">
+      <div className="mx-auto max-w-[1400px]">
         <LanguageVideosClient
-          initialVideos={videos.map((video: any) => ({
-            id: String(video.id),
-            title: video.title,
-            description: video.description,
-            thumbnail: video.thumbnail,
-            videoType: video.videoType || 'youtube',
-            youtubeUrl: video.youtubeUrl,
-            videoFile: video.videoFile,
-            duration: video.duration,
-            publishedDate: video.publishedDate,
-            featured: Boolean(video.featured),
-            category: normalizeVideoValue(video.category),
-            channel: normalizeVideoValue(video.channel),
-            languageSlug: typeof video.languageCategory === 'object' ? video.languageCategory?.slug : language.slug,
-            languageTitle:
-              (typeof video.languageCategory === 'object' && (video.languageCategory?.title || video.languageCategory?.name)) ||
-              languages.find((l: any) => l.id === (typeof video.languageCategory === 'object' ? video.languageCategory?.id : video.languageCategory))?.title ||
-              language.title,
-          }))}
+          initialVideos={videos.map((video: any) => {
+            const matchedLang =
+              typeof video.languageCategory === 'object' && video.languageCategory
+                ? languages.find(
+                    (l: any) =>
+                      l.slug === video.languageCategory?.slug ||
+                      String(l.id) === String(video.languageCategory?.id),
+                  ) || video.languageCategory
+                : languages.find(
+                    (l: any) =>
+                      String(l.id) === String(video.languageCategory) ||
+                      l.slug === String(video.languageCategory),
+                  )
+
+            const languageSlug =
+              matchedLang?.slug ||
+              (typeof video.languageCategory === 'object'
+                ? video.languageCategory?.slug
+                : undefined) ||
+              (language.slug !== 'all' ? language.slug : undefined)
+
+            const languageTitle =
+              matchedLang?.title ||
+              matchedLang?.name ||
+              (typeof video.languageCategory === 'object'
+                ? video.languageCategory?.title || video.languageCategory?.name
+                : undefined) ||
+              (language.title !== 'All Languages' ? language.title : undefined)
+
+            return {
+              id: String(video.id),
+              title: video.title,
+              description: video.description,
+              thumbnail: video.thumbnail,
+              videoType: video.videoType || 'youtube',
+              youtubeUrl: video.youtubeUrl,
+              videoFile: video.videoFile,
+              duration: video.duration,
+              publishedDate: video.publishedDate,
+              featured: Boolean(video.featured),
+              category: normalizeVideoValue(video.category),
+              channel: normalizeVideoValue(video.channel),
+              languageSlug,
+              languageTitle,
+            }
+          })}
           languages={languages.map((lang: any) => ({
             id: String(lang.id),
             title: lang.title,

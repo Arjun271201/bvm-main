@@ -86,7 +86,7 @@ export default function VideoCarousel({ videos }: { videos: Video[] }) {
           <a
             key={video.id}
             href={`/videos/${video.id}`}
-            className="group flex-shrink-0 snap-start overflow-hidden rounded-xl bg-stone-900 md:w-[calc((100%_-_60px)_/_4)] w-[calc((100%_-_20px)_/_2)]"
+            className="group flex-shrink-0 snap-start overflow-hidden rounded-xl bg-[#3a0a0a] md:w-[calc((100%_-_60px)_/_4)] w-[calc((100%_-_20px)_/_2)]"
           >
             <div className="relative aspect-[16/9] overflow-hidden bg-black">
               {video.thumbUrl && (
@@ -105,7 +105,7 @@ export default function VideoCarousel({ videos }: { videos: Video[] }) {
               </div>
             </div>
             <div className="min-h-[112px] p-4">
-              <h3 className="mb-1 line-clamp-1 font-medium text-white">{video.title}</h3>
+              <h3 className="mb-1 line-clamp-1 font-semibold text-white transition-colors duration-200 group-hover:text-yellow-400">{video.title}</h3>
               {video.description && (
                 <p className="line-clamp-2 text-sm text-stone-400">{video.description}</p>
               )}

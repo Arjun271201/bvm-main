@@ -19,37 +19,59 @@ export default async function VideosPage() {
     depth: 1,
   })
 
-  // Calculate video count for each language
+  // Calculate video count, latest video & channel count for each language
   const languagesWithCounts = languages
-    .map((language: any) => ({
-      ...language,
-      videoCount: videos.filter(
+    .map((language: any) => {
+      const langVideos = videos.filter(
         (video: any) =>
           (typeof video.languageCategory === 'object'
             ? video.languageCategory?.id
             : video.languageCategory) === language.id,
-      ).length,
-    }))
+      )
+      const latestVideo = langVideos[0]
+      const thumbUrl =
+        typeof latestVideo?.thumbnail === 'object' && latestVideo?.thumbnail?.url
+          ? latestVideo.thumbnail.url
+          : typeof language.image === 'object' && language.image?.url
+            ? language.image.url
+            : language.image
+
+      const videoCount = langVideos.length
+      const channelCount = language.channelCount ?? Math.max(1, Math.ceil(videoCount / 5))
+
+      return {
+        id: language.id,
+        title: language.title,
+        slug: language.slug,
+        image: thumbUrl,
+        videoCount,
+        channelCount,
+        latestVideoTitle: latestVideo?.title ? `Latest: ${latestVideo.title}` : 'Latest Upload',
+      }
+    })
     .filter((language: any) => language.videoCount > 0)
     .sort((a: any, b: any) => (a.order ?? 0) - (b.order ?? 0))
 
   return (
-    <main className="min-h-screen bg-[#2c0002] px-6 py-14 text-white md:px-10 lg:px-14">
-      <div className="mx-auto max-w-[1250px]">
+    <main className="min-h-screen bg-[#2c0002] px-3 py-7 text-white sm:px-6 md:px-10 lg:px-14">
+      <div className="mx-auto max-w-[1400px]">
         {/* Header */}
-        <div className="mb-14">
-          <p className="mb-3 text-xs font-medium uppercase tracking-[0.18em] text-yellow-500">
-            Home / Videos
-          </p>
-          <h1 className="text-4xl font-semibold tracking-tight md:text-5xl">Explore Videos</h1>
-          <p className="mt-4 max-w-2xl text-base text-stone-400">
-            Discover spiritual teachings, wisdom, and sacred stories. Select a language to explore
-            our collection of videos and start your journey.
+        <div className="mb-10">
+          <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl font-serif">
+            Choose Your Language
+          </h1>
+          <p className="mt-3 max-w-2xl text-sm sm:text-base text-stone-300">
+            Select a language to explore channels, playlists, and the latest video uploads.
           </p>
         </div>
 
-        {/* Language Cards */}
+        {/* Language Cards Grid */}
         <VideosLanguageCards languages={languagesWithCounts} />
+
+        {/* Footer Note */}
+        <div className="mt-16 text-center text-xs text-stone-400 font-medium tracking-wide">
+          More languages coming soon...
+        </div>
       </div>
     </main>
   )
