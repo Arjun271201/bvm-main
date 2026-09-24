@@ -116,7 +116,7 @@ export default async function SongDetailPage({ params }: Props) {
 
   return (
     <main className="min-h-screen bg-[#2c0002] px-4 py-8 text-white md:px-8 lg:px-10">
-      <div className="mx-auto max-w-[1280px]">
+      <div className="mx-auto max-w-[1400px]">
         <SongDetailClient song={formattedSong} relatedSongs={formattedRelatedSongs} />
       </div>
     </main>

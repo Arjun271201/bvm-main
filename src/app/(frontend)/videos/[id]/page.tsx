@@ -75,7 +75,9 @@ export default async function VideoDetailPage({ params }: Props) {
 
   const breadcrumbItems = [
     { label: 'VIDEOS', href: '/videos' },
-    ...(languageTitle ? [{ label: languageTitle.toUpperCase(), href: `/videos/language/${languageSlug}` }] : []),
+    ...(languageTitle
+      ? [{ label: languageTitle.toUpperCase(), href: `/videos/language/${languageSlug}` }]
+      : []),
     { label: video.title },
   ]
 
@@ -153,7 +155,7 @@ export default async function VideoDetailPage({ params }: Props) {
         </article>
 
         <aside className="rounded-2xl bg-stone-900/90 border border-white/10 p-5 shadow-2xl flex flex-col h-full min-h-0 overflow-hidden">
-          <h2 className="mb-4 text-xl font-semibold text-white border-b border-white/10 pb-3 flex items-center justify-between flex-shrink-0">
+          <h2 className="mb-4 text-xl font-semibold text-white pb-3 flex items-center justify-between flex-shrink-0">
             <span>More Videos</span>
             <span className="text-xs font-normal text-stone-400">{otherVideos.length} videos</span>
           </h2>

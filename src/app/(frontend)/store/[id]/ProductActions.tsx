@@ -65,7 +65,7 @@ export default function ProductActions({ id, title, price, image, inStock }: Pro
         </button>
         <button
           onClick={handleBuyNow}
-          className="flex-1 bg-[#FFE7C3] text-[#512D26] font-semibold py-3 rounded-full hover:bg-[#f7d89b] transition-colors"
+          className="flex-1 bg-[#FFE7C3] hover:bg-[#3a0a0a] text-[#512D26] hover:text-yellow-400 border border-transparent hover:border-yellow-400/60 font-semibold py-3 rounded-full transition-all duration-200"
         >
           Buy Now
         </button>

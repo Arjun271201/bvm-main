@@ -24,7 +24,7 @@ export default function SupportBVM({
           <div className="mt-5 flex justify-center">
             <a
               href="/support"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#FFE7C3] px-6 py-2 text-xs font-semibold text-[#512D26] shadow-md transition hover:bg-[#f7d89b] sm:text-sm"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#FFE7C3] hover:bg-[#3a0a0a] text-[#512D26] hover:text-yellow-400 border border-transparent hover:border-yellow-400/60 px-6 py-2 text-xs font-semibold shadow-md transition-all duration-200 sm:text-sm"
             >
               <span>Support Us</span>
               <span aria-hidden="true">→</span>

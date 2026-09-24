@@ -28,8 +28,8 @@ export default function Header() {
   const { breadcrumbs: customBreadcrumbs } = useBreadcrumb()
 
   return (
-    <div className="sticky top-0 z-50 relative w-full">
-      <header className="bg-[#2c0002]/70 backdrop-blur-md border-b border-stone-700/40">
+    <div className="sticky top-0 z-50 relative w-full bg-[#2c0002]/40 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
+      <header className="bg-transparent">
         <div className="max-w-[1400px] mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-8 py-3.5">
           {/* Logo */}
           <Link href="/" className="flex items-center">
@@ -44,7 +44,7 @@ export default function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-stone-100/85 text-sm font-medium hover:text-yellow-400 transition-colors"
+                className="text-stone-100/85 text-xs font-medium uppercase tracking-wide hover:text-yellow-400 transition-colors"
               >
                 {link.label}
               </Link>
@@ -193,7 +193,7 @@ export default function Header() {
               suppressHydrationWarning
               onClick={() => router.back()}
               aria-label="Go to previous page"
-              className="flex items-center justify-center w-8 h-8 rounded-full bg-[#3a0a0a]/90 hover:bg-[#4d0d0d] text-stone-300 hover:text-yellow-400 border border-stone-800/80 shadow-md backdrop-blur-sm transition-all duration-200 cursor-pointer active:scale-95"
+              className="flex items-center justify-center w-8 h-8 rounded-full bg-[#3a0a0a]/90 hover:bg-[#4d0d0d] text-amber-500/90 hover:text-yellow-400 border border-amber-800/50 shadow-md backdrop-blur-sm transition-all duration-200 cursor-pointer active:scale-95"
             >
               <ChevronLeft size={16} aria-hidden="true" />
             </button>
@@ -202,68 +202,80 @@ export default function Header() {
               suppressHydrationWarning
               onClick={() => router.forward()}
               aria-label="Go to next page"
-              className="flex items-center justify-center w-8 h-8 rounded-full bg-[#3a0a0a]/90 hover:bg-[#4d0d0d] text-stone-300 hover:text-yellow-400 border border-stone-800/80 shadow-md backdrop-blur-sm transition-all duration-200 cursor-pointer active:scale-95"
+              className="flex items-center justify-center w-8 h-8 rounded-full bg-[#3a0a0a]/90 hover:bg-[#4d0d0d] text-amber-500/90 hover:text-yellow-400 border border-amber-800/50 shadow-md backdrop-blur-sm transition-all duration-200 cursor-pointer active:scale-95"
             >
               <ChevronRight size={16} aria-hidden="true" />
             </button>
 
             {/* Dynamic Breadcrumb Tab for Inner Pages */}
             {!isHomePage && (
-              <div className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-amber-500/90 pl-2">
-                <Link href="/" className="hover:text-yellow-400 transition-colors">
+              <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-amber-500/90 pl-2">
+                <Link href="/" className="hover:text-yellow-400 transition-colors [text-shadow:0_0_1px_#1a0001,0_0_2px_#1a0001]">
                   HOME
                 </Link>
-                {customBreadcrumbs ? (
-                  customBreadcrumbs.map((item, idx) => (
-                    <React.Fragment key={item.label + idx}>
-                      <span className="text-stone-500">/</span>
-                      {item.href ? (
-                        <Link
-                          href={item.href}
-                          className={`hover:text-yellow-400 transition-colors ${
-                            idx === customBreadcrumbs.length - 1 ? 'text-amber-400 font-bold' : ''
-                          }`}
-                        >
-                          {item.label}
-                        </Link>
-                      ) : (
-                        <span
-                          className={
-                            idx === customBreadcrumbs.length - 1 ? 'text-amber-400 font-bold' : ''
-                          }
-                        >
-                          {item.label}
-                        </span>
-                      )}
-                    </React.Fragment>
-                  ))
-                ) : (
-                  pathname
-                    .split('/')
-                    .filter(Boolean)
-                    .filter((segment) => segment.toLowerCase() !== 'language')
-                    .map((segment, idx, arr) => {
-                      // Clean up segment text: replace hyphens with spaces, handle raw IDs cleanly
-                      let displayText = decodeURIComponent(segment).replace(/-/g, ' ')
-                      if (segment.length > 20 && !isNaN(Number(segment)) === false) {
-                        displayText = 'DETAILS'
-                      }
-
-                      return (
-                        <React.Fragment key={segment + idx}>
-                          <span className="text-stone-500">/</span>
+                {customBreadcrumbs
+                  ? customBreadcrumbs.map((item, idx) => (
+                      <React.Fragment key={item.label + idx}>
+                        <span className="text-stone-500">/</span>
+                        {item.href ? (
                           <Link
-                            href={`/${arr.slice(0, idx + 1).join('/')}`}
-                            className={`hover:text-yellow-400 transition-colors ${
-                              idx === arr.length - 1 ? 'text-amber-400 font-bold' : ''
+                            href={item.href}
+                            className={`hover:text-yellow-400 transition-colors [text-shadow:0_0_1px_#1a0001,0_0_2px_#1a0001] ${
+                              idx === customBreadcrumbs.length - 1 ? 'text-amber-400 font-bold' : ''
                             }`}
                           >
-                            {displayText}
+                            {item.label}
                           </Link>
-                        </React.Fragment>
-                      )
-                    })
-                )}
+                        ) : (
+                          <span
+                            className={`[text-shadow:0_0_1px_#1a0001,0_0_2px_#1a0001] ${
+                              idx === customBreadcrumbs.length - 1 ? 'text-amber-400 font-bold' : ''
+                            }`}
+                          >
+                            {item.label}
+                          </span>
+                        )}
+                      </React.Fragment>
+                    ))
+                  : pathname
+                      .split('/')
+                      .filter(Boolean)
+                      .filter((segment) => segment.toLowerCase() !== 'language')
+                      .map((segment, idx, arr) => {
+                        // Label map: rename URL segments to friendly names
+                        const labelMap: Record<string, string> = {
+                          songs: 'SONG LIBRARY',
+                          videos: 'VIDEO LIBRARY',
+                          store: 'STORE',
+                          courses: 'COURSES',
+                          downloads: 'DOWNLOADS',
+                          support: 'SUPPORT',
+                          about: 'ABOUT',
+                          interactive: 'INTERACTIVE',
+                        }
+                        let displayText =
+                          labelMap[segment.toLowerCase()] ||
+                          decodeURIComponent(segment).replace(/-/g, ' ').toUpperCase()
+
+                        // Replace numeric or long ID segments with 'DETAILS'
+                        if (/^\d+$/.test(segment) || (segment.length > 20 && /^[a-f0-9-]+$/i.test(segment))) {
+                          displayText = 'DETAILS'
+                        }
+
+                        return (
+                          <React.Fragment key={segment + idx}>
+                            <span className="text-stone-500">/</span>
+                            <Link
+                              href={`/${arr.slice(0, idx + 1).join('/')}`}
+                              className={`hover:text-yellow-400 transition-colors [text-shadow:0_0_1px_#1a0001,0_0_2px_#1a0001] ${
+                                idx === arr.length - 1 ? 'text-amber-400 font-bold' : ''
+                              }`}
+                            >
+                              {displayText}
+                            </Link>
+                          </React.Fragment>
+                        )
+                      })}
               </div>
             )}
           </div>

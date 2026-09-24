@@ -174,10 +174,10 @@ export default function SongDetailClient({ song, relatedSongs, categories = DEFA
       <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center">
         <button
           onClick={() => router.back()}
-          className="flex h-9 w-9 items-center justify-center rounded-full border border-[#d9b785]/30 bg-[#1b120d] text-[#e5c58d] transition hover:bg-[#281810]"
+          className="flex h-8 w-8 items-center justify-center rounded-full border border-amber-800/50 bg-[#3a0a0a]/90 text-amber-500/90 transition hover:bg-[#4d0d0d] hover:text-yellow-400 active:scale-95"
           aria-label="Go back"
         >
-          <ArrowLeft size={18} />
+          <ArrowLeft size={16} />
         </button>
 
         <div className="text-[11px] font-medium uppercase tracking-[0.18em] text-[#d5aa6d]">

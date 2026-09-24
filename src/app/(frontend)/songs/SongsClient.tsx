@@ -168,18 +168,30 @@ export default function SongsClient({
 
   return (
     <div className="w-full">
-      {/* Header Card */}
-      <div className="mb-8 overflow-hidden rounded-[30px] border border-white/10 bg-[#17130f] shadow-[0_24px_60px_rgba(0,0,0,0.28)]">
-        <div className="flex flex-col gap-8 px-6 py-8 md:px-10 lg:flex-row lg:items-end lg:justify-between lg:px-12 lg:py-10">
-          <div className="max-w-3xl">
-            <p className="mb-3 text-xs font-medium uppercase tracking-[0.20em] text-yellow-500">
-              Home / Songs
+      {/* Banner – same style as Videos/Language page */}
+      <div className="relative mb-8 overflow-hidden rounded-[22px] border border-[#d9b785]/30 bg-[radial-gradient(circle_at_top_left,_rgba(187,105,33,0.68),_rgba(40,24,17,0.98)_48%,_rgba(19,13,9,1)_100%)] shadow-[0_25px_60px_rgba(0,0,0,0.35)]">
+        <div className="grid md:grid-cols-[330px_minmax(0,1fr)]">
+          {/* Left: decorative image / icon panel */}
+          <div className="relative flex min-h-[180px] items-center justify-center bg-gradient-to-br from-[#3b1c0e] to-[#1a0e07] md:min-h-[240px]">
+            <div className="flex flex-col items-center justify-center gap-3 opacity-80">
+              <Music size={72} className="text-[#e5c58d]" />
+              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#d5aa6d]">
+                Song Library
+              </span>
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-r from-[#23140d]/40 via-[#23140d]/10 to-transparent" />
+          </div>
+
+          {/* Right: text content */}
+          <div className="flex flex-col justify-center px-6 py-8 md:px-10 md:py-10">
+            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#e5c58d]">
+              Sacred Sounds, Timeless Devotion
             </p>
-            <h1 className="text-4xl font-semibold tracking-tight text-white md:text-5xl">
+            <h1 className="text-3xl font-semibold leading-tight text-white md:text-5xl">
               Song Library
             </h1>
-            <p className="mt-4 max-w-xl text-base text-stone-300">
-              Browse devotional music by category and discover your next favourite song.
+            <p className="mt-4 max-w-xl text-sm text-[#f5e8d2]/80 md:text-base">
+              Browse {initialSongs.length} devotional songs — Kirtans, Mantras & Slokas.
             </p>
           </div>
         </div>
@@ -237,7 +249,7 @@ export default function SongsClient({
           <div className="flex items-center gap-2">
             <button
               type="submit"
-              className="h-[46px] rounded-full bg-[#FFE7C3] text-[#512D26] px-5 text-sm font-semibold shadow-sm transition hover:bg-[#f7d89b]"
+              className="h-[46px] rounded-full bg-[#FFE7C3] hover:bg-[#3a0a0a] text-[#512D26] hover:text-yellow-400 border border-transparent hover:border-yellow-400/60 px-5 text-sm font-semibold shadow-sm transition-all duration-200"
             >
               Search
             </button>

@@ -33,7 +33,7 @@ export default function FeaturedBooksClient({ products }: { products: any[] }) {
                 </span>
               )}
               <span
-                className={`absolute right-3 top-3 rounded-full px-2.5 py-1 text-[11px] font-semibold shadow-lg ${product.stock > 0 ? 'bg-emerald-400 text-stone-950' : 'bg-red-400 text-white'}`}
+                className="absolute right-3 top-3 rounded-md border border-[#c66a1a]/80 bg-[#2b0c05]/90 px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider text-[#f5c15c] shadow-lg backdrop-blur-sm"
               >
                 {product.stock > 0 ? `In Stock (${product.stock})` : 'Out of Stock'}
               </span>

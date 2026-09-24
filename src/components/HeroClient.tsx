@@ -59,7 +59,7 @@ export default function HeroClient({ slides }: { slides: Slide[] }) {
           {slide.ctaLabel && (
             <a
               href={slide.ctaLink || '#'}
-              className="group inline-flex items-center gap-2 bg-[#FFE7C3] text-[#512D26] font-semibold px-6 py-3 rounded-full hover:bg-[#512D26] hover:text-yellow-400 transition-colors duration-200"
+              className="group inline-flex items-center gap-2 bg-[#FFE7C3] hover:bg-[#3a0a0a] text-[#512D26] hover:text-yellow-400 border border-transparent hover:border-yellow-400/60 font-semibold px-6 py-3 rounded-full transition-all duration-200"
             >
               <span className="transition-colors duration-200">{slide.ctaLabel}</span>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" className="transition-colors duration-200">

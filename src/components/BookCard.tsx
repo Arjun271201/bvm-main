@@ -16,7 +16,7 @@ export default function BookCard({ id, title, price, image }: Props) {
   return (
     <button
       onClick={() => addItem({ id, title, price, image })}
-      className="w-full flex items-center justify-center gap-2 bg-[#FFE7C3] text-[#512D26] text-sm font-semibold py-2 rounded-full hover:bg-[#f7d89b] transition-colors"
+      className="w-full flex items-center justify-center gap-2 bg-[#FFE7C3] hover:bg-[#3a0a0a] text-[#512D26] hover:text-yellow-400 border border-transparent hover:border-yellow-400/60 text-sm font-semibold py-2 rounded-full transition-all duration-200"
     >
       Buy Now
       <svg

@@ -141,7 +141,7 @@ export default function StoreClient({ products }: Props) {
             <div className="flex gap-3 mb-10">
               <a
                 href="#products-grid"
-                className="bg-[#FFE7C3] hover:bg-[#f7d89b] text-[#512D26] font-semibold py-2.5 px-6 rounded-xl text-sm transition-all shadow-lg cursor-pointer"
+                className="bg-[#FFE7C3] hover:bg-[#3a0a0a] text-[#512D26] hover:text-yellow-400 border border-transparent hover:border-yellow-400/60 font-semibold py-2.5 px-6 rounded-xl text-sm transition-all shadow-lg cursor-pointer"
               >
                 Browse Books
               </a>
@@ -346,7 +346,7 @@ export default function StoreClient({ products }: Props) {
               )}
               <button
                 type="button"
-                className="bg-[#FFE7C3] hover:bg-[#f7d89b] text-[#512D26] text-xs font-semibold py-1.5 px-4 rounded-lg transition-colors cursor-pointer"
+                className="bg-[#FFE7C3] hover:bg-[#3a0a0a] text-[#512D26] hover:text-yellow-400 border border-transparent hover:border-yellow-400/60 text-xs font-semibold py-1.5 px-4 rounded-lg transition-all cursor-pointer"
               >
                 Apply Filters
               </button>
@@ -410,7 +410,7 @@ export default function StoreClient({ products }: Props) {
                         </a>
 
                         {/* Top-Left Badge */}
-                        <span className="absolute top-2 left-2 z-10 bg-amber-950/90 border border-amber-700/80 text-amber-300 text-[9px] font-bold px-1.5 py-0.5 rounded uppercase tracking-wider shadow backdrop-blur-sm">
+                        <span className="absolute top-2 left-2 z-10 rounded-md border border-[#c66a1a]/80 bg-[#2b0c05]/90 px-1.5 py-0.5 text-[9px] font-extrabold uppercase tracking-wider text-[#f5c15c] shadow backdrop-blur-sm">
                           {p.stock > 0 ? 'Bestseller' : 'Out of Stock'}
                         </span>
 
@@ -493,7 +493,7 @@ export default function StoreClient({ products }: Props) {
                           })
                           setIsOpen(true)
                         }}
-                        className="w-full bg-[#FFE7C3] hover:bg-[#f7d89b] text-[#512D26] font-semibold py-2 rounded-lg text-[11px] flex items-center justify-center gap-1.5 transition-all shadow cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="w-full bg-[#FFE7C3] hover:bg-[#3a0a0a] text-[#512D26] hover:text-yellow-400 border border-transparent hover:border-yellow-400/60 font-semibold py-2 rounded-lg text-[11px] flex items-center justify-center gap-1.5 transition-all shadow cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                       >
                         <svg
                           className="w-3.5 h-3.5"

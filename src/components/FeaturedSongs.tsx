@@ -23,7 +23,7 @@ export default async function FeaturedSongs({ heading = 'Featured Songs' }: { he
           <h2 className="text-white text-2xl font-semibold">{heading}</h2>
           <a
             href="/songs"
-            className="bg-[#FFE7C3] text-[#512D26] text-sm font-semibold rounded-full px-4 py-1.5 hover:bg-[#f7d89b] transition-colors"
+            className="bg-[#FFE7C3] hover:bg-[#3a0a0a] text-[#512D26] hover:text-yellow-400 border border-transparent hover:border-yellow-400/60 text-sm font-semibold rounded-full px-4 py-1.5 transition-all duration-200"
           >
             View All
           </a>

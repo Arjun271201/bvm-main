@@ -2,12 +2,14 @@
 
 @layer components {
   .btn-bvm {
-    background-color: #FFE7C3 !important;
-    color: #512D26 !important;
+    background-color: #FFE7C3;
+    color: #512D26;
+    border: 1px solid transparent;
     transition: all 0.2s ease-in-out;
   }
   .btn-bvm:hover {
-    background-color: #f7d89b !important;
-    color: #512D26 !important;
+    background-color: #3a0a0a !important;
+    color: #facc15 !important;
+    border-color: rgba(250, 204, 21, 0.6) !important;
   }
 }
