@@ -1,3 +1,12 @@
+--
+-- PostgreSQL database dump
+--
+
+\restrict WloUukzFyHy3pBVdtpDSiKTxm6aqDIlYWowUtdve8h0oK1CEj5OhpVXrfjYnT64
+
+-- Dumped from database version 18.6
+-- Dumped by pg_dump version 18.6
+
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
@@ -10,6 +19,10 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
+--
+-- Name: enum_categories_icon; Type: TYPE; Schema: public; Owner: postgres
+--
+
 CREATE TYPE public.enum_categories_icon AS ENUM (
     'play',
     'music',
@@ -19,14 +32,24 @@ CREATE TYPE public.enum_categories_icon AS ENUM (
     'heart'
 );
 
+
 ALTER TYPE public.enum_categories_icon OWNER TO postgres;
+
+--
+-- Name: enum_courses_lessons_video_type; Type: TYPE; Schema: public; Owner: postgres
+--
 
 CREATE TYPE public.enum_courses_lessons_video_type AS ENUM (
     'youtube',
     'upload'
 );
 
+
 ALTER TYPE public.enum_courses_lessons_video_type OWNER TO postgres;
+
+--
+-- Name: enum_donations_donation_type; Type: TYPE; Schema: public; Owner: postgres
+--
 
 CREATE TYPE public.enum_donations_donation_type AS ENUM (
     'one-time',
@@ -34,7 +57,12 @@ CREATE TYPE public.enum_donations_donation_type AS ENUM (
     'special-project'
 );
 
+
 ALTER TYPE public.enum_donations_donation_type OWNER TO postgres;
+
+--
+-- Name: enum_donations_payment_status; Type: TYPE; Schema: public; Owner: postgres
+--
 
 CREATE TYPE public.enum_donations_payment_status AS ENUM (
     'pending',
@@ -42,7 +70,12 @@ CREATE TYPE public.enum_donations_payment_status AS ENUM (
     'failed'
 );
 
+
 ALTER TYPE public.enum_donations_payment_status OWNER TO postgres;
+
+--
+-- Name: enum_donations_special_project; Type: TYPE; Schema: public; Owner: postgres
+--
 
 CREATE TYPE public.enum_donations_special_project AS ENUM (
     'ramanujar-series',
@@ -50,7 +83,12 @@ CREATE TYPE public.enum_donations_special_project AS ENUM (
     'documentary-projects'
 );
 
+
 ALTER TYPE public.enum_donations_special_project OWNER TO postgres;
+
+--
+-- Name: enum_orders_status; Type: TYPE; Schema: public; Owner: postgres
+--
 
 CREATE TYPE public.enum_orders_status AS ENUM (
     'pending',
@@ -58,7 +96,12 @@ CREATE TYPE public.enum_orders_status AS ENUM (
     'failed'
 );
 
+
 ALTER TYPE public.enum_orders_status OWNER TO postgres;
+
+--
+-- Name: enum_products_product_type; Type: TYPE; Schema: public; Owner: postgres
+--
 
 CREATE TYPE public.enum_products_product_type AS ENUM (
     'book',
@@ -66,25 +109,40 @@ CREATE TYPE public.enum_products_product_type AS ENUM (
     'other'
 );
 
+
 ALTER TYPE public.enum_products_product_type OWNER TO postgres;
+
+--
+-- Name: enum_songs_audio_type; Type: TYPE; Schema: public; Owner: postgres
+--
 
 CREATE TYPE public.enum_songs_audio_type AS ENUM (
     'youtube',
     'upload'
 );
 
+
 ALTER TYPE public.enum_songs_audio_type OWNER TO postgres;
+
+--
+-- Name: enum_videos_video_type; Type: TYPE; Schema: public; Owner: postgres
+--
 
 CREATE TYPE public.enum_videos_video_type AS ENUM (
     'youtube',
     'upload'
 );
 
+
 ALTER TYPE public.enum_videos_video_type OWNER TO postgres;
 
 SET default_tablespace = '';
 
 SET default_table_access_method = heap;
+
+--
+-- Name: authors; Type: TABLE; Schema: public; Owner: postgres
+--
 
 CREATE TABLE public.authors (
     id integer NOT NULL,
@@ -94,7 +152,12 @@ CREATE TABLE public.authors (
     created_at timestamp(3) with time zone DEFAULT now() NOT NULL
 );
 
+
 ALTER TABLE public.authors OWNER TO postgres;
+
+--
+-- Name: authors_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
 
 CREATE SEQUENCE public.authors_id_seq
     AS integer
@@ -104,9 +167,19 @@ CREATE SEQUENCE public.authors_id_seq
     NO MAXVALUE
     CACHE 1;
 
+
 ALTER SEQUENCE public.authors_id_seq OWNER TO postgres;
 
+--
+-- Name: authors_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
 ALTER SEQUENCE public.authors_id_seq OWNED BY public.authors.id;
+
+
+--
+-- Name: categories; Type: TABLE; Schema: public; Owner: postgres
+--
 
 CREATE TABLE public.categories (
     id integer NOT NULL,
@@ -119,7 +192,12 @@ CREATE TABLE public.categories (
     created_at timestamp(3) with time zone DEFAULT now() NOT NULL
 );
 
+
 ALTER TABLE public.categories OWNER TO postgres;
+
+--
+-- Name: categories_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
 
 CREATE SEQUENCE public.categories_id_seq
     AS integer
@@ -129,9 +207,19 @@ CREATE SEQUENCE public.categories_id_seq
     NO MAXVALUE
     CACHE 1;
 
+
 ALTER SEQUENCE public.categories_id_seq OWNER TO postgres;
 
+--
+-- Name: categories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
 ALTER SEQUENCE public.categories_id_seq OWNED BY public.categories.id;
+
+
+--
+-- Name: channels; Type: TABLE; Schema: public; Owner: postgres
+--
 
 CREATE TABLE public.channels (
     id integer NOT NULL,
@@ -140,7 +228,12 @@ CREATE TABLE public.channels (
     created_at timestamp(3) with time zone DEFAULT now() NOT NULL
 );
 
+
 ALTER TABLE public.channels OWNER TO postgres;
+
+--
+-- Name: channels_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
 
 CREATE SEQUENCE public.channels_id_seq
     AS integer
@@ -150,9 +243,19 @@ CREATE SEQUENCE public.channels_id_seq
     NO MAXVALUE
     CACHE 1;
 
+
 ALTER SEQUENCE public.channels_id_seq OWNER TO postgres;
 
+--
+-- Name: channels_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
 ALTER SEQUENCE public.channels_id_seq OWNED BY public.channels.id;
+
+
+--
+-- Name: courses; Type: TABLE; Schema: public; Owner: postgres
+--
 
 CREATE TABLE public.courses (
     id integer NOT NULL,
@@ -167,7 +270,12 @@ CREATE TABLE public.courses (
     created_at timestamp(3) with time zone DEFAULT now() NOT NULL
 );
 
+
 ALTER TABLE public.courses OWNER TO postgres;
+
+--
+-- Name: courses_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
 
 CREATE SEQUENCE public.courses_id_seq
     AS integer
@@ -177,9 +285,19 @@ CREATE SEQUENCE public.courses_id_seq
     NO MAXVALUE
     CACHE 1;
 
+
 ALTER SEQUENCE public.courses_id_seq OWNER TO postgres;
 
+--
+-- Name: courses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
 ALTER SEQUENCE public.courses_id_seq OWNED BY public.courses.id;
+
+
+--
+-- Name: courses_lessons; Type: TABLE; Schema: public; Owner: postgres
+--
 
 CREATE TABLE public.courses_lessons (
     _order integer NOT NULL,
@@ -193,7 +311,12 @@ CREATE TABLE public.courses_lessons (
     is_preview boolean DEFAULT false
 );
 
+
 ALTER TABLE public.courses_lessons OWNER TO postgres;
+
+--
+-- Name: donations; Type: TABLE; Schema: public; Owner: postgres
+--
 
 CREATE TABLE public.donations (
     id integer NOT NULL,
@@ -210,7 +333,12 @@ CREATE TABLE public.donations (
     created_at timestamp(3) with time zone DEFAULT now() NOT NULL
 );
 
+
 ALTER TABLE public.donations OWNER TO postgres;
+
+--
+-- Name: donations_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
 
 CREATE SEQUENCE public.donations_id_seq
     AS integer
@@ -220,9 +348,19 @@ CREATE SEQUENCE public.donations_id_seq
     NO MAXVALUE
     CACHE 1;
 
+
 ALTER SEQUENCE public.donations_id_seq OWNER TO postgres;
 
+--
+-- Name: donations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
 ALTER SEQUENCE public.donations_id_seq OWNED BY public.donations.id;
+
+
+--
+-- Name: homepage; Type: TABLE; Schema: public; Owner: postgres
+--
 
 CREATE TABLE public.homepage (
     id integer NOT NULL,
@@ -238,7 +376,12 @@ CREATE TABLE public.homepage (
     section_headings_featured_videos character varying DEFAULT 'Featured Videos'::character varying
 );
 
+
 ALTER TABLE public.homepage OWNER TO postgres;
+
+--
+-- Name: homepage_hero_slides; Type: TABLE; Schema: public; Owner: postgres
+--
 
 CREATE TABLE public.homepage_hero_slides (
     _order integer NOT NULL,
@@ -252,7 +395,12 @@ CREATE TABLE public.homepage_hero_slides (
     background_image_id integer NOT NULL
 );
 
+
 ALTER TABLE public.homepage_hero_slides OWNER TO postgres;
+
+--
+-- Name: homepage_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
 
 CREATE SEQUENCE public.homepage_id_seq
     AS integer
@@ -262,9 +410,19 @@ CREATE SEQUENCE public.homepage_id_seq
     NO MAXVALUE
     CACHE 1;
 
+
 ALTER SEQUENCE public.homepage_id_seq OWNER TO postgres;
 
+--
+-- Name: homepage_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
 ALTER SEQUENCE public.homepage_id_seq OWNED BY public.homepage.id;
+
+
+--
+-- Name: homepage_video_filters_category_options; Type: TABLE; Schema: public; Owner: postgres
+--
 
 CREATE TABLE public.homepage_video_filters_category_options (
     _order integer NOT NULL,
@@ -273,7 +431,12 @@ CREATE TABLE public.homepage_video_filters_category_options (
     label character varying NOT NULL
 );
 
+
 ALTER TABLE public.homepage_video_filters_category_options OWNER TO postgres;
+
+--
+-- Name: homepage_video_filters_channel_options; Type: TABLE; Schema: public; Owner: postgres
+--
 
 CREATE TABLE public.homepage_video_filters_channel_options (
     _order integer NOT NULL,
@@ -282,7 +445,12 @@ CREATE TABLE public.homepage_video_filters_channel_options (
     label character varying NOT NULL
 );
 
+
 ALTER TABLE public.homepage_video_filters_channel_options OWNER TO postgres;
+
+--
+-- Name: languages; Type: TABLE; Schema: public; Owner: postgres
+--
 
 CREATE TABLE public.languages (
     id integer NOT NULL,
@@ -294,7 +462,12 @@ CREATE TABLE public.languages (
     created_at timestamp(3) with time zone DEFAULT now() NOT NULL
 );
 
+
 ALTER TABLE public.languages OWNER TO postgres;
+
+--
+-- Name: languages_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
 
 CREATE SEQUENCE public.languages_id_seq
     AS integer
@@ -304,9 +477,19 @@ CREATE SEQUENCE public.languages_id_seq
     NO MAXVALUE
     CACHE 1;
 
+
 ALTER SEQUENCE public.languages_id_seq OWNER TO postgres;
 
+--
+-- Name: languages_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
 ALTER SEQUENCE public.languages_id_seq OWNED BY public.languages.id;
+
+
+--
+-- Name: media; Type: TABLE; Schema: public; Owner: postgres
+--
 
 CREATE TABLE public.media (
     id integer NOT NULL,
@@ -324,7 +507,12 @@ CREATE TABLE public.media (
     focal_y numeric
 );
 
+
 ALTER TABLE public.media OWNER TO postgres;
+
+--
+-- Name: media_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
 
 CREATE SEQUENCE public.media_id_seq
     AS integer
@@ -334,9 +522,19 @@ CREATE SEQUENCE public.media_id_seq
     NO MAXVALUE
     CACHE 1;
 
+
 ALTER SEQUENCE public.media_id_seq OWNER TO postgres;
 
+--
+-- Name: media_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
 ALTER SEQUENCE public.media_id_seq OWNED BY public.media.id;
+
+
+--
+-- Name: orders; Type: TABLE; Schema: public; Owner: postgres
+--
 
 CREATE TABLE public.orders (
     id integer NOT NULL,
@@ -353,7 +551,12 @@ CREATE TABLE public.orders (
     created_at timestamp(3) with time zone DEFAULT now() NOT NULL
 );
 
+
 ALTER TABLE public.orders OWNER TO postgres;
+
+--
+-- Name: orders_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
 
 CREATE SEQUENCE public.orders_id_seq
     AS integer
@@ -363,9 +566,19 @@ CREATE SEQUENCE public.orders_id_seq
     NO MAXVALUE
     CACHE 1;
 
+
 ALTER SEQUENCE public.orders_id_seq OWNER TO postgres;
 
+--
+-- Name: orders_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
 ALTER SEQUENCE public.orders_id_seq OWNED BY public.orders.id;
+
+
+--
+-- Name: payload_kv; Type: TABLE; Schema: public; Owner: postgres
+--
 
 CREATE TABLE public.payload_kv (
     id integer NOT NULL,
@@ -373,7 +586,12 @@ CREATE TABLE public.payload_kv (
     data jsonb NOT NULL
 );
 
+
 ALTER TABLE public.payload_kv OWNER TO postgres;
+
+--
+-- Name: payload_kv_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
 
 CREATE SEQUENCE public.payload_kv_id_seq
     AS integer
@@ -383,9 +601,19 @@ CREATE SEQUENCE public.payload_kv_id_seq
     NO MAXVALUE
     CACHE 1;
 
+
 ALTER SEQUENCE public.payload_kv_id_seq OWNER TO postgres;
 
+--
+-- Name: payload_kv_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
 ALTER SEQUENCE public.payload_kv_id_seq OWNED BY public.payload_kv.id;
+
+
+--
+-- Name: payload_locked_documents; Type: TABLE; Schema: public; Owner: postgres
+--
 
 CREATE TABLE public.payload_locked_documents (
     id integer NOT NULL,
@@ -394,7 +622,12 @@ CREATE TABLE public.payload_locked_documents (
     created_at timestamp(3) with time zone DEFAULT now() NOT NULL
 );
 
+
 ALTER TABLE public.payload_locked_documents OWNER TO postgres;
+
+--
+-- Name: payload_locked_documents_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
 
 CREATE SEQUENCE public.payload_locked_documents_id_seq
     AS integer
@@ -404,9 +637,19 @@ CREATE SEQUENCE public.payload_locked_documents_id_seq
     NO MAXVALUE
     CACHE 1;
 
+
 ALTER SEQUENCE public.payload_locked_documents_id_seq OWNER TO postgres;
 
+--
+-- Name: payload_locked_documents_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
 ALTER SEQUENCE public.payload_locked_documents_id_seq OWNED BY public.payload_locked_documents.id;
+
+
+--
+-- Name: payload_locked_documents_rels; Type: TABLE; Schema: public; Owner: postgres
+--
 
 CREATE TABLE public.payload_locked_documents_rels (
     id integer NOT NULL,
@@ -429,7 +672,12 @@ CREATE TABLE public.payload_locked_documents_rels (
     authors_id integer
 );
 
+
 ALTER TABLE public.payload_locked_documents_rels OWNER TO postgres;
+
+--
+-- Name: payload_locked_documents_rels_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
 
 CREATE SEQUENCE public.payload_locked_documents_rels_id_seq
     AS integer
@@ -439,9 +687,19 @@ CREATE SEQUENCE public.payload_locked_documents_rels_id_seq
     NO MAXVALUE
     CACHE 1;
 
+
 ALTER SEQUENCE public.payload_locked_documents_rels_id_seq OWNER TO postgres;
 
+--
+-- Name: payload_locked_documents_rels_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
 ALTER SEQUENCE public.payload_locked_documents_rels_id_seq OWNED BY public.payload_locked_documents_rels.id;
+
+
+--
+-- Name: payload_migrations; Type: TABLE; Schema: public; Owner: postgres
+--
 
 CREATE TABLE public.payload_migrations (
     id integer NOT NULL,
@@ -451,7 +709,12 @@ CREATE TABLE public.payload_migrations (
     created_at timestamp(3) with time zone DEFAULT now() NOT NULL
 );
 
+
 ALTER TABLE public.payload_migrations OWNER TO postgres;
+
+--
+-- Name: payload_migrations_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
 
 CREATE SEQUENCE public.payload_migrations_id_seq
     AS integer
@@ -461,9 +724,19 @@ CREATE SEQUENCE public.payload_migrations_id_seq
     NO MAXVALUE
     CACHE 1;
 
+
 ALTER SEQUENCE public.payload_migrations_id_seq OWNER TO postgres;
 
+--
+-- Name: payload_migrations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
 ALTER SEQUENCE public.payload_migrations_id_seq OWNED BY public.payload_migrations.id;
+
+
+--
+-- Name: payload_preferences; Type: TABLE; Schema: public; Owner: postgres
+--
 
 CREATE TABLE public.payload_preferences (
     id integer NOT NULL,
@@ -473,7 +746,12 @@ CREATE TABLE public.payload_preferences (
     created_at timestamp(3) with time zone DEFAULT now() NOT NULL
 );
 
+
 ALTER TABLE public.payload_preferences OWNER TO postgres;
+
+--
+-- Name: payload_preferences_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
 
 CREATE SEQUENCE public.payload_preferences_id_seq
     AS integer
@@ -483,9 +761,19 @@ CREATE SEQUENCE public.payload_preferences_id_seq
     NO MAXVALUE
     CACHE 1;
 
+
 ALTER SEQUENCE public.payload_preferences_id_seq OWNER TO postgres;
 
+--
+-- Name: payload_preferences_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
 ALTER SEQUENCE public.payload_preferences_id_seq OWNED BY public.payload_preferences.id;
+
+
+--
+-- Name: payload_preferences_rels; Type: TABLE; Schema: public; Owner: postgres
+--
 
 CREATE TABLE public.payload_preferences_rels (
     id integer NOT NULL,
@@ -495,7 +783,12 @@ CREATE TABLE public.payload_preferences_rels (
     users_id integer
 );
 
+
 ALTER TABLE public.payload_preferences_rels OWNER TO postgres;
+
+--
+-- Name: payload_preferences_rels_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
 
 CREATE SEQUENCE public.payload_preferences_rels_id_seq
     AS integer
@@ -505,9 +798,19 @@ CREATE SEQUENCE public.payload_preferences_rels_id_seq
     NO MAXVALUE
     CACHE 1;
 
+
 ALTER SEQUENCE public.payload_preferences_rels_id_seq OWNER TO postgres;
 
+--
+-- Name: payload_preferences_rels_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
 ALTER SEQUENCE public.payload_preferences_rels_id_seq OWNED BY public.payload_preferences_rels.id;
+
+
+--
+-- Name: products; Type: TABLE; Schema: public; Owner: postgres
+--
 
 CREATE TABLE public.products (
     id integer NOT NULL,
@@ -523,7 +826,12 @@ CREATE TABLE public.products (
     created_at timestamp(3) with time zone DEFAULT now() NOT NULL
 );
 
+
 ALTER TABLE public.products OWNER TO postgres;
+
+--
+-- Name: products_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
 
 CREATE SEQUENCE public.products_id_seq
     AS integer
@@ -533,9 +841,19 @@ CREATE SEQUENCE public.products_id_seq
     NO MAXVALUE
     CACHE 1;
 
+
 ALTER SEQUENCE public.products_id_seq OWNER TO postgres;
 
+--
+-- Name: products_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
 ALTER SEQUENCE public.products_id_seq OWNED BY public.products.id;
+
+
+--
+-- Name: products_images; Type: TABLE; Schema: public; Owner: postgres
+--
 
 CREATE TABLE public.products_images (
     _order integer NOT NULL,
@@ -544,7 +862,12 @@ CREATE TABLE public.products_images (
     image_id integer NOT NULL
 );
 
+
 ALTER TABLE public.products_images OWNER TO postgres;
+
+--
+-- Name: songs; Type: TABLE; Schema: public; Owner: postgres
+--
 
 CREATE TABLE public.songs (
     id integer NOT NULL,
@@ -566,7 +889,12 @@ CREATE TABLE public.songs (
     is_sloka boolean DEFAULT false
 );
 
+
 ALTER TABLE public.songs OWNER TO postgres;
+
+--
+-- Name: songs_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
 
 CREATE SEQUENCE public.songs_id_seq
     AS integer
@@ -576,9 +904,19 @@ CREATE SEQUENCE public.songs_id_seq
     NO MAXVALUE
     CACHE 1;
 
+
 ALTER SEQUENCE public.songs_id_seq OWNER TO postgres;
 
+--
+-- Name: songs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
 ALTER SEQUENCE public.songs_id_seq OWNED BY public.songs.id;
+
+
+--
+-- Name: testimonials; Type: TABLE; Schema: public; Owner: postgres
+--
 
 CREATE TABLE public.testimonials (
     id integer NOT NULL,
@@ -592,7 +930,12 @@ CREATE TABLE public.testimonials (
     created_at timestamp(3) with time zone DEFAULT now() NOT NULL
 );
 
+
 ALTER TABLE public.testimonials OWNER TO postgres;
+
+--
+-- Name: testimonials_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
 
 CREATE SEQUENCE public.testimonials_id_seq
     AS integer
@@ -602,9 +945,19 @@ CREATE SEQUENCE public.testimonials_id_seq
     NO MAXVALUE
     CACHE 1;
 
+
 ALTER SEQUENCE public.testimonials_id_seq OWNER TO postgres;
 
+--
+-- Name: testimonials_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
 ALTER SEQUENCE public.testimonials_id_seq OWNED BY public.testimonials.id;
+
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: postgres
+--
 
 CREATE TABLE public.users (
     id integer NOT NULL,
@@ -619,7 +972,12 @@ CREATE TABLE public.users (
     lock_until timestamp(3) with time zone
 );
 
+
 ALTER TABLE public.users OWNER TO postgres;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
 
 CREATE SEQUENCE public.users_id_seq
     AS integer
@@ -629,9 +987,19 @@ CREATE SEQUENCE public.users_id_seq
     NO MAXVALUE
     CACHE 1;
 
+
 ALTER SEQUENCE public.users_id_seq OWNER TO postgres;
 
+--
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
 ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
+
+
+--
+-- Name: users_sessions; Type: TABLE; Schema: public; Owner: postgres
+--
 
 CREATE TABLE public.users_sessions (
     _order integer NOT NULL,
@@ -641,7 +1009,12 @@ CREATE TABLE public.users_sessions (
     expires_at timestamp(3) with time zone NOT NULL
 );
 
+
 ALTER TABLE public.users_sessions OWNER TO postgres;
+
+--
+-- Name: video_categories; Type: TABLE; Schema: public; Owner: postgres
+--
 
 CREATE TABLE public.video_categories (
     id integer NOT NULL,
@@ -650,7 +1023,12 @@ CREATE TABLE public.video_categories (
     created_at timestamp(3) with time zone DEFAULT now() NOT NULL
 );
 
+
 ALTER TABLE public.video_categories OWNER TO postgres;
+
+--
+-- Name: video_categories_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
 
 CREATE SEQUENCE public.video_categories_id_seq
     AS integer
@@ -660,9 +1038,19 @@ CREATE SEQUENCE public.video_categories_id_seq
     NO MAXVALUE
     CACHE 1;
 
+
 ALTER SEQUENCE public.video_categories_id_seq OWNER TO postgres;
 
+--
+-- Name: video_categories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
 ALTER SEQUENCE public.video_categories_id_seq OWNED BY public.video_categories.id;
+
+
+--
+-- Name: videos; Type: TABLE; Schema: public; Owner: postgres
+--
 
 CREATE TABLE public.videos (
     id integer NOT NULL,
@@ -682,7 +1070,12 @@ CREATE TABLE public.videos (
     category_id integer NOT NULL
 );
 
+
 ALTER TABLE public.videos OWNER TO postgres;
+
+--
+-- Name: videos_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
 
 CREATE SEQUENCE public.videos_id_seq
     AS integer
@@ -692,51 +1085,166 @@ CREATE SEQUENCE public.videos_id_seq
     NO MAXVALUE
     CACHE 1;
 
+
 ALTER SEQUENCE public.videos_id_seq OWNER TO postgres;
+
+--
+-- Name: videos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
 
 ALTER SEQUENCE public.videos_id_seq OWNED BY public.videos.id;
 
+
+--
+-- Name: authors id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
 ALTER TABLE ONLY public.authors ALTER COLUMN id SET DEFAULT nextval('public.authors_id_seq'::regclass);
+
+
+--
+-- Name: categories id; Type: DEFAULT; Schema: public; Owner: postgres
+--
 
 ALTER TABLE ONLY public.categories ALTER COLUMN id SET DEFAULT nextval('public.categories_id_seq'::regclass);
 
+
+--
+-- Name: channels id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
 ALTER TABLE ONLY public.channels ALTER COLUMN id SET DEFAULT nextval('public.channels_id_seq'::regclass);
+
+
+--
+-- Name: courses id; Type: DEFAULT; Schema: public; Owner: postgres
+--
 
 ALTER TABLE ONLY public.courses ALTER COLUMN id SET DEFAULT nextval('public.courses_id_seq'::regclass);
 
+
+--
+-- Name: donations id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
 ALTER TABLE ONLY public.donations ALTER COLUMN id SET DEFAULT nextval('public.donations_id_seq'::regclass);
+
+
+--
+-- Name: homepage id; Type: DEFAULT; Schema: public; Owner: postgres
+--
 
 ALTER TABLE ONLY public.homepage ALTER COLUMN id SET DEFAULT nextval('public.homepage_id_seq'::regclass);
 
+
+--
+-- Name: languages id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
 ALTER TABLE ONLY public.languages ALTER COLUMN id SET DEFAULT nextval('public.languages_id_seq'::regclass);
+
+
+--
+-- Name: media id; Type: DEFAULT; Schema: public; Owner: postgres
+--
 
 ALTER TABLE ONLY public.media ALTER COLUMN id SET DEFAULT nextval('public.media_id_seq'::regclass);
 
+
+--
+-- Name: orders id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
 ALTER TABLE ONLY public.orders ALTER COLUMN id SET DEFAULT nextval('public.orders_id_seq'::regclass);
+
+
+--
+-- Name: payload_kv id; Type: DEFAULT; Schema: public; Owner: postgres
+--
 
 ALTER TABLE ONLY public.payload_kv ALTER COLUMN id SET DEFAULT nextval('public.payload_kv_id_seq'::regclass);
 
+
+--
+-- Name: payload_locked_documents id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
 ALTER TABLE ONLY public.payload_locked_documents ALTER COLUMN id SET DEFAULT nextval('public.payload_locked_documents_id_seq'::regclass);
+
+
+--
+-- Name: payload_locked_documents_rels id; Type: DEFAULT; Schema: public; Owner: postgres
+--
 
 ALTER TABLE ONLY public.payload_locked_documents_rels ALTER COLUMN id SET DEFAULT nextval('public.payload_locked_documents_rels_id_seq'::regclass);
 
+
+--
+-- Name: payload_migrations id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
 ALTER TABLE ONLY public.payload_migrations ALTER COLUMN id SET DEFAULT nextval('public.payload_migrations_id_seq'::regclass);
+
+
+--
+-- Name: payload_preferences id; Type: DEFAULT; Schema: public; Owner: postgres
+--
 
 ALTER TABLE ONLY public.payload_preferences ALTER COLUMN id SET DEFAULT nextval('public.payload_preferences_id_seq'::regclass);
 
+
+--
+-- Name: payload_preferences_rels id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
 ALTER TABLE ONLY public.payload_preferences_rels ALTER COLUMN id SET DEFAULT nextval('public.payload_preferences_rels_id_seq'::regclass);
+
+
+--
+-- Name: products id; Type: DEFAULT; Schema: public; Owner: postgres
+--
 
 ALTER TABLE ONLY public.products ALTER COLUMN id SET DEFAULT nextval('public.products_id_seq'::regclass);
 
+
+--
+-- Name: songs id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
 ALTER TABLE ONLY public.songs ALTER COLUMN id SET DEFAULT nextval('public.songs_id_seq'::regclass);
+
+
+--
+-- Name: testimonials id; Type: DEFAULT; Schema: public; Owner: postgres
+--
 
 ALTER TABLE ONLY public.testimonials ALTER COLUMN id SET DEFAULT nextval('public.testimonials_id_seq'::regclass);
 
+
+--
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
 ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
+
+
+--
+-- Name: video_categories id; Type: DEFAULT; Schema: public; Owner: postgres
+--
 
 ALTER TABLE ONLY public.video_categories ALTER COLUMN id SET DEFAULT nextval('public.video_categories_id_seq'::regclass);
 
+
+--
+-- Name: videos id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
 ALTER TABLE ONLY public.videos ALTER COLUMN id SET DEFAULT nextval('public.videos_id_seq'::regclass);
+
+
+--
+-- Data for Name: authors; Type: TABLE DATA; Schema: public; Owner: postgres
+--
 
 COPY public.authors (id, name, slug, updated_at, created_at) FROM stdin;
 1	Veda Vyasa (Vedavyasa)	Veda Vyasa (Vedavyasa)	2026-09-01 11:05:14.247+05:30	2026-09-01 11:05:14.247+05:30
@@ -751,6 +1259,11 @@ COPY public.authors (id, name, slug, updated_at, created_at) FROM stdin;
 10	Krishnadasa Kaviraja	Krishnadasa Kaviraja	2026-09-01 11:43:14.985+05:30	2026-09-01 11:43:14.985+05:30
 \.
 
+
+--
+-- Data for Name: categories; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
 COPY public.categories (id, title, slug, image_id, icon, "order", updated_at, created_at) FROM stdin;
 6	Donations 	Donations	55	heart	6	2026-08-27 12:09:35.847+05:30	2026-08-20 15:15:24.29+05:30
 5	Downloads	Downloads	56	download	5	2026-08-27 12:09:58.805+05:30	2026-08-20 15:12:36.754+05:30
@@ -759,6 +1272,11 @@ COPY public.categories (id, title, slug, image_id, icon, "order", updated_at, cr
 4	Store	Book-Stores	57	cart	4	2026-08-27 15:45:39.136+05:30	2026-08-20 15:10:05.209+05:30
 7	Videos	first-uploads	86	play	1	2026-08-31 10:48:10.745+05:30	2026-08-31 10:48:10.744+05:30
 \.
+
+
+--
+-- Data for Name: channels; Type: TABLE DATA; Schema: public; Owner: postgres
+--
 
 COPY public.channels (id, name, updated_at, created_at) FROM stdin;
 1	BV Darishanam	2026-08-31 14:42:13.903+05:30	2026-08-31 14:42:13.903+05:30
@@ -769,6 +1287,11 @@ COPY public.channels (id, name, updated_at, created_at) FROM stdin;
 6	BVM Kids Channel	2026-08-31 15:20:08.044+05:30	2026-08-31 15:20:08.044+05:30
 \.
 
+
+--
+-- Data for Name: courses; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
 COPY public.courses (id, title, description, thumbnail_id, is_paid, price, category_id, featured, updated_at, created_at) FROM stdin;
 1	Bhagavad-Gita - Verse by verse	Bhagavad-Gita - Verse by verse	11	f	\N	3	t	2026-08-21 10:41:06.522+05:30	2026-08-21 10:41:06.52+05:30
 2	Foundation of Bhakthi Yoga	Foundation of Bhakthi Yoga	12	f	\N	3	t	2026-08-21 10:44:50.631+05:30	2026-08-21 10:44:50.63+05:30
@@ -776,6 +1299,11 @@ COPY public.courses (id, title, description, thumbnail_id, is_paid, price, categ
 4	Introduction of Krishna Consciousness	Introduction of Krishna Consciousness	14	f	\N	3	f	2026-08-21 10:51:17.55+05:30	2026-08-21 10:51:17.55+05:30
 5	Krishna-Balaram's Stroy	Krishna and Balarama were brothers, born to Devaki and Vasudeva.\nThey grew up in Gokul, where they spent their childhood protecting people from evil.\nTogether, they defeated the wicked King Kamsa and brought peace to Mathura.\nKrishna became known for his wisdom and divine love, while Balarama was famous for his strength and courage.\n	53	t	200	2	t	2026-08-26 12:03:15.781+05:30	2026-08-26 12:03:15.78+05:30
 \.
+
+
+--
+-- Data for Name: courses_lessons; Type: TABLE DATA; Schema: public; Owner: postgres
+--
 
 COPY public.courses_lessons (_order, _parent_id, id, lesson_title, video_type, youtube_url, video_file_id, duration, is_preview) FROM stdin;
 1	1	6a87dda3f6a4c2ee0e7fe8af	Course-1 Bhagavad-gita.	youtube	\N	\N	\N	f
@@ -789,12 +1317,27 @@ COPY public.courses_lessons (_order, _parent_id, id, lesson_title, video_type, y
 1	5	6a8e888819a283dbb513a328	Foundation of Bhakthi Yoga	youtube	/	\N	4.00	t
 \.
 
+
+--
+-- Data for Name: donations; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
 COPY public.donations (id, donation_type, special_project, amount, donor_name, donor_email, donor_phone, payment_status, transaction_id, donation_date, updated_at, created_at) FROM stdin;
 \.
+
+
+--
+-- Data for Name: homepage; Type: TABLE DATA; Schema: public; Owner: postgres
+--
 
 COPY public.homepage (id, updated_at, created_at, section_headings_explore, section_headings_latest_uploads, section_headings_featured_songs, section_headings_featured_books, section_headings_courses, section_headings_testimonials, section_headings_support_b_v_m, section_headings_featured_videos) FROM stdin;
 1	2026-09-22 14:48:47.929+05:30	2026-08-21 13:04:21.774+05:30	Explore BVM	Featured Videos	Featured Songs	Featured Books	Courses	Testimonial	Support BVM	Featured Videos
 \.
+
+
+--
+-- Data for Name: homepage_hero_slides; Type: TABLE DATA; Schema: public; Owner: postgres
+--
 
 COPY public.homepage_hero_slides (_order, _parent_id, id, eyebrow, heading, subtext, cta_label, cta_link, background_image_id) FROM stdin;
 1	1	6a87ff02c15ee17c01d8ca44	WELCOME TO BHAKTI VEDANTA MEDIA	Discover Timeless Wisdom Through Devotional Media	Explore a growing collection of devotional videos, inspiring songs, spiritual courses, books, and free resources designed to deepen your Krishna consciousness and enrich your daily spiritual journey.	View Now	/videos	27
@@ -802,11 +1345,26 @@ COPY public.homepage_hero_slides (_order, _parent_id, id, eyebrow, heading, subt
 3	1	6a90148fee54a53cb7f3aa60	WELCOME TO BHAKTI VEDANTA MEDIA	WELCOME TO BHAKTI VEDANTA MEDIA	WELCOME TO BHAKTI VEDANTA MEDIA	Watch Now	/videos	80
 \.
 
+
+--
+-- Data for Name: homepage_video_filters_category_options; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
 COPY public.homepage_video_filters_category_options (_order, _parent_id, id, label) FROM stdin;
 \.
 
+
+--
+-- Data for Name: homepage_video_filters_channel_options; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
 COPY public.homepage_video_filters_channel_options (_order, _parent_id, id, label) FROM stdin;
 \.
+
+
+--
+-- Data for Name: languages; Type: TABLE DATA; Schema: public; Owner: postgres
+--
 
 COPY public.languages (id, title, slug, image_id, "order", updated_at, created_at) FROM stdin;
 1	Tamil	TAMIL	61	1	2026-09-16 15:15:50.231+05:30	2026-08-27 12:49:50.542+05:30
@@ -815,6 +1373,11 @@ COPY public.languages (id, title, slug, image_id, "order", updated_at, created_a
 5	Telugu	TELUGU	90	4	2026-09-16 15:17:57.08+05:30	2026-08-27 13:01:25.953+05:30
 8	Malayalam	MALAYALAM	92	5	2026-09-16 15:18:07.568+05:30	2026-08-27 16:17:48.447+05:30
 \.
+
+
+--
+-- Data for Name: media; Type: TABLE DATA; Schema: public; Owner: postgres
+--
 
 COPY public.media (id, alt, updated_at, created_at, url, thumbnail_u_r_l, filename, mime_type, filesize, width, height, focal_x, focal_y) FROM stdin;
 1	ISKCON	2026-08-20 11:19:36.798+05:30	2026-08-20 11:19:36.769+05:30	/api/media/file/ISKCON-Banner.jpeg	\N	ISKCON-Banner.jpeg	image/jpeg	135772	900	600	50	50
@@ -924,6 +1487,11 @@ COPY public.media (id, alt, updated_at, created_at, url, thumbnail_u_r_l, filena
 105	superhero-car-vintage-style.	2026-09-22 10:14:19.642+05:30	2026-09-22 10:14:19.641+05:30	/api/media/file/superhero-car-vintage-style.jpg	\N	superhero-car-vintage-style.jpg	image/jpeg	5090659	5376	3584	50	50
 \.
 
+
+--
+-- Data for Name: orders; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
 COPY public.orders (id, items, total, customer_name, customer_email, customer_phone, shipping_address, razorpay_order_id, razorpay_payment_id, status, updated_at, created_at) FROM stdin;
 1	[{"id": 5, "qty": 1, "image": "/api/media/file/BHAGAVAD%20GITA.jpg", "price": 700, "title": "Bhagavad-gita as it Is"}, {"id": 4, "qty": 1, "image": "/api/media/file/Introduction%20of%20Krishna%20Consciousness-1.jpg", "price": 800, "title": "Bhagavad-gita"}]	1500	Arjun	arjunraman27@gmail.com	9344525060	1111/2, Mahathma Street, V.O.C.Nagar, Melamadai, Madurai - 20	\N	\N	pending	2026-08-22 12:17:21.148+05:30	2026-08-22 12:17:21.148+05:30
 2	[{"id": 5, "qty": 1, "image": "/api/media/file/BHAGAVAD%20GITA.jpg", "price": 700, "title": "Bhagavad-gita as it Is"}, {"id": 4, "qty": 1, "image": "/api/media/file/Introduction%20of%20Krishna%20Consciousness-1.jpg", "price": 800, "title": "Bhagavad-gita"}]	1500	Balaji	balajiraman27@gmail.com	9344525060	1111/2, Mahathma Street, V.O.C.Nagar, Melamadai, Madurai - 20	\N	\N	pending	2026-08-22 12:17:58.989+05:30	2026-08-22 12:17:58.989+05:30
@@ -936,19 +1504,44 @@ COPY public.orders (id, items, total, customer_name, customer_email, customer_ph
 17	[{"id": 1, "qty": 1, "image": "/api/media/file/download%20(26).jpg", "price": 500, "title": "Shrimad Bhagavad Gita"}, {"id": 7, "qty": 2, "image": "/api/media/file/Bhakti-Kids-img2-1.jpg", "price": 600, "title": "Krishna-radha"}]	1700	KANNAN RAMAN	kannanramansarumathi@gmail.com	09344525060	1111/2, Mahathma Street, V.O.C.Nagar, Melamadai, Madurai - 20	\N	\N	pending	2026-09-22 10:11:55.053+05:30	2026-09-22 10:11:55.053+05:30
 \.
 
+
+--
+-- Data for Name: payload_kv; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
 COPY public.payload_kv (id, key, data) FROM stdin;
 \.
+
+
+--
+-- Data for Name: payload_locked_documents; Type: TABLE DATA; Schema: public; Owner: postgres
+--
 
 COPY public.payload_locked_documents (id, global_slug, updated_at, created_at) FROM stdin;
 93	\N	2026-08-31 12:37:02.32+05:30	2026-08-31 12:37:02.32+05:30
 \.
 
+
+--
+-- Data for Name: payload_locked_documents_rels; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
 COPY public.payload_locked_documents_rels (id, "order", parent_id, path, users_id, media_id, categories_id, videos_id, songs_id, courses_id, products_id, donations_id, testimonials_id, orders_id, languages_id, channels_id, video_categories_id, authors_id) FROM stdin;
 \.
 
+
+--
+-- Data for Name: payload_migrations; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
 COPY public.payload_migrations (id, name, batch, updated_at, created_at) FROM stdin;
-1	dev	-1	2026-09-24 10:26:04.298+05:30	2026-08-20 10:50:23.003+05:30
+1	dev	-1	2026-09-28 16:31:39.324+05:30	2026-08-20 10:50:23.003+05:30
 \.
+
+
+--
+-- Data for Name: payload_preferences; Type: TABLE DATA; Schema: public; Owner: postgres
+--
 
 COPY public.payload_preferences (id, key, value, updated_at, created_at) FROM stdin;
 5	collection-courses	{"editViewType": "default"}	2026-08-21 10:35:54.472+05:30	2026-08-20 11:54:16.81+05:30
@@ -970,6 +1563,11 @@ COPY public.payload_preferences (id, key, value, updated_at, created_at) FROM st
 10	nav	{"open": true}	2026-09-22 14:49:39.288+05:30	2026-08-21 13:01:44.805+05:30
 \.
 
+
+--
+-- Data for Name: payload_preferences_rels; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
 COPY public.payload_preferences_rels (id, "order", parent_id, path, users_id) FROM stdin;
 12	\N	5	user	1
 17	\N	8	user	1
@@ -990,6 +1588,11 @@ COPY public.payload_preferences_rels (id, "order", parent_id, path, users_id) FR
 88	\N	10	user	1
 \.
 
+
+--
+-- Data for Name: products; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
 COPY public.products (id, title, description, price, compare_price, stock, category_id, product_type, featured, updated_at, created_at) FROM stdin;
 1	Shrimad Bhagavad Gita	Shrimad Bhagavad Gita is a timeless spiritual classic that presents Lord Krishna's teachings to Arjuna on the battlefield of Kurukshetra. This edition includes the original Sanskrit verses, transliteration, word-for-word meaning, and detailed English translation with purport.\n\nPerfect for both beginners and serious spiritual seekers, this book offers profound wisdom on duty, devotion, and the path to self-realization.	500	\N	10	3	book	t	2026-08-25 11:58:56.336+05:30	2026-08-21 10:59:01.078+05:30
 4	Bhagavad-gita	"Shrimad Bhagavad Gita is a timeless spiritual classic that presents Lord Krishna's teachings to Arjuna on the battlefield of Kurukshetra. This edition includes the original Sanskrit verses, transliteration, word-for-word meaning, and detailed English translation with purport. Perfect for both beginners and serious spiritual seekers, this book offers profound wisdom on duty, devotion, and the path to self-realization."	800	1000	22	3	book	t	2026-08-25 12:27:49.463+05:30	2026-08-21 11:04:12.847+05:30
@@ -999,6 +1602,11 @@ COPY public.products (id, title, description, price, compare_price, stock, categ
 7	Krishna-radha	"Shrimad Bhagavad Gita is a timeless spiritual classic that presents Lord Krishna's teachings to Arjuna on the battlefield of Kurukshetra. This edition includes the original Sanskrit verses, transliteration, word-for-word meaning, and detailed English translation with purport. Perfect for both beginners and serious spiritual seekers, this book offers profound wisdom on duty, devotion, and the path to self-realization."	600	1000	2	4	book	t	2026-08-26 12:54:04.776+05:30	2026-08-25 15:06:25.215+05:30
 6	Bhagavad Gita	"Shrimad Bhagavad Gita is a timeless spiritual classic that presents Lord Krishna's teachings to Arjuna on the battlefield of Kurukshetra. This edition includes the original Sanskrit verses, transliteration, word-for-word meaning, and detailed English translation with purport. Perfect for both beginners and serious spiritual seekers, this book offers profound wisdom on duty, devotion, and the path to self-realization."	500	800	0	3	book	t	2026-08-26 12:57:01.754+05:30	2026-08-21 11:07:16.681+05:30
 \.
+
+
+--
+-- Data for Name: products_images; Type: TABLE DATA; Schema: public; Owner: postgres
+--
 
 COPY public.products_images (_order, _parent_id, id, image_id) FROM stdin;
 1	1	6a87e1ddf6a4c2ee0e7fe8bf	21
@@ -1010,6 +1618,11 @@ COPY public.products_images (_order, _parent_id, id, image_id) FROM stdin;
 1	6	6a87e3fbf6a4c2ee0e7fe8c9	20
 \.
 
+
+--
+-- Data for Name: songs; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
 COPY public.songs (id, title, artist, cover_image_id, audio_type, youtube_url, audio_file_id, category_id, duration, featured, updated_at, created_at, language_category_id, author_id, is_regular, is_mantra, is_sloka) FROM stdin;
 4	Hare Krishna Mahamanthra	Radhakrishnan	47	youtube	/	\N	2	0.40	t	2026-09-01 12:38:28.665+05:30	2026-08-22 12:33:26.292+05:30	2	\N	f	t	f
 5	Krishna-Balaram	Pranav	51	upload	\N	52	2	0.30	t	2026-09-01 12:38:28.707+05:30	2026-08-26 11:57:53.977+05:30	1	2	f	t	f
@@ -1018,6 +1631,11 @@ COPY public.songs (id, title, artist, cover_image_id, audio_type, youtube_url, a
 1	Hare Krishna Mahamanthra	Kannan	43	upload	\N	44	2	0.22	t	2026-09-01 12:38:50.419+05:30	2026-08-20 15:42:10.395+05:30	5	\N	t	f	f
 \.
 
+
+--
+-- Data for Name: testimonials; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
 COPY public.testimonials (id, name, location, photo_id, message, rating, featured, updated_at, created_at) FROM stdin;
 1	Tharun S	Bengaluru, India	23	The Videos and Courses have helped me to understand The Krishnas Consciousness	5	t	2026-08-21 12:18:45.07+05:30	2026-08-21 12:18:45.07+05:30
 2	Aswini v	Chennai, India	24	I especially appreciate  the structured courses and devotional Videos 	5	t	2026-08-21 12:20:13.552+05:30	2026-08-21 12:20:13.552+05:30
@@ -1025,13 +1643,28 @@ COPY public.testimonials (id, name, location, photo_id, message, rating, feature
 4	Saravanan P	Bengaluru, India	26	The Videos and Courses have helped me to understand the Krishnas Consciousness in a simple and Practical way.	4	f	2026-08-21 12:24:05.388+05:30	2026-08-21 12:24:05.388+05:30
 \.
 
+
+--
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
 COPY public.users (id, updated_at, created_at, email, reset_password_token, reset_password_expiration, salt, hash, login_attempts, lock_until) FROM stdin;
 1	2026-08-20 14:58:58.968+05:30	2026-08-20 10:53:16.17+05:30	arjunraman27@gmail.com	\N	\N	eb3f399c9863cc3fb6110d874f7add497bf2ee074dcba0d1cdfd32f03abf30d3	a6c0e027371e29e16e60db66b1fe5f3fc224a3c735f1f66f5f9e81054319984902430098ddf2cb71473984546a9d16823286869eb5196bd478ab21f023fae9025f1dd89ecd26065af638d7a13b7ca8525e7bc09bf11e25ecf837a02b8b5ff6ee5d2d6036a957ca5c0b18a3159b02e259e447d236453adac635fd4b972c36c532693be6ff9265e154645e444bf278dcc4fea20d1679e6eb288b20aca7d1c993410c2aec8046851ae3a8efbc4bb7b1b936279cbae0a0eef8f7cd6ddf591696b10561b0145171966e3ef7111dbe717afb772422e189832631f0985870dd3256f86b610d8849f0b2c1f6ec383f4132a990e0e34505e0e5838d1f3275b3bd71784aeda4c5606b976ecb796e084b5b8fae1e55ba38bf9ca726a7f701ddf8eb932788d261e19829c803d00b59075d3877596af418dd01794a1bd3ba8e92f8b89ab897c89bc2d54c107e9d37794aa72917e186f4ab2924d1fee120a29a3c05c4af6a8b457484a489e7e1e9512c4a4df69b615a43ce9406d5d6fbd4a3d39285ac1976456d76e8bb3d775ea83a2e9a4e0a64f5f8d3be5c3f997881d78d2e47384ba58e8bae241e0cb375b45cd2c729b516c402908f1d7b39be1d957a94a330a81708b8d5a23d9849e35fb8e080daccadf13b2a4bb958e3bcf17b9bcedd6b1e2f0451a7fccf78982f02073376b90fcaf16c0c82482ccd21e351a28bac4a28efdb57c3215c3c	0	\N
 \.
 
+
+--
+-- Data for Name: users_sessions; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
 COPY public.users_sessions (_order, _parent_id, id, created_at, expires_at) FROM stdin;
 1	1	650a087a-a0e3-47f2-a565-a9e9ec871fb6	2026-09-24 10:26:23.612+05:30	2026-09-24 12:26:23.612+05:30
 \.
+
+
+--
+-- Data for Name: video_categories; Type: TABLE DATA; Schema: public; Owner: postgres
+--
 
 COPY public.video_categories (id, name, updated_at, created_at) FROM stdin;
 1	Lectures & Seminars	2026-08-31 14:39:48.923+05:30	2026-08-31 14:39:48.923+05:30
@@ -1040,6 +1673,11 @@ COPY public.video_categories (id, name, updated_at, created_at) FROM stdin;
 4	Shorts & Reels	2026-08-31 14:40:22.09+05:30	2026-08-31 14:40:22.09+05:30
 5	Interviews & Dialogues	2026-08-31 14:40:34.074+05:30	2026-08-31 14:40:34.074+05:30
 \.
+
+
+--
+-- Data for Name: videos; Type: TABLE DATA; Schema: public; Owner: postgres
+--
 
 COPY public.videos (id, title, description, thumbnail_id, video_type, youtube_url, video_file_id, duration, featured, published_date, updated_at, created_at, language_category_id, channel_id, category_id) FROM stdin;
 30	The Teachings of Lord Krishna	Discover the timeless teachings of Lord Krishna for everyday life.\nHis wisdom teaches us to stay calm, follow our Dharma, and perform our duties with devotion.\nLet Krishna's words guide your heart toward peace and purpose.	104	youtube	/	\N	4.00	t	2026-08-31 15:08:25.993+05:30	2026-08-31 15:09:12.274+05:30	2026-08-31 15:09:12.274+05:30	3	2	2
@@ -1055,445 +1693,1388 @@ COPY public.videos (id, title, description, thumbnail_id, video_type, youtube_ur
 20	Krishna & Balaram	Krishna and Balaram were divine brothers, known for their deep love and unbreakable bond.\nKrishna, the playful and compassionate one, brought joy and guided people toward dharma.\nBalaram, strong and courageous, always stood beside Krishna and protected righteousness.\nTogether, their inspiring journey teaches us about love, strength, loyalty, and devotion.	94	youtube	https://www.youtube.com/watch?v=YrC9GLLsing	\N	2.00	t	2026-08-31 14:40:40.425+05:30	2026-09-22 14:50:45.307+05:30	2026-08-31 14:42:54.482+05:30	1	5	3
 \.
 
+
+--
+-- Name: authors_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
 SELECT pg_catalog.setval('public.authors_id_seq', 10, true);
+
+
+--
+-- Name: categories_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
 
 SELECT pg_catalog.setval('public.categories_id_seq', 7, true);
 
+
+--
+-- Name: channels_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
 SELECT pg_catalog.setval('public.channels_id_seq', 6, true);
+
+
+--
+-- Name: courses_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
 
 SELECT pg_catalog.setval('public.courses_id_seq', 5, true);
 
+
+--
+-- Name: donations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
 SELECT pg_catalog.setval('public.donations_id_seq', 1, false);
+
+
+--
+-- Name: homepage_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
 
 SELECT pg_catalog.setval('public.homepage_id_seq', 1, true);
 
+
+--
+-- Name: languages_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
 SELECT pg_catalog.setval('public.languages_id_seq', 8, true);
+
+
+--
+-- Name: media_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
 
 SELECT pg_catalog.setval('public.media_id_seq', 105, true);
 
+
+--
+-- Name: orders_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
 SELECT pg_catalog.setval('public.orders_id_seq', 17, true);
+
+
+--
+-- Name: payload_kv_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
 
 SELECT pg_catalog.setval('public.payload_kv_id_seq', 1, false);
 
+
+--
+-- Name: payload_locked_documents_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
 SELECT pg_catalog.setval('public.payload_locked_documents_id_seq', 117, true);
+
+
+--
+-- Name: payload_locked_documents_rels_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
 
 SELECT pg_catalog.setval('public.payload_locked_documents_rels_id_seq', 217, true);
 
+
+--
+-- Name: payload_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
 SELECT pg_catalog.setval('public.payload_migrations_id_seq', 1, true);
+
+
+--
+-- Name: payload_preferences_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
 
 SELECT pg_catalog.setval('public.payload_preferences_id_seq', 17, true);
 
+
+--
+-- Name: payload_preferences_rels_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
 SELECT pg_catalog.setval('public.payload_preferences_rels_id_seq', 88, true);
+
+
+--
+-- Name: products_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
 
 SELECT pg_catalog.setval('public.products_id_seq', 7, true);
 
+
+--
+-- Name: songs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
 SELECT pg_catalog.setval('public.songs_id_seq', 5, true);
+
+
+--
+-- Name: testimonials_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
 
 SELECT pg_catalog.setval('public.testimonials_id_seq', 4, true);
 
+
+--
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
 SELECT pg_catalog.setval('public.users_id_seq', 1, true);
+
+
+--
+-- Name: video_categories_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
 
 SELECT pg_catalog.setval('public.video_categories_id_seq', 5, true);
 
+
+--
+-- Name: videos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
 SELECT pg_catalog.setval('public.videos_id_seq', 31, true);
+
+
+--
+-- Name: authors authors_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
 
 ALTER TABLE ONLY public.authors
     ADD CONSTRAINT authors_pkey PRIMARY KEY (id);
 
+
+--
+-- Name: categories categories_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
 ALTER TABLE ONLY public.categories
     ADD CONSTRAINT categories_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: channels channels_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
 
 ALTER TABLE ONLY public.channels
     ADD CONSTRAINT channels_pkey PRIMARY KEY (id);
 
+
+--
+-- Name: courses_lessons courses_lessons_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
 ALTER TABLE ONLY public.courses_lessons
     ADD CONSTRAINT courses_lessons_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: courses courses_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
 
 ALTER TABLE ONLY public.courses
     ADD CONSTRAINT courses_pkey PRIMARY KEY (id);
 
+
+--
+-- Name: donations donations_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
 ALTER TABLE ONLY public.donations
     ADD CONSTRAINT donations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: homepage_hero_slides homepage_hero_slides_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
 
 ALTER TABLE ONLY public.homepage_hero_slides
     ADD CONSTRAINT homepage_hero_slides_pkey PRIMARY KEY (id);
 
+
+--
+-- Name: homepage homepage_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
 ALTER TABLE ONLY public.homepage
     ADD CONSTRAINT homepage_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: homepage_video_filters_category_options homepage_video_filters_category_options_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
 
 ALTER TABLE ONLY public.homepage_video_filters_category_options
     ADD CONSTRAINT homepage_video_filters_category_options_pkey PRIMARY KEY (id);
 
+
+--
+-- Name: homepage_video_filters_channel_options homepage_video_filters_channel_options_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
 ALTER TABLE ONLY public.homepage_video_filters_channel_options
     ADD CONSTRAINT homepage_video_filters_channel_options_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: languages languages_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
 
 ALTER TABLE ONLY public.languages
     ADD CONSTRAINT languages_pkey PRIMARY KEY (id);
 
+
+--
+-- Name: media media_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
 ALTER TABLE ONLY public.media
     ADD CONSTRAINT media_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: orders orders_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
 
 ALTER TABLE ONLY public.orders
     ADD CONSTRAINT orders_pkey PRIMARY KEY (id);
 
+
+--
+-- Name: payload_kv payload_kv_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
 ALTER TABLE ONLY public.payload_kv
     ADD CONSTRAINT payload_kv_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: payload_locked_documents payload_locked_documents_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
 
 ALTER TABLE ONLY public.payload_locked_documents
     ADD CONSTRAINT payload_locked_documents_pkey PRIMARY KEY (id);
 
+
+--
+-- Name: payload_locked_documents_rels payload_locked_documents_rels_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
 ALTER TABLE ONLY public.payload_locked_documents_rels
     ADD CONSTRAINT payload_locked_documents_rels_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: payload_migrations payload_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
 
 ALTER TABLE ONLY public.payload_migrations
     ADD CONSTRAINT payload_migrations_pkey PRIMARY KEY (id);
 
+
+--
+-- Name: payload_preferences payload_preferences_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
 ALTER TABLE ONLY public.payload_preferences
     ADD CONSTRAINT payload_preferences_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: payload_preferences_rels payload_preferences_rels_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
 
 ALTER TABLE ONLY public.payload_preferences_rels
     ADD CONSTRAINT payload_preferences_rels_pkey PRIMARY KEY (id);
 
+
+--
+-- Name: products_images products_images_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
 ALTER TABLE ONLY public.products_images
     ADD CONSTRAINT products_images_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: products products_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
 
 ALTER TABLE ONLY public.products
     ADD CONSTRAINT products_pkey PRIMARY KEY (id);
 
+
+--
+-- Name: songs songs_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
 ALTER TABLE ONLY public.songs
     ADD CONSTRAINT songs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: testimonials testimonials_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
 
 ALTER TABLE ONLY public.testimonials
     ADD CONSTRAINT testimonials_pkey PRIMARY KEY (id);
 
+
+--
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
 ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users_sessions users_sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
 
 ALTER TABLE ONLY public.users_sessions
     ADD CONSTRAINT users_sessions_pkey PRIMARY KEY (id);
 
+
+--
+-- Name: video_categories video_categories_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
 ALTER TABLE ONLY public.video_categories
     ADD CONSTRAINT video_categories_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: videos videos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
 
 ALTER TABLE ONLY public.videos
     ADD CONSTRAINT videos_pkey PRIMARY KEY (id);
 
+
+--
+-- Name: authors_created_at_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
 CREATE INDEX authors_created_at_idx ON public.authors USING btree (created_at);
+
+
+--
+-- Name: authors_name_idx; Type: INDEX; Schema: public; Owner: postgres
+--
 
 CREATE UNIQUE INDEX authors_name_idx ON public.authors USING btree (name);
 
+
+--
+-- Name: authors_slug_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
 CREATE UNIQUE INDEX authors_slug_idx ON public.authors USING btree (slug);
+
+
+--
+-- Name: authors_updated_at_idx; Type: INDEX; Schema: public; Owner: postgres
+--
 
 CREATE INDEX authors_updated_at_idx ON public.authors USING btree (updated_at);
 
+
+--
+-- Name: categories_created_at_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
 CREATE INDEX categories_created_at_idx ON public.categories USING btree (created_at);
+
+
+--
+-- Name: categories_image_idx; Type: INDEX; Schema: public; Owner: postgres
+--
 
 CREATE INDEX categories_image_idx ON public.categories USING btree (image_id);
 
+
+--
+-- Name: categories_slug_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
 CREATE UNIQUE INDEX categories_slug_idx ON public.categories USING btree (slug);
+
+
+--
+-- Name: categories_updated_at_idx; Type: INDEX; Schema: public; Owner: postgres
+--
 
 CREATE INDEX categories_updated_at_idx ON public.categories USING btree (updated_at);
 
+
+--
+-- Name: channels_created_at_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
 CREATE INDEX channels_created_at_idx ON public.channels USING btree (created_at);
+
+
+--
+-- Name: channels_name_idx; Type: INDEX; Schema: public; Owner: postgres
+--
 
 CREATE UNIQUE INDEX channels_name_idx ON public.channels USING btree (name);
 
+
+--
+-- Name: channels_updated_at_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
 CREATE INDEX channels_updated_at_idx ON public.channels USING btree (updated_at);
+
+
+--
+-- Name: courses_category_idx; Type: INDEX; Schema: public; Owner: postgres
+--
 
 CREATE INDEX courses_category_idx ON public.courses USING btree (category_id);
 
+
+--
+-- Name: courses_created_at_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
 CREATE INDEX courses_created_at_idx ON public.courses USING btree (created_at);
+
+
+--
+-- Name: courses_lessons_order_idx; Type: INDEX; Schema: public; Owner: postgres
+--
 
 CREATE INDEX courses_lessons_order_idx ON public.courses_lessons USING btree (_order);
 
+
+--
+-- Name: courses_lessons_parent_id_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
 CREATE INDEX courses_lessons_parent_id_idx ON public.courses_lessons USING btree (_parent_id);
+
+
+--
+-- Name: courses_lessons_video_file_idx; Type: INDEX; Schema: public; Owner: postgres
+--
 
 CREATE INDEX courses_lessons_video_file_idx ON public.courses_lessons USING btree (video_file_id);
 
+
+--
+-- Name: courses_thumbnail_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
 CREATE INDEX courses_thumbnail_idx ON public.courses USING btree (thumbnail_id);
+
+
+--
+-- Name: courses_updated_at_idx; Type: INDEX; Schema: public; Owner: postgres
+--
 
 CREATE INDEX courses_updated_at_idx ON public.courses USING btree (updated_at);
 
+
+--
+-- Name: donations_created_at_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
 CREATE INDEX donations_created_at_idx ON public.donations USING btree (created_at);
+
+
+--
+-- Name: donations_updated_at_idx; Type: INDEX; Schema: public; Owner: postgres
+--
 
 CREATE INDEX donations_updated_at_idx ON public.donations USING btree (updated_at);
 
+
+--
+-- Name: homepage_hero_slides_background_image_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
 CREATE INDEX homepage_hero_slides_background_image_idx ON public.homepage_hero_slides USING btree (background_image_id);
+
+
+--
+-- Name: homepage_hero_slides_order_idx; Type: INDEX; Schema: public; Owner: postgres
+--
 
 CREATE INDEX homepage_hero_slides_order_idx ON public.homepage_hero_slides USING btree (_order);
 
+
+--
+-- Name: homepage_hero_slides_parent_id_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
 CREATE INDEX homepage_hero_slides_parent_id_idx ON public.homepage_hero_slides USING btree (_parent_id);
+
+
+--
+-- Name: homepage_video_filters_category_options_order_idx; Type: INDEX; Schema: public; Owner: postgres
+--
 
 CREATE INDEX homepage_video_filters_category_options_order_idx ON public.homepage_video_filters_category_options USING btree (_order);
 
+
+--
+-- Name: homepage_video_filters_category_options_parent_id_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
 CREATE INDEX homepage_video_filters_category_options_parent_id_idx ON public.homepage_video_filters_category_options USING btree (_parent_id);
+
+
+--
+-- Name: homepage_video_filters_channel_options_order_idx; Type: INDEX; Schema: public; Owner: postgres
+--
 
 CREATE INDEX homepage_video_filters_channel_options_order_idx ON public.homepage_video_filters_channel_options USING btree (_order);
 
+
+--
+-- Name: homepage_video_filters_channel_options_parent_id_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
 CREATE INDEX homepage_video_filters_channel_options_parent_id_idx ON public.homepage_video_filters_channel_options USING btree (_parent_id);
+
+
+--
+-- Name: languages_created_at_idx; Type: INDEX; Schema: public; Owner: postgres
+--
 
 CREATE INDEX languages_created_at_idx ON public.languages USING btree (created_at);
 
+
+--
+-- Name: languages_image_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
 CREATE INDEX languages_image_idx ON public.languages USING btree (image_id);
+
+
+--
+-- Name: languages_slug_idx; Type: INDEX; Schema: public; Owner: postgres
+--
 
 CREATE UNIQUE INDEX languages_slug_idx ON public.languages USING btree (slug);
 
+
+--
+-- Name: languages_updated_at_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
 CREATE INDEX languages_updated_at_idx ON public.languages USING btree (updated_at);
+
+
+--
+-- Name: media_created_at_idx; Type: INDEX; Schema: public; Owner: postgres
+--
 
 CREATE INDEX media_created_at_idx ON public.media USING btree (created_at);
 
+
+--
+-- Name: media_filename_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
 CREATE UNIQUE INDEX media_filename_idx ON public.media USING btree (filename);
+
+
+--
+-- Name: media_updated_at_idx; Type: INDEX; Schema: public; Owner: postgres
+--
 
 CREATE INDEX media_updated_at_idx ON public.media USING btree (updated_at);
 
+
+--
+-- Name: orders_created_at_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
 CREATE INDEX orders_created_at_idx ON public.orders USING btree (created_at);
+
+
+--
+-- Name: orders_updated_at_idx; Type: INDEX; Schema: public; Owner: postgres
+--
 
 CREATE INDEX orders_updated_at_idx ON public.orders USING btree (updated_at);
 
+
+--
+-- Name: payload_kv_key_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
 CREATE UNIQUE INDEX payload_kv_key_idx ON public.payload_kv USING btree (key);
+
+
+--
+-- Name: payload_locked_documents_created_at_idx; Type: INDEX; Schema: public; Owner: postgres
+--
 
 CREATE INDEX payload_locked_documents_created_at_idx ON public.payload_locked_documents USING btree (created_at);
 
+
+--
+-- Name: payload_locked_documents_global_slug_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
 CREATE INDEX payload_locked_documents_global_slug_idx ON public.payload_locked_documents USING btree (global_slug);
+
+
+--
+-- Name: payload_locked_documents_rels_authors_id_idx; Type: INDEX; Schema: public; Owner: postgres
+--
 
 CREATE INDEX payload_locked_documents_rels_authors_id_idx ON public.payload_locked_documents_rels USING btree (authors_id);
 
+
+--
+-- Name: payload_locked_documents_rels_categories_id_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
 CREATE INDEX payload_locked_documents_rels_categories_id_idx ON public.payload_locked_documents_rels USING btree (categories_id);
+
+
+--
+-- Name: payload_locked_documents_rels_channels_id_idx; Type: INDEX; Schema: public; Owner: postgres
+--
 
 CREATE INDEX payload_locked_documents_rels_channels_id_idx ON public.payload_locked_documents_rels USING btree (channels_id);
 
+
+--
+-- Name: payload_locked_documents_rels_courses_id_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
 CREATE INDEX payload_locked_documents_rels_courses_id_idx ON public.payload_locked_documents_rels USING btree (courses_id);
+
+
+--
+-- Name: payload_locked_documents_rels_donations_id_idx; Type: INDEX; Schema: public; Owner: postgres
+--
 
 CREATE INDEX payload_locked_documents_rels_donations_id_idx ON public.payload_locked_documents_rels USING btree (donations_id);
 
+
+--
+-- Name: payload_locked_documents_rels_languages_id_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
 CREATE INDEX payload_locked_documents_rels_languages_id_idx ON public.payload_locked_documents_rels USING btree (languages_id);
+
+
+--
+-- Name: payload_locked_documents_rels_media_id_idx; Type: INDEX; Schema: public; Owner: postgres
+--
 
 CREATE INDEX payload_locked_documents_rels_media_id_idx ON public.payload_locked_documents_rels USING btree (media_id);
 
+
+--
+-- Name: payload_locked_documents_rels_order_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
 CREATE INDEX payload_locked_documents_rels_order_idx ON public.payload_locked_documents_rels USING btree ("order");
+
+
+--
+-- Name: payload_locked_documents_rels_orders_id_idx; Type: INDEX; Schema: public; Owner: postgres
+--
 
 CREATE INDEX payload_locked_documents_rels_orders_id_idx ON public.payload_locked_documents_rels USING btree (orders_id);
 
+
+--
+-- Name: payload_locked_documents_rels_parent_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
 CREATE INDEX payload_locked_documents_rels_parent_idx ON public.payload_locked_documents_rels USING btree (parent_id);
+
+
+--
+-- Name: payload_locked_documents_rels_path_idx; Type: INDEX; Schema: public; Owner: postgres
+--
 
 CREATE INDEX payload_locked_documents_rels_path_idx ON public.payload_locked_documents_rels USING btree (path);
 
+
+--
+-- Name: payload_locked_documents_rels_products_id_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
 CREATE INDEX payload_locked_documents_rels_products_id_idx ON public.payload_locked_documents_rels USING btree (products_id);
+
+
+--
+-- Name: payload_locked_documents_rels_songs_id_idx; Type: INDEX; Schema: public; Owner: postgres
+--
 
 CREATE INDEX payload_locked_documents_rels_songs_id_idx ON public.payload_locked_documents_rels USING btree (songs_id);
 
+
+--
+-- Name: payload_locked_documents_rels_testimonials_id_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
 CREATE INDEX payload_locked_documents_rels_testimonials_id_idx ON public.payload_locked_documents_rels USING btree (testimonials_id);
+
+
+--
+-- Name: payload_locked_documents_rels_users_id_idx; Type: INDEX; Schema: public; Owner: postgres
+--
 
 CREATE INDEX payload_locked_documents_rels_users_id_idx ON public.payload_locked_documents_rels USING btree (users_id);
 
+
+--
+-- Name: payload_locked_documents_rels_video_categories_id_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
 CREATE INDEX payload_locked_documents_rels_video_categories_id_idx ON public.payload_locked_documents_rels USING btree (video_categories_id);
+
+
+--
+-- Name: payload_locked_documents_rels_videos_id_idx; Type: INDEX; Schema: public; Owner: postgres
+--
 
 CREATE INDEX payload_locked_documents_rels_videos_id_idx ON public.payload_locked_documents_rels USING btree (videos_id);
 
+
+--
+-- Name: payload_locked_documents_updated_at_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
 CREATE INDEX payload_locked_documents_updated_at_idx ON public.payload_locked_documents USING btree (updated_at);
+
+
+--
+-- Name: payload_migrations_created_at_idx; Type: INDEX; Schema: public; Owner: postgres
+--
 
 CREATE INDEX payload_migrations_created_at_idx ON public.payload_migrations USING btree (created_at);
 
+
+--
+-- Name: payload_migrations_updated_at_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
 CREATE INDEX payload_migrations_updated_at_idx ON public.payload_migrations USING btree (updated_at);
+
+
+--
+-- Name: payload_preferences_created_at_idx; Type: INDEX; Schema: public; Owner: postgres
+--
 
 CREATE INDEX payload_preferences_created_at_idx ON public.payload_preferences USING btree (created_at);
 
+
+--
+-- Name: payload_preferences_key_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
 CREATE INDEX payload_preferences_key_idx ON public.payload_preferences USING btree (key);
+
+
+--
+-- Name: payload_preferences_rels_order_idx; Type: INDEX; Schema: public; Owner: postgres
+--
 
 CREATE INDEX payload_preferences_rels_order_idx ON public.payload_preferences_rels USING btree ("order");
 
+
+--
+-- Name: payload_preferences_rels_parent_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
 CREATE INDEX payload_preferences_rels_parent_idx ON public.payload_preferences_rels USING btree (parent_id);
+
+
+--
+-- Name: payload_preferences_rels_path_idx; Type: INDEX; Schema: public; Owner: postgres
+--
 
 CREATE INDEX payload_preferences_rels_path_idx ON public.payload_preferences_rels USING btree (path);
 
+
+--
+-- Name: payload_preferences_rels_users_id_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
 CREATE INDEX payload_preferences_rels_users_id_idx ON public.payload_preferences_rels USING btree (users_id);
+
+
+--
+-- Name: payload_preferences_updated_at_idx; Type: INDEX; Schema: public; Owner: postgres
+--
 
 CREATE INDEX payload_preferences_updated_at_idx ON public.payload_preferences USING btree (updated_at);
 
+
+--
+-- Name: products_category_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
 CREATE INDEX products_category_idx ON public.products USING btree (category_id);
+
+
+--
+-- Name: products_created_at_idx; Type: INDEX; Schema: public; Owner: postgres
+--
 
 CREATE INDEX products_created_at_idx ON public.products USING btree (created_at);
 
+
+--
+-- Name: products_images_image_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
 CREATE INDEX products_images_image_idx ON public.products_images USING btree (image_id);
+
+
+--
+-- Name: products_images_order_idx; Type: INDEX; Schema: public; Owner: postgres
+--
 
 CREATE INDEX products_images_order_idx ON public.products_images USING btree (_order);
 
+
+--
+-- Name: products_images_parent_id_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
 CREATE INDEX products_images_parent_id_idx ON public.products_images USING btree (_parent_id);
+
+
+--
+-- Name: products_updated_at_idx; Type: INDEX; Schema: public; Owner: postgres
+--
 
 CREATE INDEX products_updated_at_idx ON public.products USING btree (updated_at);
 
+
+--
+-- Name: songs_audio_file_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
 CREATE INDEX songs_audio_file_idx ON public.songs USING btree (audio_file_id);
+
+
+--
+-- Name: songs_author_idx; Type: INDEX; Schema: public; Owner: postgres
+--
 
 CREATE INDEX songs_author_idx ON public.songs USING btree (author_id);
 
+
+--
+-- Name: songs_category_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
 CREATE INDEX songs_category_idx ON public.songs USING btree (category_id);
+
+
+--
+-- Name: songs_cover_image_idx; Type: INDEX; Schema: public; Owner: postgres
+--
 
 CREATE INDEX songs_cover_image_idx ON public.songs USING btree (cover_image_id);
 
+
+--
+-- Name: songs_created_at_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
 CREATE INDEX songs_created_at_idx ON public.songs USING btree (created_at);
+
+
+--
+-- Name: songs_language_category_idx; Type: INDEX; Schema: public; Owner: postgres
+--
 
 CREATE INDEX songs_language_category_idx ON public.songs USING btree (language_category_id);
 
+
+--
+-- Name: songs_updated_at_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
 CREATE INDEX songs_updated_at_idx ON public.songs USING btree (updated_at);
+
+
+--
+-- Name: testimonials_created_at_idx; Type: INDEX; Schema: public; Owner: postgres
+--
 
 CREATE INDEX testimonials_created_at_idx ON public.testimonials USING btree (created_at);
 
+
+--
+-- Name: testimonials_photo_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
 CREATE INDEX testimonials_photo_idx ON public.testimonials USING btree (photo_id);
+
+
+--
+-- Name: testimonials_updated_at_idx; Type: INDEX; Schema: public; Owner: postgres
+--
 
 CREATE INDEX testimonials_updated_at_idx ON public.testimonials USING btree (updated_at);
 
+
+--
+-- Name: users_created_at_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
 CREATE INDEX users_created_at_idx ON public.users USING btree (created_at);
+
+
+--
+-- Name: users_email_idx; Type: INDEX; Schema: public; Owner: postgres
+--
 
 CREATE UNIQUE INDEX users_email_idx ON public.users USING btree (email);
 
+
+--
+-- Name: users_sessions_order_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
 CREATE INDEX users_sessions_order_idx ON public.users_sessions USING btree (_order);
+
+
+--
+-- Name: users_sessions_parent_id_idx; Type: INDEX; Schema: public; Owner: postgres
+--
 
 CREATE INDEX users_sessions_parent_id_idx ON public.users_sessions USING btree (_parent_id);
 
+
+--
+-- Name: users_updated_at_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
 CREATE INDEX users_updated_at_idx ON public.users USING btree (updated_at);
+
+
+--
+-- Name: video_categories_created_at_idx; Type: INDEX; Schema: public; Owner: postgres
+--
 
 CREATE INDEX video_categories_created_at_idx ON public.video_categories USING btree (created_at);
 
+
+--
+-- Name: video_categories_name_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
 CREATE UNIQUE INDEX video_categories_name_idx ON public.video_categories USING btree (name);
+
+
+--
+-- Name: video_categories_updated_at_idx; Type: INDEX; Schema: public; Owner: postgres
+--
 
 CREATE INDEX video_categories_updated_at_idx ON public.video_categories USING btree (updated_at);
 
+
+--
+-- Name: videos_category_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
 CREATE INDEX videos_category_idx ON public.videos USING btree (category_id);
+
+
+--
+-- Name: videos_channel_idx; Type: INDEX; Schema: public; Owner: postgres
+--
 
 CREATE INDEX videos_channel_idx ON public.videos USING btree (channel_id);
 
+
+--
+-- Name: videos_created_at_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
 CREATE INDEX videos_created_at_idx ON public.videos USING btree (created_at);
+
+
+--
+-- Name: videos_language_category_idx; Type: INDEX; Schema: public; Owner: postgres
+--
 
 CREATE INDEX videos_language_category_idx ON public.videos USING btree (language_category_id);
 
+
+--
+-- Name: videos_thumbnail_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
 CREATE INDEX videos_thumbnail_idx ON public.videos USING btree (thumbnail_id);
+
+
+--
+-- Name: videos_updated_at_idx; Type: INDEX; Schema: public; Owner: postgres
+--
 
 CREATE INDEX videos_updated_at_idx ON public.videos USING btree (updated_at);
 
+
+--
+-- Name: videos_video_file_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
 CREATE INDEX videos_video_file_idx ON public.videos USING btree (video_file_id);
+
+
+--
+-- Name: categories categories_image_id_media_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
 
 ALTER TABLE ONLY public.categories
     ADD CONSTRAINT categories_image_id_media_id_fk FOREIGN KEY (image_id) REFERENCES public.media(id) ON DELETE SET NULL;
 
+
+--
+-- Name: courses courses_category_id_categories_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
 ALTER TABLE ONLY public.courses
     ADD CONSTRAINT courses_category_id_categories_id_fk FOREIGN KEY (category_id) REFERENCES public.categories(id) ON DELETE SET NULL;
+
+
+--
+-- Name: courses_lessons courses_lessons_parent_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
 
 ALTER TABLE ONLY public.courses_lessons
     ADD CONSTRAINT courses_lessons_parent_id_fk FOREIGN KEY (_parent_id) REFERENCES public.courses(id) ON DELETE CASCADE;
 
+
+--
+-- Name: courses_lessons courses_lessons_video_file_id_media_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
 ALTER TABLE ONLY public.courses_lessons
     ADD CONSTRAINT courses_lessons_video_file_id_media_id_fk FOREIGN KEY (video_file_id) REFERENCES public.media(id) ON DELETE SET NULL;
+
+
+--
+-- Name: courses courses_thumbnail_id_media_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
 
 ALTER TABLE ONLY public.courses
     ADD CONSTRAINT courses_thumbnail_id_media_id_fk FOREIGN KEY (thumbnail_id) REFERENCES public.media(id) ON DELETE SET NULL;
 
+
+--
+-- Name: homepage_hero_slides homepage_hero_slides_background_image_id_media_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
 ALTER TABLE ONLY public.homepage_hero_slides
     ADD CONSTRAINT homepage_hero_slides_background_image_id_media_id_fk FOREIGN KEY (background_image_id) REFERENCES public.media(id) ON DELETE SET NULL;
+
+
+--
+-- Name: homepage_hero_slides homepage_hero_slides_parent_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
 
 ALTER TABLE ONLY public.homepage_hero_slides
     ADD CONSTRAINT homepage_hero_slides_parent_id_fk FOREIGN KEY (_parent_id) REFERENCES public.homepage(id) ON DELETE CASCADE;
 
+
+--
+-- Name: homepage_video_filters_category_options homepage_video_filters_category_options_parent_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
 ALTER TABLE ONLY public.homepage_video_filters_category_options
     ADD CONSTRAINT homepage_video_filters_category_options_parent_id_fk FOREIGN KEY (_parent_id) REFERENCES public.homepage(id) ON DELETE CASCADE;
+
+
+--
+-- Name: homepage_video_filters_channel_options homepage_video_filters_channel_options_parent_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
 
 ALTER TABLE ONLY public.homepage_video_filters_channel_options
     ADD CONSTRAINT homepage_video_filters_channel_options_parent_id_fk FOREIGN KEY (_parent_id) REFERENCES public.homepage(id) ON DELETE CASCADE;
 
+
+--
+-- Name: languages languages_image_id_media_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
 ALTER TABLE ONLY public.languages
     ADD CONSTRAINT languages_image_id_media_id_fk FOREIGN KEY (image_id) REFERENCES public.media(id) ON DELETE SET NULL;
+
+
+--
+-- Name: payload_locked_documents_rels payload_locked_documents_rels_authors_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
 
 ALTER TABLE ONLY public.payload_locked_documents_rels
     ADD CONSTRAINT payload_locked_documents_rels_authors_fk FOREIGN KEY (authors_id) REFERENCES public.authors(id) ON DELETE CASCADE;
 
+
+--
+-- Name: payload_locked_documents_rels payload_locked_documents_rels_categories_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
 ALTER TABLE ONLY public.payload_locked_documents_rels
     ADD CONSTRAINT payload_locked_documents_rels_categories_fk FOREIGN KEY (categories_id) REFERENCES public.categories(id) ON DELETE CASCADE;
+
+
+--
+-- Name: payload_locked_documents_rels payload_locked_documents_rels_channels_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
 
 ALTER TABLE ONLY public.payload_locked_documents_rels
     ADD CONSTRAINT payload_locked_documents_rels_channels_fk FOREIGN KEY (channels_id) REFERENCES public.channels(id) ON DELETE CASCADE;
 
+
+--
+-- Name: payload_locked_documents_rels payload_locked_documents_rels_courses_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
 ALTER TABLE ONLY public.payload_locked_documents_rels
     ADD CONSTRAINT payload_locked_documents_rels_courses_fk FOREIGN KEY (courses_id) REFERENCES public.courses(id) ON DELETE CASCADE;
+
+
+--
+-- Name: payload_locked_documents_rels payload_locked_documents_rels_donations_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
 
 ALTER TABLE ONLY public.payload_locked_documents_rels
     ADD CONSTRAINT payload_locked_documents_rels_donations_fk FOREIGN KEY (donations_id) REFERENCES public.donations(id) ON DELETE CASCADE;
 
+
+--
+-- Name: payload_locked_documents_rels payload_locked_documents_rels_languages_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
 ALTER TABLE ONLY public.payload_locked_documents_rels
     ADD CONSTRAINT payload_locked_documents_rels_languages_fk FOREIGN KEY (languages_id) REFERENCES public.languages(id) ON DELETE CASCADE;
+
+
+--
+-- Name: payload_locked_documents_rels payload_locked_documents_rels_media_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
 
 ALTER TABLE ONLY public.payload_locked_documents_rels
     ADD CONSTRAINT payload_locked_documents_rels_media_fk FOREIGN KEY (media_id) REFERENCES public.media(id) ON DELETE CASCADE;
 
+
+--
+-- Name: payload_locked_documents_rels payload_locked_documents_rels_orders_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
 ALTER TABLE ONLY public.payload_locked_documents_rels
     ADD CONSTRAINT payload_locked_documents_rels_orders_fk FOREIGN KEY (orders_id) REFERENCES public.orders(id) ON DELETE CASCADE;
+
+
+--
+-- Name: payload_locked_documents_rels payload_locked_documents_rels_parent_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
 
 ALTER TABLE ONLY public.payload_locked_documents_rels
     ADD CONSTRAINT payload_locked_documents_rels_parent_fk FOREIGN KEY (parent_id) REFERENCES public.payload_locked_documents(id) ON DELETE CASCADE;
 
+
+--
+-- Name: payload_locked_documents_rels payload_locked_documents_rels_products_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
 ALTER TABLE ONLY public.payload_locked_documents_rels
     ADD CONSTRAINT payload_locked_documents_rels_products_fk FOREIGN KEY (products_id) REFERENCES public.products(id) ON DELETE CASCADE;
+
+
+--
+-- Name: payload_locked_documents_rels payload_locked_documents_rels_songs_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
 
 ALTER TABLE ONLY public.payload_locked_documents_rels
     ADD CONSTRAINT payload_locked_documents_rels_songs_fk FOREIGN KEY (songs_id) REFERENCES public.songs(id) ON DELETE CASCADE;
 
+
+--
+-- Name: payload_locked_documents_rels payload_locked_documents_rels_testimonials_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
 ALTER TABLE ONLY public.payload_locked_documents_rels
     ADD CONSTRAINT payload_locked_documents_rels_testimonials_fk FOREIGN KEY (testimonials_id) REFERENCES public.testimonials(id) ON DELETE CASCADE;
+
+
+--
+-- Name: payload_locked_documents_rels payload_locked_documents_rels_users_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
 
 ALTER TABLE ONLY public.payload_locked_documents_rels
     ADD CONSTRAINT payload_locked_documents_rels_users_fk FOREIGN KEY (users_id) REFERENCES public.users(id) ON DELETE CASCADE;
 
+
+--
+-- Name: payload_locked_documents_rels payload_locked_documents_rels_video_categories_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
 ALTER TABLE ONLY public.payload_locked_documents_rels
     ADD CONSTRAINT payload_locked_documents_rels_video_categories_fk FOREIGN KEY (video_categories_id) REFERENCES public.video_categories(id) ON DELETE CASCADE;
+
+
+--
+-- Name: payload_locked_documents_rels payload_locked_documents_rels_videos_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
 
 ALTER TABLE ONLY public.payload_locked_documents_rels
     ADD CONSTRAINT payload_locked_documents_rels_videos_fk FOREIGN KEY (videos_id) REFERENCES public.videos(id) ON DELETE CASCADE;
 
+
+--
+-- Name: payload_preferences_rels payload_preferences_rels_parent_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
 ALTER TABLE ONLY public.payload_preferences_rels
     ADD CONSTRAINT payload_preferences_rels_parent_fk FOREIGN KEY (parent_id) REFERENCES public.payload_preferences(id) ON DELETE CASCADE;
+
+
+--
+-- Name: payload_preferences_rels payload_preferences_rels_users_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
 
 ALTER TABLE ONLY public.payload_preferences_rels
     ADD CONSTRAINT payload_preferences_rels_users_fk FOREIGN KEY (users_id) REFERENCES public.users(id) ON DELETE CASCADE;
 
+
+--
+-- Name: products products_category_id_categories_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
 ALTER TABLE ONLY public.products
     ADD CONSTRAINT products_category_id_categories_id_fk FOREIGN KEY (category_id) REFERENCES public.categories(id) ON DELETE SET NULL;
+
+
+--
+-- Name: products_images products_images_image_id_media_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
 
 ALTER TABLE ONLY public.products_images
     ADD CONSTRAINT products_images_image_id_media_id_fk FOREIGN KEY (image_id) REFERENCES public.media(id) ON DELETE SET NULL;
 
+
+--
+-- Name: products_images products_images_parent_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
 ALTER TABLE ONLY public.products_images
     ADD CONSTRAINT products_images_parent_id_fk FOREIGN KEY (_parent_id) REFERENCES public.products(id) ON DELETE CASCADE;
+
+
+--
+-- Name: songs songs_audio_file_id_media_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
 
 ALTER TABLE ONLY public.songs
     ADD CONSTRAINT songs_audio_file_id_media_id_fk FOREIGN KEY (audio_file_id) REFERENCES public.media(id) ON DELETE SET NULL;
 
+
+--
+-- Name: songs songs_author_id_authors_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
 ALTER TABLE ONLY public.songs
     ADD CONSTRAINT songs_author_id_authors_id_fk FOREIGN KEY (author_id) REFERENCES public.authors(id) ON DELETE SET NULL;
+
+
+--
+-- Name: songs songs_category_id_categories_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
 
 ALTER TABLE ONLY public.songs
     ADD CONSTRAINT songs_category_id_categories_id_fk FOREIGN KEY (category_id) REFERENCES public.categories(id) ON DELETE SET NULL;
 
+
+--
+-- Name: songs songs_cover_image_id_media_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
 ALTER TABLE ONLY public.songs
     ADD CONSTRAINT songs_cover_image_id_media_id_fk FOREIGN KEY (cover_image_id) REFERENCES public.media(id) ON DELETE SET NULL;
+
+
+--
+-- Name: songs songs_language_category_id_languages_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
 
 ALTER TABLE ONLY public.songs
     ADD CONSTRAINT songs_language_category_id_languages_id_fk FOREIGN KEY (language_category_id) REFERENCES public.languages(id) ON DELETE SET NULL;
 
+
+--
+-- Name: testimonials testimonials_photo_id_media_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
 ALTER TABLE ONLY public.testimonials
     ADD CONSTRAINT testimonials_photo_id_media_id_fk FOREIGN KEY (photo_id) REFERENCES public.media(id) ON DELETE SET NULL;
+
+
+--
+-- Name: users_sessions users_sessions_parent_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
 
 ALTER TABLE ONLY public.users_sessions
     ADD CONSTRAINT users_sessions_parent_id_fk FOREIGN KEY (_parent_id) REFERENCES public.users(id) ON DELETE CASCADE;
 
+
+--
+-- Name: videos videos_category_id_video_categories_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
 ALTER TABLE ONLY public.videos
     ADD CONSTRAINT videos_category_id_video_categories_id_fk FOREIGN KEY (category_id) REFERENCES public.video_categories(id) ON DELETE SET NULL;
+
+
+--
+-- Name: videos videos_channel_id_channels_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
 
 ALTER TABLE ONLY public.videos
     ADD CONSTRAINT videos_channel_id_channels_id_fk FOREIGN KEY (channel_id) REFERENCES public.channels(id) ON DELETE SET NULL;
 
+
+--
+-- Name: videos videos_language_category_id_languages_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
 ALTER TABLE ONLY public.videos
     ADD CONSTRAINT videos_language_category_id_languages_id_fk FOREIGN KEY (language_category_id) REFERENCES public.languages(id) ON DELETE SET NULL;
+
+
+--
+-- Name: videos videos_thumbnail_id_media_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
 
 ALTER TABLE ONLY public.videos
     ADD CONSTRAINT videos_thumbnail_id_media_id_fk FOREIGN KEY (thumbnail_id) REFERENCES public.media(id) ON DELETE SET NULL;
 
+
+--
+-- Name: videos videos_video_file_id_media_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
 ALTER TABLE ONLY public.videos
     ADD CONSTRAINT videos_video_file_id_media_id_fk FOREIGN KEY (video_file_id) REFERENCES public.media(id) ON DELETE SET NULL;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
+\unrestrict WloUukzFyHy3pBVdtpDSiKTxm6aqDIlYWowUtdve8h0oK1CEj5OhpVXrfjYnT64
+
