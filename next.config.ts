@@ -8,6 +8,18 @@ const dirname = path.dirname(__filename)
 
 const nextConfig: NextConfig = {
   images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+        pathname: '/api/media/file/**',
+      },
+      {
+        protocol: 'http',
+        hostname: '**',
+        pathname: '/api/media/file/**',
+      },
+    ],
     localPatterns: [
       {
         pathname: '/api/media/file/**',
